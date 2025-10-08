@@ -174,322 +174,339 @@ Como coach,
 quiero modificar las palabras y personas importantes,  
 para usarlas más rápidamente durante la sesión.
 
+---
 
+## Agenda
 
-Como coach,
-quiero agendar sesiones directamente en mi calendario,
+Como coach,  
+quiero agendar sesiones directamente en mi calendario,  
 para no depender de un administrativo.
 
-Como coach,
-quiero ver mi disponibilidad y sesiones programadas en un calendario visual,
+Como coach,  
+quiero ver mi disponibilidad y sesiones programadas en un calendario visual,  
 para organizar mi tiempo.
 
-Como coach,
-quiero bloquear franjas horarias como no disponibles,
+Como coach,  
+quiero bloquear franjas horarias como no disponibles,  
 para reservar tiempo personal o para otras actividades.
 
-Como coach,
-quiero definir mi disponibilidad recurrente (ej: lunes 9-13h, miércoles 15-20h),
+Como coach,  
+quiero definir mi disponibilidad recurrente (ej: lunes 9-13h, miércoles 15-20h),  
 para no tener que configurarla cada semana.
 
-Como coach,
-quiero recibir recordatorios automáticos de mis próximas sesiones,
+Como coach,  
+quiero recibir recordatorios automáticos de mis próximas sesiones,  
 para prepararme con antelación.
 
-Como coachee,
-quiero ver la disponibilidad de mi coach y agendar sesiones,
+## Coachee
+
+Como coachee,  
+quiero ver la disponibilidad de mi coach y agendar sesiones,  
 para no tener que coordinar por email o WhatsApp.
 
-Como coachee,
-quiero recibir recordatorios de mis sesiones programadas,
+Como coachee,  
+quiero recibir recordatorios de mis sesiones programadas,  
 para no olvidarlas.
 
-Como coachee,
-quiero cancelar o reprogramar una sesión con X horas de antelación,
+Como coachee,  
+quiero cancelar o reprogramar una sesión con X horas de antelación,  
 para gestionar imprevistos.
 
-Como coachee,
-quiero recibir el enlace de videollamada automáticamente,
+Como coachee,  
+quiero recibir el enlace de videollamada automáticamente,  
 para acceder fácilmente a sesiones online.
 
-Como coachee,
-quiero acceder a mi área personal,
+Como coachee,  
+quiero acceder a mi área personal,  
 para ver mi proceso y materiales.
 
-Como coachee,
-quiero completar tests y herramientas que me asigna mi coach,
+Como coachee,  
+quiero completar tests y herramientas que me asigna mi coach,  
 para no hacerlo en papel o PDFs sueltos.
 
-Como coachee,
-quiero ver mi plan de acción y marcar tareas completadas,
+Como coachee,  
+quiero ver mi plan de acción y marcar tareas completadas,  
 para hacer seguimiento de mis compromisos.
 
-Como coachee,
-quiero acceder al historial de mis sesiones y resúmenes,
+### No necesario
+
+Como coachee,  
+quiero acceder al historial de mis sesiones y resúmenes,  
 para revisar mi progreso.
 
-Como coachee,
-quiero acceder a recursos y píldoras que me comparta mi coach,
+Como coachee,  
+quiero acceder a recursos y píldoras que me comparta mi coach,  
 para consultarlos cuando los necesite.
 
-Importante: AYUDA para el Coach: Como coach,
-quiero una sección de ayuda con tutoriales de todas las funcionalidades,
+## Importante: AYUDA para el Coach. 
+
+Como coach,  
+quiero una sección de ayuda con tutoriales de todas las funcionalidades,  
 para aprender a usar el software eficientemente.
 
-Como coach,
-quiero tooltips en las funciones durante la sesión,
+Como coach,  
+quiero tooltips en las funciones durante la sesión,  
 para no tener que salir a buscar ayuda mientras atiendo al coachee.
 
-Como coach,
-quiero un tutorial interactivo la primera vez,
+Como coach,  
+quiero un tutorial interactivo la primera vez,  
 para empezar a usar el software rápidamente.
 
-EXPORTACIÓN Y COMPARTIR
-Si los coachees no tienen acceso, necesitas sacar cosas de la plataforma:
-Como coach,
-quiero exportar el resumen de sesión en PDF,
-para enviárselo al coachee por email.
+## EXPORTACIÓN Y COMPARTIR
 
-Como coach,
-quiero exportar el plan de acción en formato visual/PDF,
+Si los coachees no tienen acceso, necesitas sacar cosas de la plataforma:
+
+Como coach,  
+quiero exportar el resumen de sesión en PDF,  
+para poder presentarlo para certificaciones.
+
+Como coach,  
+quiero exportar el plan de acción en formato visual/PDF,  
 para compartirlo con el coachee.
 
-Como coach,
-quiero exportar resultados de tests con gráficas,
+Como coach,  
+quiero exportar resultados de tests con gráficas,  
 para mostrarle su progreso al coachee.
 
-Como coach,
-quiero exportar el informe completo del proceso,
-para entregárselo al coachee al finalizar.
+Como coach,  
+quiero exportar el informe completo del proceso,  
+para entregárselo al coachee al finalizar o para certificaciones.
 
-BACKUP Y SEGURIDAD
+## BACKUP Y SEGURIDAD
+
 Mucho más crítico si todo está solo en tu lado:
-Como coach,
-quiero hacer backups automáticos de todos mis datos,
+
+Como coach,  
+quiero hacer backups automáticos de todos mis datos,  
 para no perder información sensible.
 
-Como coach,
-quiero exportar todos los datos de mis coachees,
+Como coach,  
+quiero exportar todos los datos de mis coachees,  
 para tener una copia de seguridad.
 
-INFORMES: Como coach,
-quiero generar un informe completo del proceso de coaching,
+## INFORMES: 
+
+Como coach,  
+quiero generar un informe completo del proceso de coaching,  
 para entregárselo al coachee al finalizar.
 
-Como coach,
-quiero personalizar qué incluir en el informe (resúmenes, tests, evolución),
+Como coach,  
+quiero personalizar qué incluir en el informe (resúmenes, tests, evolución),  
 para adaptarlo a cada caso.
 
-Como coach,
-quiero exportar informes parciales del proceso,
+Como coach,  
+quiero exportar informes parciales del proceso,  
 para hacer seguimientos intermedios.
 
-Como coach,
-quiero generar informes para terceros (RRHH, empresa),
+Como coach,  
+quiero generar informes para terceros (RRHH, empresa),  
 para justificar el proceso en coaching corporativo.
 
 
-y esto en la v2: Como coach,
-quiero que el informe incluya gráficas de evolución,
+## Version 2: 
+
+Como coach,  
+quiero que el informe incluya gráficas de evolución,  
 para visualizar el progreso del coachee.
 
-PANTALLA DE CIERRE DE PROCESO:
+## PANTALLA DE CIERRE DE PROCESO:
 
-Como coach,
-quiero cerrar formalmente un proceso de coaching,
+Como coach,  
+quiero cerrar formalmente un proceso de coaching,  
 para marcar su finalización.
 
-Como coach,
-quiero hacer una evaluación final del proceso en el cierre,
+Como coach,  
+quiero hacer una evaluación final del proceso en el cierre,  
 para tener métricas de éxito.
 
-Como coach,
-quiero comparar el estado inicial vs final del coachee,
+Como coach,  
+quiero comparar el estado inicial vs final del coachee,  
 para mostrar el progreso conseguido.
 
-Como coach,
-quiero generar automáticamente el informe final al cerrar proceso,
+Como coach,  
+quiero generar automáticamente el informe final al cerrar proceso,  
 para no tener que hacerlo manualmente.
 
-Como coach,
-quiero archivar procesos cerrados sin perder el historial,
+Como coach,  
+quiero archivar procesos cerrados sin perder el historial,  
 para mantener limpia mi vista de coachees activos.
 
-Como coach,
-quiero poder reabrir un proceso archivado,
+Como coach,  
+quiero poder reabrir un proceso archivado,  
 para continuar si el coachee vuelve más adelante.
 
-PROCESOS DIFERENTES
+## PROCESOS DIFERENTES
 
-Como coach,
-quiero definir tipos de proceso (ejecutivo, personal, terapia de pareja, etc.),
+Como coach,  
+quiero definir tipos de proceso (ejecutivo, personal, terapia de pareja, etc.),  
 para adaptar herramientas y seguimiento.
 
-Como coach,
-quiero crear plantillas de proceso personalizadas,
+Como coach,  
+quiero crear plantillas de proceso personalizadas,  
 para no partir de cero cada vez.
 
-Como coach,
-quiero asignar diferentes duraciones de sesión según el tipo de proceso,
+Como coach,  
+quiero asignar diferentes duraciones de sesión según el tipo de proceso,  
 para flexibilizar mi oferta.
 
-Como coach,
-quiero DECIDIR si definir número de sesiones del proceso al crearlo,
+Como coach,  
+quiero DECIDIR si definir número de sesiones del proceso al crearlo,  
 para hacer seguimiento del avance (ej: 10 sesiones contratadas, 3 realizadas).
 
-Como coach,
-quiero tener diferentes sets de herramientas según el tipo de proceso,
+Como coach,  
+quiero tener diferentes sets de herramientas según el tipo de proceso,  
 para mostrar solo las relevantes a cada caso.
 
-Como coach,
-quiero duplicar un proceso como plantilla,
-para reutilizar estructuras que funcionan.  — Esta maravillosa
+Como coach,  
+quiero duplicar un proceso como plantilla,  
+para reutilizar estructuras que funcionan.  
+— Esta maravillosa
 
-GRUPOS DE COACHES - Versión 2 porque tela
+## GRUPOS DE COACHES - Versión 2
 
-IMPORTACIÓN Y MIGRACIÓN
+## IMPORTACIÓN Y MIGRACIÓN
 
-Como coach,
-quiero importar mi lista de coachees desde un archivo CSV/Excel,
+Como coach,  
+quiero importar mi lista de coachees desde un archivo CSV/Excel,  
 para no tener que crearlos manualmente uno por uno.
 
-Como coach,
-quiero importar el historial de sesiones desde un CSV/Excel,
+Como coach,  
+quiero importar el historial de sesiones desde un CSV/Excel,  
 para mantener la continuidad de mis procesos.
 
-Como coach,
-quiero importar eventos desde Google Calendar/Outlook,
+Como coach,  
+quiero importar eventos desde Google Calendar/Outlook,  
 para sincronizar mi agenda existente.
 
-Como coach,
-quiero mapear los campos de mi archivo al sistema,
+Como coach,  
+quiero mapear los campos de mi archivo al sistema,  
 para asegurar que la información se importa correctamente.
 
-Como coach,
-quiero ver un preview de la importación antes de confirmar,
+Como coach,  
+quiero ver un preview de la importación antes de confirmar,  
 para detectar errores antes de cargar los datos.
 
-Como coach,
-quiero recibir un informe de lo que se importó correctamente y lo que falló,
+Como coach,  
+quiero recibir un informe de lo que se importó correctamente y lo que falló,  
 para revisar y corregir manualmente los errores.
 
-Como coach,
-quiero hacer importaciones parciales (solo coachees, solo sesiones, etc.),
+Como coach,  
+quiero hacer importaciones parciales (solo coachees, solo sesiones, etc.),  
 para migrar progresivamente.
 
-Migración desde formatos no estructurados
+## Migración desde formatos no estructurados
 
-Como coach,
-quiero subir fotos o escaneos de mis notas en papel,
+Como coach,  
+quiero subir fotos o escaneos de mis notas en papel,  
 para digitalizarlas mediante OCR.
 
-Como coach,
-quiero subir documentos Word/PDF de sesiones antiguas,
+Como coach,  
+quiero subir documentos Word/PDF de sesiones antiguas,  
 para importar notas históricas.
 
-Como coach,
-quiero subir grabaciones de audio de sesiones,
+Como coach,  
+quiero subir grabaciones de audio de sesiones,  
 para obtener transcripciones automáticas.
 
-Como coach,
-quiero importar carpetas completas de documentos,
+Como coach,  
+quiero importar carpetas completas de documentos,  
 para digitalizar todo mi archivo de una vez.
 
-Como coach,
-quiero pegar texto libre (notas desordenadas) y que la IA lo estructure,
+Como coach,  
+quiero pegar texto libre (notas desordenadas) y que la IA lo estructure,  
 para convertirlo en información organizada automáticamente.
 
-Como coach,
-quiero que la IA extraiga automáticamente nombres, fechas, palabras clave y planes de acción de textos libres,
+Como coach,  
+quiero que la IA extraiga automáticamente nombres, fechas, palabras clave y planes de acción de textos libres,  
 para no tener que reorganizar todo manualmente.
 
-Como coach,
-quiero que el sistema detecte automáticamente a qué coachee pertenece cada documento,
+Como coach,  
+quiero que el sistema detecte automáticamente a qué coachee pertenece cada documento,  
 para ahorrar tiempo en la clasificación.
 
-Como coach,
-quiero validar y corregir lo que la IA ha interpretado,
+Como coach,  
+quiero validar y corregir lo que la IA ha interpretado,  
 para asegurar que la información es correcta antes de guardarla.
 
-Asistente de migración guiado
+## Asistente de migración guiado
 
-Como coach,
-quiero un wizard de migración que me guíe paso a paso,
+Como coach,  
+quiero un wizard de migración que me guíe paso a paso,  
 para no sentirme abrumado por el proceso.
 
-Como coach,
-quiero un asistente de IA que me ayude a migrar mis datos,
+Como coach,  
+quiero un asistente de IA que me ayude a migrar mis datos,  
 para resolver dudas durante el proceso.
 
-Como coach,
-quiero poder migrar progresivamente (un coachee a la vez),
+Como coach,  
+quiero poder migrar progresivamente (un coachee a la vez),  
 para no tener que hacerlo todo de golpe.
 
-Como coach,
-quiero marcar coachees como "migración pendiente",
+Como coach,  
+quiero marcar coachees como "migración pendiente",  
 para ir completando la información con el tiempo.
 
-Como coach,
-quiero priorizar qué coachees migrar primero,
+Como coach,  
+quiero priorizar qué coachees migrar primero,  
 para empezar con los activos y dejar los antiguos para después.
 
-Modo híbrido y transición
+## Modo híbrido y transición
 
-Como coach,
-quiero adjuntar archivos legacy (PDFs, Word, imágenes) al perfil del coachee sin estructurar,
+Como coach,  
+quiero adjuntar archivos legacy (PDFs, Word, imágenes) al perfil del coachee sin estructurar,  
 para tener acceso a información histórica sin necesidad de migrarla completamente.
 
-Como coach,
-quiero empezar a usar el sistema con coachees nuevos mientras mantengo archivos antiguos,
+Como coach,  
+quiero empezar a usar el sistema con coachees nuevos mientras mantengo archivos antiguos,  
 para no bloquear el inicio por la migración.
 
-Como coach,
-quiero buscar en todos mis archivos adjuntos,
+Como coach,  
+quiero buscar en todos mis archivos adjuntos,  
 para encontrar información histórica cuando la necesite.
 
-Como coach,
-quiero poder ir estructurando información histórica gradualmente,
+Como coach,  
+quiero poder ir estructurando información histórica gradualmente,  
 para mejorar la calidad de los datos con el tiempo.
 
-Exportación y portabilidad
+## Exportación y portabilidad
 
-Como coach,
-quiero exportar todos mis datos en formatos estándar (CSV, JSON, PDF),
+Como coach,  
+quiero exportar todos mis datos en formatos estándar (CSV, JSON, PDF),  
 para tener seguridad de que no estoy atrapado en el sistema.
 
-Como coach,
-quiero hacer backups completos de mi información,
+Como coach,  
+quiero hacer backups completos de mi información,  
 para protegerme ante cualquier problema.
 
-Como coach,
-quiero exportar datos de un coachee específico,
+Como coach,  
+quiero exportar datos de un coachee específico,  
 para entregarle su historial completo al finalizar el proceso.
 
-LOPD, GDPR Y CUMPLIMIENTO NORMATIVO
+## LOPD, GDPR Y CUMPLIMIENTO NORMATIVO
 
-LOPD/RGPD - CUMPLIMIENTO LEGAL BÁSICO
+## LOPD/RGPD - CUMPLIMIENTO LEGAL BÁSICO
 
-Como coach,
-quiero que el coachee firme digitalmente un consentimiento informado (incluyendo autorización de grabaciones),
+Como coach,  
+quiero que el coachee firme digitalmente un consentimiento informado (incluyendo autorización de grabaciones),  
 para cumplir con RGPD y tener registro de aceptación ante inspección.
 
-Como coach,
-quiero exportar todos los datos de un coachee en PDF y poder eliminarlos completamente del sistema,
+Como coach,  
+quiero exportar todos los datos de un coachee en PDF y poder eliminarlos completamente del sistema,  
 para cumplir con sus derechos de Acceso y Cancelación (ARCO).
 
-Como administrador,
-quiero que todos los datos estén cifrados, con autenticación de dos factores (2FA) y cierre automático de sesión tras inactividad,
+Como administrador,  
+quiero que todos los datos estén cifrados, con autenticación de dos factores (2FA) y cierre automático de sesión tras inactividad,  
 para garantizar la seguridad de la información sensible.
 
-Como administrador,
-quiero backup automático cifrado de todos los datos,
+Como administrador,  
+quiero backup automático cifrado de todos los datos,  
 para evitar pérdida de información.
 
-Como coach,
-quiero definir períodos de conservación y que el sistema elimine automáticamente datos tras expirar (incluyendo grabaciones),
+Como coach,  
+quiero definir períodos de conservación y que el sistema elimine automáticamente datos tras expirar (incluyendo grabaciones),  
 para cumplir con limitación de plazo del RGPD.
 
-Como administrador,
-quiero tener disponible la Política de Privacidad, el Registro de Actividades de Tratamiento y servidores en la Unión Europea,
+Como administrador,  
+quiero tener disponible la Política de Privacidad, el Registro de Actividades de Tratamiento y servidores en la Unión Europea,  
 para cumplir con Art. 30 RGPD y evitar transferencias internacionales problemáticas.
 
