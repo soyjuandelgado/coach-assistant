@@ -467,3 +467,29 @@ para entregarle su historial completo al finalizar el proceso.
 
 LOPD, GDPR Y CUMPLIMIENTO NORMATIVO
 
+LOPD/RGPD - CUMPLIMIENTO LEGAL BÁSICO
+
+Como coach,
+quiero que el coachee firme digitalmente un consentimiento informado (incluyendo autorización de grabaciones),
+para cumplir con RGPD y tener registro de aceptación ante inspección.
+
+Como coach,
+quiero exportar todos los datos de un coachee en PDF y poder eliminarlos completamente del sistema,
+para cumplir con sus derechos de Acceso y Cancelación (ARCO).
+
+Como administrador,
+quiero que todos los datos estén cifrados, con autenticación de dos factores (2FA) y cierre automático de sesión tras inactividad,
+para garantizar la seguridad de la información sensible.
+
+Como administrador,
+quiero backup automático cifrado de todos los datos,
+para evitar pérdida de información.
+
+Como coach,
+quiero definir períodos de conservación y que el sistema elimine automáticamente datos tras expirar (incluyendo grabaciones),
+para cumplir con limitación de plazo del RGPD.
+
+Como administrador,
+quiero tener disponible la Política de Privacidad, el Registro de Actividades de Tratamiento y servidores en la Unión Europea,
+para cumplir con Art. 30 RGPD y evitar transferencias internacionales problemáticas.
+
