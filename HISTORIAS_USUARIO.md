@@ -8,6 +8,16 @@ quiero [objetivo del software],
 para lograr [resultado].
 ```
 
+## Usuario genérico
+
+Como usuario,  
+quiero entrar en el sistema de manera sencilla,  
+para lograr trabajar con mis datos.
+
+Como usuario,  
+quiero darme de alta en el sistema facilmente y con la mínima espera,  
+para lograr disponer de acceso.
+
 ## Administrador
 
 Como administrador,  
@@ -238,7 +248,9 @@ Como coachee,
 quiero acceder a recursos y píldoras que me comparta mi coach,  
 para consultarlos cuando los necesite.
 
-## Importante: AYUDA para el Coach. 
+## Historias adicionales
+
+### Ayuda y tutoriales para el coach
 
 Como coach,  
 quiero una sección de ayuda con tutoriales de todas las funcionalidades,  
@@ -252,9 +264,7 @@ Como coach,
 quiero un tutorial interactivo la primera vez,  
 para empezar a usar el software rápidamente.
 
-## EXPORTACIÓN Y COMPARTIR
-
-Si los coachees no tienen acceso, necesitas sacar cosas de la plataforma:
+### Exportar y compartir
 
 Como coach,  
 quiero exportar el resumen de sesión en PDF,  
@@ -272,9 +282,7 @@ Como coach,
 quiero exportar el informe completo del proceso,  
 para entregárselo al coachee al finalizar o para certificaciones.
 
-## BACKUP Y SEGURIDAD
-
-Mucho más crítico si todo está solo en tu lado:
+### Backup y seguridad
 
 Como coach,  
 quiero hacer backups automáticos de todos mis datos,  
@@ -284,7 +292,7 @@ Como coach,
 quiero exportar todos los datos de mis coachees,  
 para tener una copia de seguridad.
 
-## INFORMES: 
+### Informes
 
 Como coach,  
 quiero generar un informe completo del proceso de coaching,  
@@ -302,14 +310,11 @@ Como coach,
 quiero generar informes para terceros (RRHH, empresa),  
 para justificar el proceso en coaching corporativo.
 
-
-## Version 2: 
-
 Como coach,  
 quiero que el informe incluya gráficas de evolución,  
 para visualizar el progreso del coachee.
 
-## PANTALLA DE CIERRE DE PROCESO:
+### Cierre del proceso
 
 Como coach,  
 quiero cerrar formalmente un proceso de coaching,  
@@ -335,7 +340,7 @@ Como coach,
 quiero poder reabrir un proceso archivado,  
 para continuar si el coachee vuelve más adelante.
 
-## PROCESOS DIFERENTES
+### Tipos de procesos
 
 Como coach,  
 quiero definir tipos de proceso (ejecutivo, personal, terapia de pareja, etc.),  
@@ -357,14 +362,17 @@ Como coach,
 quiero tener diferentes sets de herramientas según el tipo de proceso,  
 para mostrar solo las relevantes a cada caso.
 
+### Duplicar y hacer Plantillas
+
 Como coach,  
 quiero duplicar un proceso como plantilla,  
 para reutilizar estructuras que funcionan.  
-— Esta maravillosa
 
-## GRUPOS DE COACHES - Versión 2
+### Grupos de coaches - Versión 2
 
-## IMPORTACIÓN Y MIGRACIÓN
+### Importación y migración
+
+#### Migración desde formatos estructurados
 
 Como coach,  
 quiero importar mi lista de coachees desde un archivo CSV/Excel,  
@@ -394,7 +402,7 @@ Como coach,
 quiero hacer importaciones parciales (solo coachees, solo sesiones, etc.),  
 para migrar progresivamente.
 
-## Migración desde formatos no estructurados
+#### Migración desde formatos no estructurados
 
 Como coach,  
 quiero subir fotos o escaneos de mis notas en papel,  
@@ -428,7 +436,7 @@ Como coach,
 quiero validar y corregir lo que la IA ha interpretado,  
 para asegurar que la información es correcta antes de guardarla.
 
-## Asistente de migración guiado
+#### Asistente de migración guiado
 
 Como coach,  
 quiero un wizard de migración que me guíe paso a paso,  
@@ -450,7 +458,7 @@ Como coach,
 quiero priorizar qué coachees migrar primero,  
 para empezar con los activos y dejar los antiguos para después.
 
-## Modo híbrido y transición
+#### Modo híbrido y transición
 
 Como coach,  
 quiero adjuntar archivos legacy (PDFs, Word, imágenes) al perfil del coachee sin estructurar,  
@@ -468,7 +476,7 @@ Como coach,
 quiero poder ir estructurando información histórica gradualmente,  
 para mejorar la calidad de los datos con el tiempo.
 
-## Exportación y portabilidad
+#### Exportación y portabilidad
 
 Como coach,  
 quiero exportar todos mis datos en formatos estándar (CSV, JSON, PDF),  
@@ -481,8 +489,6 @@ para protegerme ante cualquier problema.
 Como coach,  
 quiero exportar datos de un coachee específico,  
 para entregarle su historial completo al finalizar el proceso.
-
-## LOPD, GDPR Y CUMPLIMIENTO NORMATIVO
 
 ## LOPD/RGPD - CUMPLIMIENTO LEGAL BÁSICO
 
@@ -509,4 +515,3 @@ para cumplir con limitación de plazo del RGPD.
 Como administrador,  
 quiero tener disponible la Política de Privacidad, el Registro de Actividades de Tratamiento y servidores en la Unión Europea,  
 para cumplir con Art. 30 RGPD y evitar transferencias internacionales problemáticas.
-
