@@ -10,23 +10,23 @@ para lograr [resultado].
 
 ## Usuario genérico
 
-Como usuario,  
+_Como usuario,  
 quiero entrar en el sistema de manera sencilla,  
-para lograr trabajar con mis datos.
+para lograr trabajar con mis datos._
 
-Como usuario,  
+_Como usuario,  
 quiero darme de alta en el sistema facilmente y con la mínima espera,  
-para lograr disponer de acceso.
+para lograr disponer de acceso._
 
 ## Administrador
 
-Como administrador,  
+_Como administrador,  
 quiero crear, modificar y eliminar los usuarios del software,  
-para tener el control de las altas y bajas.
+para tener el control de las altas y bajas._
 
-Como administrador,
+_Como administrador,
 quiero crear, modificar y eliminar el acceso a los módulos por tipos de usuario,
-para asegurar la confidencialidad de los datos.
+para asegurar la confidencialidad de los datos._
 
 Como administrador,
 quiero crear, modificar y eliminar las herramientas, dinámicas y tests disponibles,
@@ -42,43 +42,43 @@ para organizar la agenda de los coaches.
 
 ### Administrar coachees
 
-Como coach,  
+_Como coach,  
 quiero crear, modificar y eliminar coachees,  
-para tener control de mis clientes.
+para tener control de mis clientes._
 
-Como coach,  
+_Como coach,  
 quiero guardar los datos importantes del coachee y su proceso,  
-para tener acceso en cualquier momento.
+para tener acceso en cualquier momento._
 
-Como coach,  
+_Como coach,  
 quiero tener acceso al historial de mis coachees,  
-para hacer consultas y modificaciones.
+para hacer consultas y modificaciones._
 
-Como coach,  
+_Como coach,  
 quiero ver en la ficha del coachee palabras clave, anotaciones y resultados relevantes de tests,  
-para tener una visión general rápida.
+para tener una visión general rápida._
 
 ### En sesión
 
-Como coach,  
+_Como coach,  
 quiero anotar datos durante la sesión de manera ágil,  
-para evitar distracciones y centrar mi atención en el coachee.
+para evitar distracciones y centrar mi atención en el coachee._
 
-Como coach,  
+_Como coach,  
 quiero añadir rápidamente planes de acción durante la sesión,  
-para documentar las tareas pendientes del coachee.
+para documentar las tareas pendientes del coachee._
 
 Como coach,  
 quiero tener la grabación en audio y la transcripción de la sesión,  
 para poder consultarlas más tarde.
 
-Como coach,  
+_Como coach,  
 quiero poder acceder a herramientas durante la sesión,  
-para rellenarlas con el coachee.
+para rellenarlas con el coachee._
 
-Como coach,  
+_Como coach,  
 quiero poder acceder a tests durante la sesión,  
-para que el coachee pueda completarlos.
+para que el coachee pueda completarlos._
 
 Como coach,  
 quiero poder enviar tests y herramientas al coachee,  
@@ -92,37 +92,37 @@ Como coach,
 quiero disponer de una pizarra durante la sesión,  
 para hacer dibujos y explicaciones durante la sesión.
 
-Como coach,  
+_Como coach,  
 quiero tener un reloj que marque el tiempo restante de sesión,  
-para usarlo de guía en las fases de la sesión.
+para usarlo de guía en las fases de la sesión._
 
-Como coach,  
+_Como coach,  
 quiero poder anotar las reacciones y emociones del coache en ciertos momentos de la sesión,  
-para tener información anímica relacionada con los temas tratados.
+para tener información anímica relacionada con los temas tratados._
 
-Como coach,  
+_Como coach,  
 quiero poder acceder al resumen de la sesión anterior y los datos de la preparación de la sesión de manera rápida,  
-para refrescar información relevante durante la sesión.
+para refrescar información relevante durante la sesión._
 
-Como coach,  
+_Como coach,  
 quiero tener acceso al historial de sesiones del coachee durante la sesión,  
-para ver evolución e incongruencias.
+para ver evolución e incongruencias._
 
-Como coach,  
+_Como coach,  
 quiero etiquetar palabras clave y personas durante la sesión,  
-para tener un acceso rápido al anotar.
+para tener un acceso rápido al anotar._
 
 Como coach,  
 quiero poder mostrar información en la pantalla al coachee sin que vea mis notas,  
 para no contaminar el proceso.
 
-Como coach,  
+_Como coach,  
 quiero poder ir cambiando de fase durante la sesión,  
-para seguir modelos tipo GROW.
+para seguir modelos tipo GROW._
 
-Como coach,  
+_Como coach,  
 quiero que todo la información que introduzca durante la sesión quede guardada con fecha y hora,  
-para tener las notas ordenadas y poder sacar conclusiones.
+para tener las notas ordenadas y poder sacar conclusiones._
 
 Como coach,  
 quiero poder compartir elementos de la pantalla de manera facil en el caso de sesión online,  
@@ -138,33 +138,33 @@ para acelerar la gestión durante la sesión.
 
 ### Post sesión
 
-Como coach,  
+_Como coach,  
 quiero poder modificar los datos de la sesión hecha,  
-para corregir posibles errores.
+para corregir posibles errores._
 
-Como coach,  
+_Como coach,  
 quiero tener disponibles los datos de la sesión,  
-para hacer un resumen.
+para hacer un resumen._
 
-Como coach,  
+_Como coach,  
 quiero ver los datos generales del proceso al hacer el resumen,  
-para detectar desviaciones.
+para detectar desviaciones._
 
 Como coach,  
 quiero poder generar resúmenes de la sesión mediante las transcripciones,  
 para hacer los resúmenes más rápido.
 
-Como coach,  
+_Como coach,  
 quiero añadir y eliminar palabras y personas clave en el resumen,  
-para tenerlas disponibles en la próxima sesión.
+para tenerlas disponibles en la próxima sesión._
 
-Como coach,  
+_Como coach,  
 quiero añadir, modificar y eliminar los próximos pasos a seguir,  
-para organizar próximas sesiones.
+para organizar próximas sesiones._
 
-Como coach,  
+_Como coach,  
 quiero agendar acciones a realizar yo hacia el coachee,  
-para provocar reacciones de cara a la próxima sesión.
+para provocar reacciones de cara a la próxima sesión._
 
 Como coach,  
 quiero tener sugerencias de continuación del proceso por IA basadas en el historial y la documentación,  
@@ -176,13 +176,14 @@ para incrementar la cantidad de ideas de continuación del proceso.
 
 ### Pre sesión
 
-Como coach,  
+_Como coach,  
 quiero visualizar y modificar el resumen de la última sesión,  
-para añadir notas e ideas para la próxima.
+para añadir notas e ideas para la próxima._
 
-Como coach,  
+**Hecha en post sesion**
+_Como coach,  
 quiero modificar las palabras y personas importantes,  
-para usarlas más rápidamente durante la sesión.
+para usarlas más rápidamente durante la sesión._
 
 ---
 
