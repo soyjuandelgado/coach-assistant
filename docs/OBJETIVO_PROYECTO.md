@@ -1,6 +1,4 @@
-# coach-assistant
-
-## Objetivo
+# Objetivo del proyecto
 
 Crear una plataforma digital integral para procesos de coaching, centrada en la eficiencia de la gestión. Se prioriza la fluidez en el uso y facilidad de acceso como objetivo principal del desarrollo.  
 

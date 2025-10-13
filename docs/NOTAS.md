@@ -24,6 +24,16 @@
   - Conceptos a tratar
   - Introduccion de datos MUY simple y rápida, a mano.
 
+## Pasos
+
+- [ ] Crear las historias de usuario epicas
+- [ ] Definir el _project goal_
+- [ ] Investigar escritura a mano, a ser posible con elementos integrados en el front y sin necesidad de conexion
+  - [ ] [handwritting](https://www.chenyuho.com/project/handwritingjs/)
+  - [ ] [iinkjs](https://www.npmjs.com/package/iink-ts)
+  - [ ] https://codepen.io/tomapaunovic/pen/BapVoqb?anon=true&view=pen
+  - [ ] Tesseract.js
+
 ## Pantallas
 
 ### Sesión

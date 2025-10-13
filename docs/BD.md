@@ -1,7 +1,6 @@
 
 # Diseño BD
 
-
 ```mermaid
 erDiagram
     USERS {
@@ -20,5 +19,4 @@ erDiagram
         DATE birthdate
     }
     USERS ||--o{ USER_PROFILES : has
-}
 ```
