@@ -1,6 +1,16 @@
-# coach-assistant
+# Coach-Assistant
 
-## Objetivo
+## 🗂️Tabla de contenidos
+
+- [Coach-Assistant](#coach-assistant)
+  - [🗂️Tabla de contenidos](#️tabla-de-contenidos)
+  - [📄Objetivo](#objetivo)
+    - [Objetivo explicado](#objetivo-explicado)
+  - [💻Tecnologías Utilizadas](#tecnologías-utilizadas)
+    - [Frontend](#frontend)
+    - [Backend](#backend)
+
+## 📄Objetivo
 
 Una plataforma para gestión de sesiones de coaching principalmente dirigida a coaches, en la que anotar sea muy rápido e intuitivo (tiempo de escritura + 1 ó 2 clics) y se tenga toda la información disponible en como máximo 3 clics.
 
@@ -14,3 +24,27 @@ Las herramientas y tests realizados calcularán de manera automática los result
 que se mostrarán en el historial del coachee.
 
 En resumen, Coach Asistant permite maximizar la recogida de datos y tratarlos con eficiencia logrando agilizar la gestión del proceso.
+
+## 💻Tecnologías Utilizadas
+
+### Frontend
+
+- [x] HTML
+- [x] CSS
+- [x] Typescript
+- [x] Angular
+- [x] Eslint
+- [x] Karma / Jasmine
+- [x] PrimeNG
+- [x] Tailwind
+
+### Backend
+
+- [x] Typescript
+- [x] Eslint
+- [x] Nest.js
+- [x] TypeORM
+- [x] Swagger
+- [x] CORS
+- [x] Docker
+- [ ] Jest
