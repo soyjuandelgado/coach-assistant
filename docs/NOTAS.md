@@ -36,6 +36,10 @@
   - [ ] https://codepen.io/tomapaunovic/pen/BapVoqb?anon=true&view=pen
   - [ ] Tesseract.js
 - [x] Buscar info de Signal Forms
+- [ ] Hacer pantallas básicas
+  - [ ] Pantalla de login sin logica
+  - [ ] Pantalla de sesion
+  - [ ] Pantalla de resumen
 
 ## Pantallas
 
