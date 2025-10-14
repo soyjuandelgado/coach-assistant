@@ -27,15 +27,15 @@
 ## Pasos
 
 - [x] Definir el _project goal_
-- [ ] Crear las historias de usuario epicas
-- [ ] Investigar escritura a mano, a ser posible con elementos integrados en el front y sin necesidad de conexion
+- [x] Crear las historias de usuario epicas
+- [x] Investigar escritura a mano, a ser posible con elementos integrados en el front y sin necesidad de conexion
   - [x] **Se puede usar el GBoard como escritura a mano instalando el idioma. Se trata como un idioma más** [LINK](https://support.google.com/gboard/answer/9108773?hl=en&co=GENIE.Platform%3DAndroid&oco=0)
   - [ ] [handwritting](https://www.chenyuho.com/project/handwritingjs/)
   - [ ] [iinkjs](https://www.npmjs.com/package/iink-ts)
   - [ ] [MyScript](https://developer.myscript.com/features/text)
   - [ ] https://codepen.io/tomapaunovic/pen/BapVoqb?anon=true&view=pen
   - [ ] Tesseract.js
-- [ ] Buscar info de Signal Forms
+- [x] Buscar info de Signal Forms
 
 ## Pantallas
 
