@@ -1,0 +1,41 @@
+<div class="min-h-screen flex items-center justify-center bg-surface-200">
+  <div class="w-full max-w-md p-8 rounded-border shadow-lg bg-surface-0">
+    <h2 class="text-2xl font-semibold text-primary mb-6 text-center">Iniciar sesión</h2>
+    
+    <form>
+      <div class="mb-4">
+        <label for="email" class="block text-muted-color mb-2">Correo electrónico</label>
+        <input
+          pInputText
+          id="email"
+          type="email"
+          class="w-full bg-surface-100 px-4 py-2 border border-surface rounded-border focus:outline-none focus:border-primary"
+          placeholder="ejemplo@correo.com"
+        />
+      </div>
+
+      <div class="mb-6">
+        <label for="password" class="block text-muted-color mb-2">Contraseña</label>
+        <input
+          pInputText
+          id="password"
+          type="password"
+          class="w-full bg-surface-100 px-4 py-2 border border-surface rounded-border focus:outline-none focus:border-primary"
+          placeholder="********"
+        />
+      </div>
+
+      <button
+        pButton
+        type="submit"
+        label="Entrar"
+        class="w-full bg-primary text-primary-contrast py-3 rounded-border font-bold hover:bg-primary-emphasis transition"
+      ></button>
+    </form>
+
+    <div class="mt-6 text-sm text-center text-muted-color">
+      ¿No tienes cuenta?
+      <a href="#" class="text-primary font-medium hover:underline">Regístrate</a>
+    </div>
+  </div>
+</div>
