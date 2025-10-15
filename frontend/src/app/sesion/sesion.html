@@ -15,7 +15,7 @@
     <div class="w-full flex flex-col flex-1">
         <label for="details" class="block mb-1">Desarrollo de la sesión</label>
         <p-table [value]="detailOptions()" selectionMode="single" [(selection)]="selectedDetail" dataKey="id"
-            scrollHeight="flex" class="h-full bg-surface-100 border border-surface rounded-border" id="details">
+            scrollHeight="flex" class="h-full bg-surface-100 border border-surface rounded-border" id="details" [size]="'small'">
             <ng-template pTemplate="body" let-detail>
                 <tr [pSelectableRow]="detail">
                     <td>{{ detail.date | date: 'HH:mm'}}</td>
@@ -30,7 +30,7 @@
         <!-- <p-listbox [options]="taskOptions()" [ngModel]="selectedTask()" optionLabel="name" id="tasks" class="w-full">
         </p-listbox> -->
         <p-table [value]="taskOptions()" selectionMode="single" [(selection)]="selectedTask" dataKey="id"
-            scrollHeight="flex" class="bg-surface-100 border border-surface rounded-border" id="details">
+            scrollHeight="flex" class="bg-surface-100 border border-surface rounded-border" id="tasks" [size]="'small'">
             <ng-template pTemplate="body" let-task>
                 <tr [pSelectableRow]="task">
                     <td>{{ task.text }}</td>
