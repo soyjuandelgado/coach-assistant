@@ -2,3 +2,9 @@
 @import "tailwindcss";
 @plugin "tailwindcss-primeui";
 @import "primeicons/primeicons.css";
+
+:root {
+  --primary-color: #0066ff;
+  --surface-border-radius: 8px;
+  --text-color: #1a202c;
+}
