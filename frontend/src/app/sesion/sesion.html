@@ -1,25 +1,41 @@
 <div class="w-full h-full flex flex-col gap-2">
-    <div class="w-full flex flex-row justify-between items-center">
+    <p-toolbar [style]="{ 'padding': '0' }">
+        <ng-template #start>
+            <p-button icon="pi pi-stopwatch" label="52" severity="success" variant="text"/>
+        </ng-template>
+        <ng-template #center>
+            Perico de los Palotes - Sesion: 4
+        </ng-template>
+        <ng-template #end>
+            <p-button icon="pi pi-folder" text severity="help" />
+            <p-button icon="pi pi-history" text severity="warn" />
+            <!-- <p-splitbutton label="Save" [model]="items" /> -->
+        </ng-template>
+    </p-toolbar>
+    <!-- <div class="w-full flex flex-row justify-between items-center">
         <h2>Sesión</h2>
         <h2>Perico de los Palotes</h2>
-        <h2>Fecha: 15/10/2025</h2>
         <h2>Entrevista: 4</h2>
-        <h2>Localizacion: Oficina</h2>
         <h2>54 min</h2>
-    </div>
+        <div>
+            <p-button icon="pi pi-folder" [outlined]="true" severity="help" />
+            <p-button icon="pi pi-history" [outlined]="true" severity="warn" />
+        </div>
+    </div> -->
     <div class="w-full">
         <label for="goal" class="block mb-1">Objetivo</label>
         <input pInputText id="goal"
-            class="w-full bg-surface-100 px-4 border border-surface rounded-border focus:outline-none focus:border-primary" value="Decidir siguiente paso">
-    </div>
-    <div class="w-full flex flex-col flex-1">
+            class="w-full bg-surface-100 px-4 border border-surface rounded-border focus:outline-none focus:border-primary"
+            value="Decidir siguiente paso">
+        <div class="w-full flex flex-col">
+        </div>
         <label for="details" class="block mb-1">Desarrollo de la sesión</label>
         <p-table [value]="detailOptions()" selectionMode="single" [(selection)]="selectedDetail" dataKey="id"
-            scrollHeight="flex" class="h-full bg-surface-100 border border-surface rounded-border" id="details" [size]="'small'">
+            scrollHeight="flex" class="bg-surface-100 border border-surface rounded-border" id="details"
+            [size]="'small'">
             <ng-template pTemplate="body" let-detail>
                 <tr [pSelectableRow]="detail">
-                    <td>{{ detail.date | date: 'HH:mm'}}</td>
-                    <td>{{ detail.type }}</td>
+                    <td [width]="'5%'">{{ detail.type }}</td>
                     <td>{{ detail.text }}</td>
                 </tr>
             </ng-template>
@@ -34,16 +50,26 @@
             <ng-template pTemplate="body" let-task>
                 <tr [pSelectableRow]="task">
                     <td>{{ task.text }}</td>
-                    <td>{{ task.scheduled | date: 'dd/MM HH:mm'}}</td>
-                    <td>{{ task.score + "/10"}}</td>
+                    <td [width]="'15%'">{{ task.scheduled | date: 'dd/MM HH:mm'}}</td>
+                    <td [width]="'5%'">{{ task.score + "/10"}}</td>
                 </tr>
             </ng-template>
-        </p-table>        
+        </p-table>
     </div>
-    <div class="w-full">
+    <div class="w-full mt-auto">
         <label for="input" class="block mb-1">Introducir datos</label>
-        <p-selectbutton [options]="stateOptions" [ngModel]="value" optionLabel="label" optionValue="value"
-            aria-labelledby="basic" />
-        <textarea id="input" rows="2" pTextarea class="w-full">Escribiendo texto...</textarea>
+        <div class="flex flex-row justify-between">
+            <p-selectbutton [options]="stateOptions" [ngModel]="value" optionLabel="label" optionValue="value"
+                aria-labelledby="basic" />
+            <div class="flex gap-1">
+                <p-button icon="pi pi-tags" [rounded]="true" [outlined]="true" severity="success" />
+                <p-button icon="pi pi-user" [rounded]="true" [outlined]="true" severity="warn" />
+                <p-button icon="pi pi-face-smile" [rounded]="true" [outlined]="true" severity="help" />
+            </div>
+        </div>
+        <div class="w-full mt-auto flex flex-row gap-2 items-center">
+            <textarea id="input" rows="2" pTextarea class="w-full">Escribiendo texto...</textarea>
+            <p-button icon="pi pi-send" [size]="'large'"></p-button>
+        </div>
     </div>
 </div>

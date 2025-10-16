@@ -6,6 +6,10 @@ import { ListboxChangeEvent, ListboxModule } from 'primeng/listbox';
 import { TableModule } from 'primeng/table';
 import { TextareaModule } from 'primeng/textarea';
 import { SelectButtonModule } from 'primeng/selectbutton';
+import { IconFieldModule } from 'primeng/iconfield';
+import { InputIconModule } from 'primeng/inputicon';
+import { ButtonModule } from 'primeng/button';
+import { ToolbarModule } from 'primeng/toolbar';
 
 interface DetailOption {
   id: number;
@@ -31,11 +35,16 @@ interface TaskOption {
     SelectButtonModule,
     TableModule,
     DatePipe,
+    IconFieldModule,
+    InputIconModule,
+    ButtonModule,
+    ToolbarModule,
   ],
   templateUrl: './sesion.html',
   styleUrl: './sesion.css',
 })
 export class Sesion {
+
   detailOptions = signal<DetailOption[]>([
     { id: 1, date: new Date('2025-10-15 15:04'), type: 'I', text: 'La semana bien' },
     { id: 2, date: new Date('2025-10-15 15:10'), type: 'E', text: 'Feliz' },
@@ -62,9 +71,27 @@ export class Sesion {
   selectedDetail = signal<DetailOption | undefined>(undefined);
 
   taskOptions = signal<TaskOption[]>([
-    { id: 1, date: new Date('2025-10-15 15:58'), text: 'Buscar diseñadores', scheduled: new Date('2025-10-17 23:59'), score: 10 },
-    { id: 2, date: new Date('2025-10-15 16:05'), text: 'Pedir 3 presupuestos', scheduled: new Date('2025-10-18 23:59'), score: 10 },
-    { id: 3, date: new Date('2025-10-15 16:10'), text: 'Contratar diseñador y enviarme mensaje', scheduled: new Date('2025-10-20 19:00'), score: 9 },
+    {
+      id: 1,
+      date: new Date('2025-10-15 15:58'),
+      text: 'Buscar diseñadores',
+      scheduled: new Date('2025-10-17 23:59'),
+      score: 10,
+    },
+    {
+      id: 2,
+      date: new Date('2025-10-15 16:05'),
+      text: 'Pedir 3 presupuestos',
+      scheduled: new Date('2025-10-18 23:59'),
+      score: 10,
+    },
+    {
+      id: 3,
+      date: new Date('2025-10-15 16:10'),
+      text: 'Contratar diseñador y enviarme mensaje',
+      scheduled: new Date('2025-10-20 19:00'),
+      score: 9,
+    },
   ]);
 
   selectedTask = signal<TaskOption | undefined>(undefined);
@@ -75,6 +102,8 @@ export class Sesion {
     { label: 'Reality', value: 'reality' },
     { label: 'Options', value: 'options' },
     { label: 'Will', value: 'will' },
+    { label: 'Objetivo', value: 'objetivo' },
+    { label: 'PdA', value: 'pda' },
   ];
 
   value = 'issues';
