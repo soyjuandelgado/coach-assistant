@@ -9,6 +9,7 @@ import { routes } from './app.routes';
 
 import { providePrimeNG } from 'primeng/config';
 import {ThemeAura } from './theme-aura';
+import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -21,7 +22,14 @@ export const appConfig: ApplicationConfig = {
         // options:{
         //   darkModeSelector: 'always-dark' // Esto fuerza el modo oscuro
         // }
+        options: {
+            cssLayer: {
+                name: 'primeng',
+                order: 'theme, base, primeng'
+            }
+        }        
       },
     }),
+    provideAnimationsAsync(),
   ],
 };

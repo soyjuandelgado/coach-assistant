@@ -1,4 +1,4 @@
-import { Component, HostListener, signal } from '@angular/core';
+import { Component, signal } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 
 @Component({
@@ -11,15 +11,15 @@ export class App {
   protected readonly title = signal('frontend');
 
   //prueba de teclado en pantalla
-  viewportHeight: number = window.innerHeight;
+  // viewportHeight: number = window.innerHeight;
 
-  @HostListener('window:resize', ['$event'])
-  onResize(event: any) {
-    this.viewportHeight = window.innerHeight;
-    // Aquí puedes ajustar la altura de tu contenedor principal
-    const mainContainer = document.getElementById('main-container');
-    if (mainContainer) {
-      mainContainer.style.height = this.viewportHeight + 'px';
-    }
-  }
+  // @HostListener('window:resize', ['$event'])
+  // onResize(event: any) {
+  //   this.viewportHeight = window.innerHeight;
+  //   // Aquí puedes ajustar la altura de tu contenedor principal
+  //   const mainContainer = document.getElementById('main-container');
+  //   if (mainContainer) {
+  //     mainContainer.style.height = this.viewportHeight + 'px';
+  //   }
+  // }
 }

@@ -10,6 +10,9 @@ import { IconFieldModule } from 'primeng/iconfield';
 import { InputIconModule } from 'primeng/inputicon';
 import { ButtonModule } from 'primeng/button';
 import { ToolbarModule } from 'primeng/toolbar';
+import { PopoverModule } from 'primeng/popover';
+import { DrawerModule } from 'primeng/drawer';
+import { DividerModule } from 'primeng/divider';
 
 interface DetailOption {
   id: number;
@@ -39,11 +42,15 @@ interface TaskOption {
     InputIconModule,
     ButtonModule,
     ToolbarModule,
+    PopoverModule,
+    DrawerModule,
+    DividerModule,
   ],
   templateUrl: './sesion.html',
   styleUrl: './sesion.css',
 })
 export class Sesion {
+  visible = false;
 
   detailOptions = signal<DetailOption[]>([
     { id: 1, date: new Date('2025-10-15 15:04'), type: 'I', text: 'La semana bien' },
