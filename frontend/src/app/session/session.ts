@@ -1,8 +1,7 @@
-import { Component, signal } from '@angular/core';
+import { Component, inject, signal } from '@angular/core';
 import { DatePipe } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { InputText } from 'primeng/inputtext';
-import { ListboxChangeEvent, ListboxModule } from 'primeng/listbox';
 import { TableModule } from 'primeng/table';
 import { TextareaModule } from 'primeng/textarea';
 import { SelectButtonModule } from 'primeng/selectbutton';
@@ -16,6 +15,7 @@ import { DividerModule } from 'primeng/divider';
 import { FieldsetModule } from 'primeng/fieldset';
 import { TabsModule } from 'primeng/tabs';
 import { DialogModule } from 'primeng/dialog';
+import { Router } from '@angular/router';
 
 interface DetailOption {
   id: number;
@@ -32,10 +32,9 @@ interface TaskOption {
 }
 
 @Component({
-  selector: 'app-sesion',
+  selector: 'app-session',
   imports: [
     InputText,
-    ListboxModule,
     FormsModule,
     TextareaModule,
     SelectButtonModule,
@@ -52,16 +51,23 @@ interface TaskOption {
     TabsModule,
     DialogModule,
   ],
-  templateUrl: './sesion.html',
-  styleUrl: './sesion.css',
+  templateUrl: './session.html',
+  styleUrl: './session.css',
 })
-export class Sesion {
+export class Session {
+  private router = inject(Router);
+
   visible = false;
   visibleNotes = false;
 
   showDialogNotes() {
     this.visibleNotes = true;
   }
+
+  goSummary(){
+    this.router.navigate(['/summary']);
+  }
+
   detailOptions = signal<DetailOption[]>([
     { id: 1, date: new Date('2025-10-15 15:04'), type: 'I', text: 'La semana bien' },
     { id: 2, date: new Date('2025-10-15 15:10'), type: 'E', text: 'Feliz' },
@@ -132,13 +138,4 @@ export class Sesion {
   ];
 
   value = 'issues';
-
-  /**
-   * Método para manejar el cambio de selección del Listbox.
-   * @param event El evento emitido por PrimeNG, que contiene el valor seleccionado.
-   */
-  onDetailChange(event: ListboxChangeEvent): void {
-    // Actualizamos la señal explícitamente con el nuevo valor.
-    this.selectedDetail.set(event.value);
-  }
 }

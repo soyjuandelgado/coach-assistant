@@ -9,8 +9,7 @@
             <p-button icon="pi pi-stopwatch" label="52'" severity="success" variant="text" />
         </ng-template>
         <ng-template #end>
-            <p-button icon="pi pi-sign-out" text severity="danger" />
-            <!-- <p-splitbutton label="Save" [model]="items" /> -->
+            <p-button icon="pi pi-sign-out" text severity="danger" (onClick)="goSummary()"/>
         </ng-template>
     </p-toolbar>
     <p-dialog header="Notas Previas" [(visible)]="visibleNotes" [position]="'top'" [style]="{ width: '45rem' }">

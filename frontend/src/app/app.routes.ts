@@ -1,6 +1,7 @@
 import { Routes } from '@angular/router';
 import { Login } from './login/login';
-import { Sesion } from './sesion/sesion';
+import { Session } from './session/session';
+import { Summary } from './summary/summary';
 
 export const routes: Routes = [
   {
@@ -8,9 +9,14 @@ export const routes: Routes = [
     component: Login,
   },
   {
-    path: 'sesion',
-    component: Sesion,
-  },  {
+    path: 'session',
+    component: Session,
+  },
+  {
+    path: 'summary',
+    component: Summary,
+  },
+  {
     path: '**',
     redirectTo: '',
   },
