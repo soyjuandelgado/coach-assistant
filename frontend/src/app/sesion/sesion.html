@@ -4,7 +4,8 @@
             <p-button icon="pi pi-bars" text severity="contrast" (click)="visible = true" />
         </ng-template>
         <ng-template #center>
-            <p-button icon="pi pi-folder-open" text severity="help" label="Perico de los Palotes - Sesión 4" />
+            <p-button icon="pi pi-folder-open" text severity="help" label="Perico de los Palotes - Sesión 4"
+                (click)="showDialogNotes()" />
             <p-button icon="pi pi-stopwatch" label="52'" severity="success" variant="text" />
         </ng-template>
         <ng-template #end>
@@ -12,24 +13,55 @@
             <!-- <p-splitbutton label="Save" [model]="items" /> -->
         </ng-template>
     </p-toolbar>
-    <!-- <div class="w-full flex flex-row justify-between items-center">
-        <h2>Sesión</h2>
-        <h2>Perico de los Palotes</h2>
-        <h2>Entrevista: 4</h2>
-        <h2>54 min</h2>
-        <div>
-            <p-button icon="pi pi-folder" [outlined]="true" severity="help" />
-            <p-button icon="pi pi-history" [outlined]="true" severity="warn" />
+    <p-dialog header="Notas Previas" [(visible)]="visibleNotes" [position]="'top'" [style]="{ width: '45rem' }">
+        <div class="flex flex-col">
+            <div class="py-1 flex flex-col">
+                <span class="font-medium">Objetivo Proceso:</span>
+                <span>Conseguir aumentar las ventas un 30% el 31/01/2026</span>
+            </div>
+            <div class="py-1 flex flex-col">
+                <span class="font-medium">Objetivo Anterior:</span>
+                <span>Buscar mejoras en el diseño</span>
+            </div>
+            <div class="py-1 flex flex-col">
+                <span class="font-medium">Siguientes Objetivos pactados:</span>
+                <ul class="list-inside list-disc">
+                    <li>Objetivo 1</li>
+                    <li>Objetivo 2</li>
+                    <li>Objetivo 2</li>
+                </ul>
+            </div>
+            <div class="py-1 flex flex-col">
+                <span class="font-medium">Resumen Anterior:</span>
+                <p>
+                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aperiam optio est necessitatibus
+                    perspiciatis ex quod odit rem qui incidunt, voluptas id fugiat corporis quo, sapiente, hic eos harum
+                    illum voluptatibus!
+                </p>
+            </div>
+            <div class="py-1 flex flex-col">
+                <span class="font-medium">Ideas:</span>
+                <ul class="list-inside list-disc">
+                    <li>Idea 1</li>
+                    <li>Idea 2</li>
+                </ul>
+            </div>
         </div>
-    </div> -->
+
+        <div class="flex justify-end gap-2">
+            <p-button label="Cerrar" (click)="visibleNotes = false" />
+        </div>
+    </p-dialog>
     <p-drawer [(visible)]="visible" header="Opciones">
+        <p-button class="w-full" icon="pi pi-id-card" text label="Expediente" />
+        <p-divider />
         <h3 class="pi pi-history text-orange-700"> Ver Historial</h3>
         <ul>
-            <li class="ml-2">Sesión 3: Rueda Vida</li>
-            <li class="ml-2"><a href="#">Resumen 2: Objetivo sesion 2</a></li>
-            <li class="ml-2">Sesión 2: Objetivo sesion 2</li>
-            <li class="ml-2">Resumen 1: Objetivo sesion 1</li>
-            <li class="ml-2">Sesión 1: Objetivo sesion 1</li>
+            <li class="ml-2">S3: Rueda Vida</li>
+            <li class="ml-2"><a href="#">R2: Objetivo sesion 2</a></li>
+            <li class="ml-2">S2: Objetivo sesion 2</li>
+            <li class="ml-2">R1: Objetivo sesion 1</li>
+            <li class="ml-2">S1: Objetivo sesion 1</li>
         </ul>
         <p-divider />
         <h4 class="pi pi-wrench text-blue-700"> Herramientas</h4>
@@ -48,12 +80,13 @@
             <li class="ml-2">REA</li>
         </ul>
         <p-divider />
-        <p-button class="w-full" icon="pi pi-pencil" text label="Pizarra"/>
+        <p-button class="w-full" icon="pi pi-pencil" text label="Pizarra" />
         <ng-template #footer>
             <div class="flex items-center gap-2">
-                <button pButton label="Terminar Sesión" icon="pi pi-sign-out" class="w-full" severity="danger" outlined> </button>
+                <button pButton label="Terminar Sesión" icon="pi pi-sign-out" class="w-full" severity="danger" outlined>
+                </button>
             </div>
-        </ng-template>        
+        </ng-template>
     </p-drawer>
     <div class="w-full">
         <p-popover #op>
@@ -74,13 +107,20 @@
         <input pInputText id="goal"
             class="w-full bg-surface-100 px-4 border border-surface rounded-border focus:outline-none focus:border-primary"
             value="Decidir siguiente paso">
-        <div class="w-full flex flex-col">
-        </div>
+        <!-- <p-fieldset>
+            <ng-template #header>
+                <span class="font-medium">Objetivo</span>
+                <p-button icon="pi pi-info-circle" text severity="info" [size]="'small'" (click)="op.toggle($event)" />
+            </ng-template>
+            <span>Decidir siguiente paso</span>
+        </p-fieldset> -->
+    </div>
+    <div class="w-full flex flex-col">
         <label for="details" class="block mb-1 font-medium">Desarrollo de la sesión <p-button icon="pi pi-info-circle"
                 text severity="info" [size]="'small'" /></label>
         <p-table [value]="detailOptions()" selectionMode="single" [(selection)]="selectedDetail" dataKey="id"
             scrollHeight="flex" class="bg-surface-100 border border-surface rounded-border" id="details"
-            [size]="'small'">
+            [size]="'small'" disabled>
             <ng-template pTemplate="body" let-detail>
                 <tr [pSelectableRow]="detail">
                     <td [width]="'5%'">{{ detail.type }}</td>
@@ -88,12 +128,28 @@
                 </tr>
             </ng-template>
         </p-table>
+        <!-- <p-fieldset>
+            <ng-template #header>
+                <span class="font-medium">Desarrollo de la sesión</span>
+                <p-button icon="pi pi-info-circle" text severity="info" [size]="'small'" />
+            </ng-template>
+            <ul>
+                <li>I La semana bien</li>
+                <li>E Feliz</li>
+                <li>G Duda entre entregar o no</li>
+                <li>G Decide diseñar el producto</li>
+                <li>R No tiene diseñador</li>
+                <li>R No sabe donde encontrarlo ni precio</li>
+                <li>O Buscar diseñador por internet</li>
+                <li>O Diseño propio, sin contratar</li>
+                <li>W Calcular cual es el presupuesto</li>
+                <li>W Buscar diseñador esta semana</li>
+            </ul>
+        </p-fieldset> -->
     </div>
-    <div class="w-full">
+    <div class="w-full mb-auto">
         <label for="tasks" class="block mb-1 font-medium">Tareas para la siguiente <p-button icon="pi pi-info-circle"
                 text severity="info" [size]="'small'" /></label>
-        <!-- <p-listbox [options]="taskOptions()" [ngModel]="selectedTask()" optionLabel="name" id="tasks" class="w-full">
-        </p-listbox> -->
         <p-table [value]="taskOptions()" selectionMode="single" [(selection)]="selectedTask" dataKey="id"
             scrollHeight="flex" class="bg-surface-100 border border-surface rounded-border" id="tasks" [size]="'small'">
             <ng-template pTemplate="body" let-task>
@@ -104,8 +160,19 @@
                 </tr>
             </ng-template>
         </p-table>
+        <!-- <p-fieldset>
+            <ng-template #header>
+                <span class="font-medium">Tareas para la siguiente</span>
+                <p-button icon="pi pi-info-circle" text severity="info" [size]="'small'" />
+            </ng-template>
+            <ul>
+                <li>10/10 17/10 23:59 Buscar diseñadores</li>
+                <li>10/10 18/10 23:59 Pedir 3 presupuestos</li>
+                <li>09/10 20/10 19:00 Contratar diseñador y enviarme mensaje</li>
+            </ul>
+        </p-fieldset> -->
     </div>
-    <div class="w-full mt-auto">
+    <div class="w-full">
         <label for="input" class="block mb-1 font-medium">Introducir datos <p-button icon="pi pi-info-circle" text
                 severity="info" [size]="'small'" /></label>
         <div class="flex flex-row justify-between">
@@ -122,4 +189,48 @@
             <p-button icon="pi pi-send" [size]="'large'"></p-button>
         </div>
     </div>
+    <!-- <div class="w-full">
+        <label for="input" class="block mb-1 font-medium">Introducir datos <p-button icon="pi pi-info-circle" text
+                severity="info" [size]="'small'" /></label>
+        <p-tabs value="0">
+            <p-tablist>
+                <p-tab value="0">Objetivo</p-tab>
+                <p-tab value="1">Desarrollo</p-tab>
+                <p-tab value="2">Tareas</p-tab>
+            </p-tablist>
+            <p-tabpanels class="min-h-[9rem]">
+                <p-tabpanel value="0">
+                    <div class="w-full mt-auto flex flex-row gap-2 items-center">
+                        <textarea id="input" rows="2" pTextarea class="w-full" placeholder="Escribe aquí"></textarea>
+                        <p-button icon="pi pi-send" [size]="'large'"></p-button>
+                    </div>
+                </p-tabpanel>
+                <p-tabpanel value="1">
+                    <div class="flex flex-row justify-between">
+                        <p-selectbutton [options]="stateOptionsTab" [ngModel]="value" optionLabel="label"
+                            optionValue="value" aria-labelledby="basic" />
+                        <div class="flex gap-1">
+                            <p-button icon="pi pi-tags" [rounded]="true" [outlined]="true" severity="success" />
+                            <p-button icon="pi pi-user" [rounded]="true" [outlined]="true" severity="warn" />
+                            <p-button icon="pi pi-face-smile" [rounded]="true" [outlined]="true" severity="help" />
+                        </div>
+                    </div>
+                    <div class="w-full mt-auto flex flex-row gap-2 items-center">
+                        <textarea id="input" rows="2" pTextarea class="w-full" placeholder="Escribe aquí"></textarea>
+                        <p-button icon="pi pi-send" [size]="'large'"></p-button>
+                    </div>
+                </p-tabpanel>
+                <p-tabpanel value="2">
+                    <div class="w-full mt-auto flex flex-row gap-2 items-center">
+                        <input pInputText id="goal"
+                            class="w-full"
+                            value="Decidir siguiente paso">
+                        <input pInputText id="goal"
+                            value="Fecha Hora">
+                        <p-button icon="pi pi-send" [size]="'large'"></p-button>
+                    </div>
+                </p-tabpanel>
+            </p-tabpanels>
+        </p-tabs>
+    </div> -->
 </div>

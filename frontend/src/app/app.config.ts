@@ -19,9 +19,6 @@ export const appConfig: ApplicationConfig = {
     providePrimeNG({
       theme: {
         preset: ThemeAura,
-        // options:{
-        //   darkModeSelector: 'always-dark' // Esto fuerza el modo oscuro
-        // }
         options: {
             cssLayer: {
                 name: 'primeng',

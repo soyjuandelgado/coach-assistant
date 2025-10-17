@@ -13,6 +13,9 @@ import { ToolbarModule } from 'primeng/toolbar';
 import { PopoverModule } from 'primeng/popover';
 import { DrawerModule } from 'primeng/drawer';
 import { DividerModule } from 'primeng/divider';
+import { FieldsetModule } from 'primeng/fieldset';
+import { TabsModule } from 'primeng/tabs';
+import { DialogModule } from 'primeng/dialog';
 
 interface DetailOption {
   id: number;
@@ -45,13 +48,20 @@ interface TaskOption {
     PopoverModule,
     DrawerModule,
     DividerModule,
+    FieldsetModule,
+    TabsModule,
+    DialogModule,
   ],
   templateUrl: './sesion.html',
   styleUrl: './sesion.css',
 })
 export class Sesion {
   visible = false;
+  visibleNotes = false;
 
+  showDialogNotes() {
+    this.visibleNotes = true;
+  }
   detailOptions = signal<DetailOption[]>([
     { id: 1, date: new Date('2025-10-15 15:04'), type: 'I', text: 'La semana bien' },
     { id: 2, date: new Date('2025-10-15 15:10'), type: 'E', text: 'Feliz' },
@@ -104,13 +114,21 @@ export class Sesion {
   selectedTask = signal<TaskOption | undefined>(undefined);
 
   stateOptions: any[] = [
+    { label: 'Objetivo', value: 'objetivo' },
     { label: 'Issues', value: 'issues' },
     { label: 'Goal', value: 'goal' },
     { label: 'Reality', value: 'reality' },
     { label: 'Options', value: 'options' },
     { label: 'Will', value: 'will' },
-    { label: 'Objetivo', value: 'objetivo' },
-    { label: 'PdA', value: 'pda' },
+    { label: 'Tareas', value: 'tasks' },
+  ];
+
+  stateOptionsTab: any[] = [
+    { label: 'Issues', value: 'issues' },
+    { label: 'Goal', value: 'goal' },
+    { label: 'Reality', value: 'reality' },
+    { label: 'Options', value: 'options' },
+    { label: 'Will', value: 'will' },
   ];
 
   value = 'issues';
