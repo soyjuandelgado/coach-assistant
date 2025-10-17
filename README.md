@@ -9,6 +9,7 @@
   - [💻Tecnologías Utilizadas](#tecnologías-utilizadas)
     - [Frontend](#frontend)
     - [Backend](#backend)
+  - [📸 Demo](#-demo)
 
 ## 📄Objetivo
 
@@ -48,3 +49,7 @@ En resumen, Coach Asistant permite maximizar la recogida de datos y tratarlos co
 - [x] CORS
 - [x] Docker
 - [ ] Jest
+
+## 📸 Demo
+
+[GitHub Pages](https://soyjuandelgado.github.io/coach-assistant)
