@@ -17,6 +17,8 @@ import { TabsModule } from 'primeng/tabs';
 import { DialogModule } from 'primeng/dialog';
 import { Router } from '@angular/router';
 
+import { FullScreen } from '../shared/services/full-screen';
+
 interface DetailOption {
   id: number;
   date: Date;
@@ -55,6 +57,15 @@ interface TaskOption {
   styleUrl: './session.css',
 })
 export class Session {
+  private fullScreenService = inject(FullScreen);
+  // Exponemos la señal del servicio a la plantilla
+  public isFullScreen = this.fullScreenService.isFullScreen;
+
+  // Método para llamar al servicio
+  public toggleFullScreen(): void {
+    this.fullScreenService.toggle();
+  }
+
   private router = inject(Router);
 
   visible = false;

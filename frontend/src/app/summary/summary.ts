@@ -1,8 +1,10 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
+import { FullScreen } from '../shared/services/full-screen';
 
 import { ToolbarModule } from 'primeng/toolbar';
 import { ButtonModule } from 'primeng/button';
 import { PanelModule } from 'primeng/panel';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-summary',
@@ -10,4 +12,19 @@ import { PanelModule } from 'primeng/panel';
   templateUrl: './summary.html',
   styleUrl: './summary.css',
 })
-export class Summary {}
+export class Summary {
+  private fullScreenService = inject(FullScreen);
+  // Exponemos la señal del servicio a la plantilla
+  public isFullScreen = this.fullScreenService.isFullScreen;
+
+  // Método para llamar al servicio
+  public toggleFullScreen(): void {
+    this.fullScreenService.toggle();
+  }
+
+  private router = inject(Router);
+
+  goSession(){
+    this.router.navigate(['/session']);
+  }
+}
