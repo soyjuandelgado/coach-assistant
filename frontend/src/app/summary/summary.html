@@ -1,1 +1,73 @@
-<p>summary works!</p>
+<div class="w-full h-full flex flex-col gap-2 bg-primary-50">
+    <p-toolbar [style]="{ 'padding': '0' }">
+        <ng-template #start>
+            <p-button icon="pi pi-bars" text severity="contrast" />
+        </ng-template>
+        <ng-template #center>
+            <p-button icon="pi pi-folder-open" text severity="help" label="Pedro Pérez - Resumen 4" />
+        </ng-template>
+        <ng-template #end>
+            <p-button icon="pi pi-sign-out" text severity="danger" />
+        </ng-template>
+    </p-toolbar>
+    <p-panel [toggleable]="true">
+        <ng-template #header>
+            <span class="font-medium">Datos de Sesión</span>
+        </ng-template>
+        <div class="grid grid-cols-5">
+            <span class="font-medium">Objetivo Proceso:</span>
+            <span class="col-span-4">Conseguir aumentar las ventas un 30% el 31/01/2026</span>
+            <span class="font-medium">Objetivo Sesión:</span>
+            <span class="col-span-4">Decidir siguiente paso</span>
+            <span class="font-medium">Herramientas:</span>
+            <span class="col-span-4"><a>Valores</a>, <a>Camino Autoestima</a></span>
+            <span class="font-medium">Palabras Clave:</span>
+            <span class="col-span-4">Dudas, incapaz, indeciso, impostor</span>
+        </div>
+    </p-panel>
+    <p-panel [toggleable]="true" header="Desarrollo">
+        <ul class="list-inside list-disc">
+            <li>I La semana bien</li>
+            <li>G Duda entre entregar o no</li>
+            <li>G Decide diseñar el producto</li>
+            <li>R No tiene diseñador</li>
+            <li>R No sabe donde encontrarlo ni precio</li>
+            <li>O Buscar diseñador por internet</li>
+            <li>O Diseño propio, sin contratar</li>
+            <li>W Calcular cual es el presupuesto</li>
+            <li>W Buscar diseñador esta semana</li>
+        </ul>
+    </p-panel>
+    <p-panel [toggleable]="true" header="Planes de Acción" collapsed="true">
+        <ul class="list-inside list-none">
+            <li>10/10 17/10 23:59 Buscar diseñadores</li>
+            <li>10/10 18/10 23:59 Pedir 3 presupuestos</li>
+            <li>09/10 20/10 19:00 Contratar diseñador y enviarme mensaje</li>
+        </ul>
+    </p-panel>
+
+    <p-panel header="Resumen Inicio">
+        La persona tuvo una buena semana.
+        <ng-template #icons>
+            <p-button icon="pi pi-microchip-ai" text severity="info" />
+        </ng-template>
+    </p-panel>
+    <p-panel header="Resumen Central">
+        Duda si entregar o no el proyecto. Finalmente decide diseñar el producto, aunque no cuenta con un diseñador ni
+        sabe dónde encontrar uno ni cuánto costaría. Considera buscar un diseñador por internet, aunque también evalúa
+        hacer el diseño por su cuenta. Planea calcular el presupuesto y buscar un diseñador durante esta semana.
+        <ng-template #icons>
+            <p-button icon="pi pi-microchip-ai" text severity="info" />
+        </ng-template>
+    </p-panel>
+    <p-panel header="Aprendizaje Coachee">
+    </p-panel>
+    <p-panel header="Conclusiones">
+    </p-panel>
+    <p-panel header="Acciones Coach">
+    </p-panel>
+    <p-panel header="Ideas para la próxima">
+        Trabajar los miedos
+    </p-panel>
+
+</div>
