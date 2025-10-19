@@ -241,10 +241,10 @@ export class Session {
   }
 
   colorsByZone(rowIndex: number, colIndex: number): string {
-    if (rowIndex <= 4 && colIndex <= 4) return '#fca5a5';
-    if (rowIndex <= 4 && colIndex >= 5) return '#fef08a';
-    if (rowIndex >= 5 && colIndex <= 4) return '#93c5fd';
-    if (rowIndex >= 5 && colIndex >= 5) return '#86efac';
+    if (rowIndex <= 4 && colIndex <= 4) return '#fca5a5'; // rojo claro
+    if (rowIndex <= 4 && colIndex >= 5) return '#fef08a'; // amarillo claro
+    if (rowIndex >= 5 && colIndex <= 4) return '#93c5fd'; // azul claro
+    if (rowIndex >= 5 && colIndex >= 5) return '#86efac'; // verde claro
     return '';
   }
 

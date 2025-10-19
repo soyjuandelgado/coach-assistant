@@ -67,9 +67,9 @@
             <p-button label="Cerrar" (click)="visibleNotes = false" />
         </div>
     </p-dialog>
-    <p-dialog header="Cuadro Emociones" [(visible)]="visibleEmotions" [modal]="true" [style]="{ width: '45rem' }">
+    <p-dialog id="emotions-dialog" header="Cuadro Emociones" [(visible)]="visibleEmotions" [modal]="true" [style]="{ width: '45rem' }">
         <p-table [value]="detailEmotions()" selectionMode="single" dataKey="id" scrollHeight="flex" id="emotions"
-            [size]="'small'" disabled>
+            [size]="'small'">
             <ng-template pTemplate="body" let-row let-rowIndex="rowIndex">
                 <tr [pSelectableRow]="row">
                     <td [attr.bgcolor]="colorsByZone(rowIndex, 0)">{{ row.col1 }}</td>
