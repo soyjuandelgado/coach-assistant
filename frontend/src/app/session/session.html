@@ -9,8 +9,9 @@
             <p-button icon="pi pi-stopwatch" label="52'" severity="success" variant="text" />
         </ng-template>
         <ng-template #end>
-            <p-button icon="pi pi-window-maximize" text severity="info" (onClick)="toggleFullScreen()"/>
-            <p-button icon="pi pi-sign-out" text severity="danger" (onClick)="goCoachees()"/>
+            <p-button icon="pi pi-eye" text severity="contrast" (onClick)="changeHidden()" />
+            <p-button icon="pi pi-window-maximize" text severity="info" (onClick)="toggleFullScreen()" />
+            <p-button icon="pi pi-sign-out" text severity="danger" (onClick)="goCoachees()" />
         </ng-template>
     </p-toolbar>
     <p-dialog header="Notas Previas" [(visible)]="visibleNotes" [position]="'top'" [style]="{ width: '45rem' }">
@@ -52,7 +53,8 @@
                     <li>Ansioso, agotado, nervioso</li>
                     <li>Dinero, compromiso</li>
                 </ul>
-            </div>            <div class="py-1 flex flex-col">
+            </div>
+            <div class="py-1 flex flex-col">
                 <span class="font-medium">Ideas:</span>
                 <ul class="list-inside list-disc">
                     <li>Idea 1</li>
@@ -65,7 +67,31 @@
             <p-button label="Cerrar" (click)="visibleNotes = false" />
         </div>
     </p-dialog>
+    <p-dialog header="Cuadro Emociones" [(visible)]="visibleEmotions" [modal]="true" [style]="{ width: '45rem' }">
+        <p-table [value]="detailEmotions()" selectionMode="single" dataKey="id" scrollHeight="flex" id="emotions"
+            [size]="'small'" disabled>
+            <ng-template pTemplate="body" let-row let-rowIndex="rowIndex">
+                <tr [pSelectableRow]="row">
+                    <td [attr.bgcolor]="colorsByZone(rowIndex, 0)">{{ row.col1 }}</td>
+                    <td [attr.bgcolor]="colorsByZone(rowIndex, 1)">{{ row.col2 }}</td>
+                    <td [attr.bgcolor]="colorsByZone(rowIndex, 2)">{{ row.col3 }}</td>
+                    <td [attr.bgcolor]="colorsByZone(rowIndex, 3)">{{ row.col4 }}</td>
+                    <td [attr.bgcolor]="colorsByZone(rowIndex, 4)">{{ row.col5 }}</td>
+                    <td [attr.bgcolor]="colorsByZone(rowIndex, 5)">{{ row.col6 }}</td>
+                    <td [attr.bgcolor]="colorsByZone(rowIndex, 6)">{{ row.col7 }}</td>
+                    <td [attr.bgcolor]="colorsByZone(rowIndex, 7)">{{ row.col8 }}</td>
+                    <td [attr.bgcolor]="colorsByZone(rowIndex, 8)">{{ row.col9 }}</td>
+                    <td [attr.bgcolor]="colorsByZone(rowIndex, 9)">{{ row.col10 }}</td>
+            </ng-template>
+        </p-table>
+
+        <div class="flex justify-end gap-2">
+            <p-button label="Cerrar" (click)="visibleEmotions = false" />
+        </div>
+    </p-dialog>
     <p-drawer [(visible)]="visible" header="Opciones">
+        <p-button class="w-full" icon="pi pi-face-smile" text label="Cuadro Emociones" [severity]="'warn'"
+            (onClick)="showDialogEmotions()" />
         <p-button class="w-full" icon="pi pi-id-card" text label="Expediente" />
         <p-divider />
         <h3 class="pi pi-history text-orange-700"> Ver Historial</h3>
@@ -115,36 +141,39 @@
                 </ul>
             </ng-template>
         </p-popover>
-        <label for="goal" class="block mb-1 font-medium">Objetivo <p-button icon="pi pi-info-circle" text
-                severity="info" [size]="'small'" (click)="op.toggle($event)" /></label>
-        <input pInputText id="goal"
-            class="w-full"
-            value="Decidir siguiente paso">
-        <!-- <p-fieldset>
+        <div class="w-full" [hidden]="!hidden">
+            <label for="goal" class="block mb-1 font-medium">Objetivo <p-button icon="pi pi-info-circle" text
+                    severity="info" [size]="'small'" (click)="op.toggle($event)" /></label>
+            <input pInputText id="goal" class="w-full" value="Decidir siguiente paso">
+        </div>
+        <p-panel [hidden]="hidden">
             <ng-template #header>
                 <span class="font-medium">Objetivo</span>
-                <p-button icon="pi pi-info-circle" text severity="info" [size]="'small'" (click)="op.toggle($event)" />
             </ng-template>
             <span>Decidir siguiente paso</span>
-        </p-fieldset> -->
+            <ng-template #icons>
+                <p-button icon="pi pi-info-circle" text severity="info" [size]="'small'" (click)="op.toggle($event)" />
+            </ng-template>
+        </p-panel>
     </div>
     <div class="w-full flex flex-col">
-        <label for="details" class="block mb-1 font-medium">Desarrollo de la sesión <p-button icon="pi pi-info-circle"
-                text severity="info" [size]="'small'" /></label>
-        <p-table [value]="detailOptions()" selectionMode="single" [(selection)]="selectedDetail" dataKey="id"
-            scrollHeight="flex" id="details"
-            [size]="'small'" disabled>
-            <ng-template pTemplate="body" let-detail>
-                <tr [pSelectableRow]="detail">
-                    <td [width]="'5%'">{{ detail.type }}</td>
-                    <td>{{ detail.text }}</td>
-                </tr>
-            </ng-template>
-        </p-table>
-        <!-- <p-fieldset>
+        <div class="w-full" [hidden]="!hidden">
+
+            <label for="details" class="block mb-1 font-medium">Desarrollo de la sesión <p-button
+                    icon="pi pi-info-circle" text severity="info" [size]="'small'" /></label>
+            <p-table [value]="detailOptions()" selectionMode="single" [(selection)]="selectedDetail" dataKey="id"
+                scrollHeight="flex" id="details" [size]="'small'" disabled>
+                <ng-template pTemplate="body" let-detail>
+                    <tr [pSelectableRow]="detail">
+                        <td [width]="'5%'">{{ detail.type }}</td>
+                        <td>{{ detail.text }}</td>
+                    </tr>
+                </ng-template>
+            </p-table>
+        </div>
+        <p-panel [hidden]="hidden">
             <ng-template #header>
                 <span class="font-medium">Desarrollo de la sesión</span>
-                <p-button icon="pi pi-info-circle" text severity="info" [size]="'small'" />
             </ng-template>
             <ul>
                 <li>I La semana bien</li>
@@ -158,34 +187,42 @@
                 <li>W Calcular cual es el presupuesto</li>
                 <li>W Buscar diseñador esta semana</li>
             </ul>
-        </p-fieldset> -->
+            <ng-template #icons>
+                <p-button icon="pi pi-info-circle" text severity="info" [size]="'small'" />
+            </ng-template>
+        </p-panel>
     </div>
     <div class="w-full mb-auto">
-        <label for="tasks" class="block mb-1 font-medium">Tareas para la siguiente <p-button icon="pi pi-info-circle"
-                text severity="info" [size]="'small'" /></label>
-        <p-table [value]="taskOptions()" selectionMode="single" [(selection)]="selectedTask" dataKey="id"
-            scrollHeight="flex" id="tasks" [size]="'small'">
-            <ng-template pTemplate="body" let-task>
-                <tr [pSelectableRow]="task">
-                    <td>{{ task.text }}</td>
-                    <td [width]="'15%'">{{ task.scheduled | date: 'dd/MM HH:mm'}}</td>
-                    <td [width]="'5%'">{{ task.score + "/10"}}</td>
-                </tr>
-            </ng-template>
-        </p-table>
-        <!-- <p-fieldset>
+        <div class="w-full" [hidden]="!hidden">
+
+            <label for="tasks" class="block mb-1 font-medium">Tareas para la siguiente <p-button
+                    icon="pi pi-info-circle" text severity="info" [size]="'small'" /></label>
+            <p-table [value]="taskOptions()" selectionMode="single" [(selection)]="selectedTask" dataKey="id"
+                scrollHeight="flex" id="tasks" [size]="'small'">
+                <ng-template pTemplate="body" let-task>
+                    <tr [pSelectableRow]="task">
+                        <td>{{ task.text }}</td>
+                        <td [width]="'15%'">{{ task.scheduled | date: 'dd/MM HH:mm'}}</td>
+                        <td [width]="'5%'">{{ task.score + "/10"}}</td>
+                    </tr>
+                </ng-template>
+            </p-table>
+        </div>
+        <p-panel [hidden]="hidden">
             <ng-template #header>
                 <span class="font-medium">Tareas para la siguiente</span>
-                <p-button icon="pi pi-info-circle" text severity="info" [size]="'small'" />
             </ng-template>
             <ul>
                 <li>10/10 17/10 23:59 Buscar diseñadores</li>
                 <li>10/10 18/10 23:59 Pedir 3 presupuestos</li>
                 <li>09/10 20/10 19:00 Contratar diseñador y enviarme mensaje</li>
             </ul>
-        </p-fieldset> -->
+            <ng-template #icons>
+                <p-button icon="pi pi-info-circle" text severity="info" [size]="'small'" />
+            </ng-template>
+        </p-panel>
     </div>
-    <div class="w-full">
+    <div class="w-full" [hidden]="!hidden">
         <label for="input" class="block mb-1 font-medium">Introducir datos <p-button icon="pi pi-info-circle" text
                 severity="info" [size]="'small'" /></label>
         <div class="flex flex-row justify-between">
@@ -202,9 +239,10 @@
             <p-button icon="pi pi-send" [size]="'large'"></p-button>
         </div>
     </div>
-    <!-- <div class="w-full">
-        <label for="input" class="block mb-1 font-medium">Introducir datos <p-button icon="pi pi-info-circle" text
-                severity="info" [size]="'small'" /></label>
+    <p-panel [hidden]="hidden">
+        <ng-template #header>
+            <span class="font-medium">Introducir datos</span>
+        </ng-template>
         <p-tabs value="0">
             <p-tablist>
                 <p-tab value="0">Objetivo</p-tab>
@@ -235,15 +273,15 @@
                 </p-tabpanel>
                 <p-tabpanel value="2">
                     <div class="w-full mt-auto flex flex-row gap-2 items-center">
-                        <input pInputText id="goal"
-                            class="w-full"
-                            value="Decidir siguiente paso">
-                        <input pInputText id="goal"
-                            value="Fecha Hora">
+                        <input pInputText id="goal" class="w-full" value="Decidir siguiente paso">
+                        <input pInputText id="goal" value="Fecha Hora">
                         <p-button icon="pi pi-send" [size]="'large'"></p-button>
                     </div>
                 </p-tabpanel>
             </p-tabpanels>
         </p-tabs>
-    </div> -->
+        <ng-template #icons>
+            <p-button icon="pi pi-info-circle" text severity="info" [size]="'small'" />
+        </ng-template>
+    </p-panel>
 </div>
