@@ -5,10 +5,11 @@ import { ToolbarModule } from 'primeng/toolbar';
 import { ButtonModule } from 'primeng/button';
 import { PanelModule } from 'primeng/panel';
 import { Router } from '@angular/router';
+import { DialogModule } from 'primeng/dialog';
 
 @Component({
   selector: 'app-summary',
-  imports: [ToolbarModule, ButtonModule, PanelModule],
+  imports: [ToolbarModule, ButtonModule, PanelModule, DialogModule],
   templateUrl: './summary.html',
   styleUrl: './summary.css',
 })
@@ -24,7 +25,13 @@ export class Summary {
 
   private router = inject(Router);
 
-  goSession(){
+  goSession() {
     this.router.navigate(['/session']);
+  }
+
+  visibleProfile = false;
+
+  showDialogProfile() {
+    this.visibleProfile = true;
   }
 }
