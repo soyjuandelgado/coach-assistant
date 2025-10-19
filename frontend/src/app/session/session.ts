@@ -75,8 +75,8 @@ export class Session {
     this.visibleNotes = true;
   }
 
-  goSummary(){
-    this.router.navigate(['/summary']);
+  goCoachees(){
+    this.router.navigate(['/coachees']);
   }
 
   detailOptions = signal<DetailOption[]>([

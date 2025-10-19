@@ -4,11 +4,12 @@
             <p-button icon="pi pi-bars" text severity="contrast" />
         </ng-template>
         <ng-template #center>
-            <p-button icon="pi pi-id-card" text severity="help" label="Pedro Pérez - Resumen 4" (onClick)="showDialogProfile()"/>
+            <p-button icon="pi pi-id-card" text severity="help" label="Pedro Pérez - Resumen 4"
+                (onClick)="showDialogProfile()" />
         </ng-template>
         <ng-template #end>
             <p-button icon="pi pi-window-maximize" text severity="info" (onClick)="toggleFullScreen()" />
-            <p-button icon="pi pi-sign-out" text severity="danger" (onClick)="goSession()" />
+            <p-button icon="pi pi-sign-out" text severity="danger" (onClick)="goCoachees()" />
         </ng-template>
     </p-toolbar>
 
@@ -33,9 +34,9 @@
             <div class="py-1 flex flex-col">
                 <span class="font-medium">Objetivos pactados:</span>
                 <ul class="list-inside list-none">
-                    <li><i class="pi pi-check-square pr-2"></i>Objetivo 1</li>
-                    <li><i class="pi pi-stop pr-2"></i>Objetivo 2</li>
-                    <li><i class="pi pi-stop pr-2"></i>Objetivo 3</li>
+                    <li><i class="pi pi-check-square pr-2"></i>Mejorar flujo de datos interno</li>
+                    <li><i class="pi pi-stop pr-2"></i>Lanzar nuevo producto</li>
+                    <li><i class="pi pi-stop pr-2"></i>Conseguir ventas por 100k</li>
                 </ul>
             </div>
         </div>
@@ -98,14 +99,16 @@
         </ng-template>
     </p-panel>
     <p-panel header="Aprendizaje Coachee">
-        <input pInputText id="goal" class="w-full" value="Decidir siguiente paso">
+        <input pInputText id="learning" class="w-full" placeholder="Escribir aprendizajes">
     </p-panel>
     <p-panel header="Conclusiones">
+        <input pInputText id="conclusion" class="w-full" placeholder="Escribir conclusiones">
     </p-panel>
     <p-panel header="Acciones Coach">
+        <input pInputText id="coach-tasks" class="w-full" placeholder="Escribir acciones">
     </p-panel>
     <p-panel header="Ideas para la próxima">
-        Trabajar los miedos
+        <input pInputText id="coach-tasks" class="w-full" placeholder="Escribir ideas">
     </p-panel>
 
 </div>

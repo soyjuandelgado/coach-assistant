@@ -38,8 +38,13 @@
 - [x] Buscar info de Signal Forms
 - [ ] Hacer pantallas básicas
   - [x] Pantalla de login sin logica
-  - [ ] Pantalla de sesion
-  - [ ] Pantalla de resumen
+  - [x] Pantalla de sesion
+  - [x] Pantalla de resumen
+- [ ] Añadir comprobación de visibilidad de los elementos con el teclado en pantalla
+- [ ] Seleccionar etiquetas al escribir
+  - [ ] @persona
+  - [ ] emocion!
+  - [ ] #etiqueta
 
 ## Pantallas
 

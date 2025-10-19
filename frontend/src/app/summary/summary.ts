@@ -25,8 +25,8 @@ export class Summary {
 
   private router = inject(Router);
 
-  goSession() {
-    this.router.navigate(['/session']);
+  goCoachees(){
+    this.router.navigate(['/coachees']);
   }
 
   visibleProfile = false;
