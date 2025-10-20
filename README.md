@@ -6,6 +6,19 @@
   - [🗂️Tabla de contenidos](#️tabla-de-contenidos)
   - [📄Objetivo](#objetivo)
     - [Objetivo explicado](#objetivo-explicado)
+  - [📄Descripción](#descripción)
+    - [Análisis](#análisis)
+      - [Epics](#epics)
+      - [Kanban](#kanban)
+    - [Frontend páginas](#frontend-páginas)
+      - [Login](#login)
+      - [Coachees](#coachees)
+      - [Sesion](#sesion)
+        - [Principal](#principal)
+        - [Elementos](#elementos)
+      - [Resumen](#resumen)
+        - [Principal](#principal-1)
+        - [Elementos](#elementos-1)
   - [💻Tecnologías Utilizadas](#tecnologías-utilizadas)
     - [Frontend](#frontend)
     - [Backend](#backend)
@@ -25,6 +38,58 @@ Las herramientas y tests realizados calcularán de manera automática los result
 que se mostrarán en el historial del coachee.
 
 En resumen, Coach Asistant permite maximizar la recogida de datos y tratarlos con eficiencia logrando agilizar la gestión del proceso.
+
+## 📄Descripción
+
+### Análisis
+
+#### Epics
+
+<img src="docs/images/epics.png" width="500" style="vertical-align: top;">  
+
+#### Kanban
+
+<img src="docs/images/epics-kanban.png" width="500" style="vertical-align: top;">
+
+### Frontend páginas
+
+#### Login
+
+  <img src="docs/images/login.png" width="300" style="vertical-align: top;">
+
+#### Coachees
+
+  <img src="docs/images/coachees.png" width="300" style="vertical-align: top;">
+
+#### Sesion
+
+##### Principal
+
+<div style="display: flex; flex-wrap: wrap; gap: 20px; align-items: flex-start; margin-top: 1rem;">
+  <img src="docs/images/session1.png" width="300" style="vertical-align: top;">
+  <img src="docs/images/session2.png" width="300" style="vertical-align: top;">
+</div>
+
+##### Elementos
+
+<div style="display: flex; flex-wrap: wrap; gap: 20px; align-items: flex-start; margin-top: 1rem;">
+  <img src="docs/images/session-notes.png" width="300" style="vertical-align: top;">
+  <img src="docs/images/session-menu.png" width="300" style="vertical-align: top;">
+  <img src="docs/images/session-emotions.png" width="300" style="vertical-align: top;">
+</div>
+
+#### Resumen
+
+##### Principal
+
+<div style="display: flex; flex-wrap: wrap; gap: 20px; align-items: flex-start; margin-top: 1rem;">
+  <img src="docs/images/summary.png" width="300" style="vertical-align: top;">
+  <img src="docs/images/summary-expanded.png" width="300" style="vertical-align: top;">
+</div>
+
+##### Elementos
+
+<img src="docs/images/summary-profile.png" width="300" style="vertical-align: top;">
 
 ## 💻Tecnologías Utilizadas
 

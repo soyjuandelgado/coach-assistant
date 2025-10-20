@@ -45,6 +45,9 @@
   - [ ] @persona
   - [ ] emocion!
   - [ ] #etiqueta
+  - [ ] > objetivo
+  - [ ] G/R/O/W: seccion
+  - [ ] :
 
 ## Pantallas
 
