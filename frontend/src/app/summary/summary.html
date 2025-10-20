@@ -1,0 +1,114 @@
+<div class="w-full h-full flex flex-col gap-2 bg-primary-50">
+    <p-toolbar [style]="{ 'padding': '0' }">
+        <ng-template #start>
+            <p-button icon="pi pi-bars" text severity="contrast" />
+        </ng-template>
+        <ng-template #center>
+            <p-button icon="pi pi-id-card" text severity="help" label="Pedro Pérez - Resumen 4"
+                (onClick)="showDialogProfile()" />
+        </ng-template>
+        <ng-template #end>
+            <p-button icon="pi pi-window-maximize" text severity="info" (onClick)="toggleFullScreen()" />
+            <p-button icon="pi pi-sign-out" text severity="danger" (onClick)="goCoachees()" />
+        </ng-template>
+    </p-toolbar>
+
+    <p-dialog header="Perfil Coachee" [(visible)]="visibleProfile" [position]="'top'" [style]="{ width: '45rem' }">
+        <div class="flex flex-col">
+            <div class="py-1 grid grid-cols-3">
+                <span class="font-medium">Nombre Completo:</span>
+                <span class="col-span-2">Pedro Pérez Gómez</span>
+                <span class="font-medium">Tipo Proceso:</span>
+                <span class="col-span-2">Directivo Ejecutivo</span>
+                <span class="font-medium">Buenas Obras:</span>
+                <span class="col-span-2">No</span>
+                <span class="font-medium">Empresa:</span>
+                <span class="col-span-2">Soluciones Para Todo SL</span>
+                <span class="font-medium">Cargo:</span>
+                <span class="col-span-2">CEO</span>
+            </div>
+            <div class="py-1 flex flex-col">
+                <span class="font-medium">Objetivo Proceso:</span>
+                <span>Conseguir aumentar las ventas un 30% el 31/01/2026</span>
+            </div>
+            <div class="py-1 flex flex-col">
+                <span class="font-medium">Objetivos pactados:</span>
+                <ul class="list-inside list-none">
+                    <li><i class="pi pi-check-square pr-2"></i>Mejorar flujo de datos interno</li>
+                    <li><i class="pi pi-stop pr-2"></i>Lanzar nuevo producto</li>
+                    <li><i class="pi pi-stop pr-2"></i>Conseguir ventas por 100k</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="flex justify-end gap-2">
+            <p-button label="Cerrar" (click)="visibleProfile = false" />
+        </div>
+    </p-dialog>
+
+    <p-panel [toggleable]="true">
+        <ng-template #header>
+            <span class="font-medium">Datos de Sesión</span>
+        </ng-template>
+        <div class="grid grid-cols-5">
+            <span class="font-medium">Objetivo Proceso:</span>
+            <span class="col-span-4">Conseguir aumentar las ventas un 30% el 31/01/2026</span>
+            <span class="font-medium">Objetivo Sesión:</span>
+            <span class="col-span-4">Decidir siguiente paso</span>
+            <span class="font-medium">Herramientas:</span>
+            <span class="col-span-4"><a>Valores</a>, <a>Camino Autoestima</a></span>
+            <span class="font-medium">Palabras Clave:</span>
+            <span class="col-span-4">Dudas, incapaz, indeciso, impostor</span>
+        </div>
+    </p-panel>
+    <p-panel [toggleable]="true" header="Desarrollo">
+        <ul class="list-inside list-disc">
+            <li>I La semana bien</li>
+            <li>G Duda entre entregar o no</li>
+            <li>G Decide diseñar el producto</li>
+            <li>R No tiene diseñador</li>
+            <li>R No sabe donde encontrarlo ni precio</li>
+            <li>O Buscar diseñador por internet</li>
+            <li>O Diseño propio, sin contratar</li>
+            <li>W Calcular cual es el presupuesto</li>
+            <li>W Buscar diseñador esta semana</li>
+        </ul>
+    </p-panel>
+    <p-panel [toggleable]="true" header="Planes de Acción" collapsed="true">
+        <ul class="list-inside list-none">
+            <li>10/10 17/10 23:59 Buscar diseñadores</li>
+            <li>10/10 18/10 23:59 Pedir 3 presupuestos</li>
+            <li>09/10 20/10 19:00 Contratar diseñador y enviarme mensaje</li>
+        </ul>
+    </p-panel>
+
+    <p-panel header="Resumen Inicio">
+        La persona tuvo una buena semana.
+        <ng-template #icons>
+            <p-button icon="pi pi-microchip-ai" text severity="info" />
+        </ng-template>
+    </p-panel>
+    <p-panel header="Resumen Central">
+        Duda si entregar o no el proyecto. Finalmente decide diseñar el producto, aunque no cuenta con un diseñador
+        ni
+        sabe dónde encontrar uno ni cuánto costaría. Considera buscar un diseñador por internet, aunque también
+        evalúa
+        hacer el diseño por su cuenta. Planea calcular el presupuesto y buscar un diseñador durante esta semana.
+        <ng-template #icons>
+            <p-button icon="pi pi-microchip-ai" text severity="info" />
+        </ng-template>
+    </p-panel>
+    <p-panel header="Aprendizaje Coachee">
+        <input pInputText id="learning" class="w-full" placeholder="Escribir aprendizajes">
+    </p-panel>
+    <p-panel header="Conclusiones">
+        <input pInputText id="conclusion" class="w-full" placeholder="Escribir conclusiones">
+    </p-panel>
+    <p-panel header="Acciones Coach">
+        <input pInputText id="coach-tasks" class="w-full" placeholder="Escribir acciones">
+    </p-panel>
+    <p-panel header="Ideas para la próxima">
+        <input pInputText id="coach-tasks" class="w-full" placeholder="Escribir ideas">
+    </p-panel>
+
+</div>

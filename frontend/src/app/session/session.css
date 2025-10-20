@@ -1,0 +1,12 @@
+p-panel {
+  --p-panel-header-padding: 0.5rem 0.5rem;
+  --p-panel-toggleable-header-padding: 0rem 0.5rem;
+  --p-panel-content-padding: 0rem 0.5rem 0.5rem 0.5rem;
+  --p-panel-footer-padding: 0rem;
+}
+.rotated-table {
+  transform: rotate(90deg);
+  transform-origin: top left;  /* Ajustar según comodidad */
+  display: inline-block; 
+  left: 500px; /* ajuste según contexto */
+}
