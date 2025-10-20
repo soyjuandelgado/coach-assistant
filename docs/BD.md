@@ -37,6 +37,7 @@ erDiagram
         INT id_nota PK
         DATETIME fecha_hora
         TEXT texto
+        INT tipo FK
     }
 
     EMOCION_SESION {
