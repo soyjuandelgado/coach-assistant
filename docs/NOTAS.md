@@ -48,6 +48,11 @@
   - [ ] > objetivo
   - [ ] G/R/O/W: seccion
   - [ ] :
+- [ ] Girar elementos 90º para info tipo cuadro emociones
+- [ ] Tour guiado la primera vez
+- [ ] Pantalla horizontal:
+  - [ ] En el caso de sesion, mostrar Desarrollo en la izquierda y objetivo, tareas e introduccion de datos a la derecha. Tener en cuenta cambiar la disposicion en personas zurdas.
+- [ ] Configurar zoom para hacer crecer los elementos en caso de necesitarlo
 
 ## Pantallas
 
