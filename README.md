@@ -22,6 +22,7 @@
     - [Backend](#backend)
     - [Base de Datos](#base-de-datos)
       - [Usuarios](#usuarios)
+      - [Roles](#roles)
   - [💻Tecnologías Utilizadas](#tecnologías-utilizadas)
     - [Frontend](#frontend)
     - [Backend](#backend-1)
@@ -112,6 +113,26 @@ erDiagram
         DATETIME updated_at
     }
 ```
+
+#### Roles
+
+```mermaid
+erDiagram
+    ROLES {
+        CHAR(36) id PK "UUID"
+        VARCHAR name
+        TEXT description
+    }
+
+    USER_ROLES {
+        CHAR(36) user_id FK
+        CHAR(36) role_id FK
+    }
+
+    USERS ||--o{ USER_ROLES : has
+    ROLES ||--o{ USER_ROLES : assigned_to
+```
+
 
 ## 💻Tecnologías Utilizadas
 
