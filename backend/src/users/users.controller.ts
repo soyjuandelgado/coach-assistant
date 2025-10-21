@@ -4,6 +4,7 @@ import {
   Delete,
   Get,
   Param,
+  Patch,
   Post,
   Put,
 } from '@nestjs/common';
@@ -11,6 +12,7 @@ import { UsersService } from './users.service';
 import { UserDto } from './user.dto';
 import { User } from './user.entity';
 import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
+import { AddRoleDto } from 'src/roles/role.dto';
 
 @ApiTags('User')
 @Controller('users')
@@ -99,5 +101,45 @@ export class UsersController {
     @Body() newUser: UserDto,
   ): Promise<User> {
     return this.usersService.update(userId, newUser);
+  }
+
+  /**
+   *
+   * @param {userId} id of the user to update
+   * @param {roleId} role id to add
+   * @returns {User} updated user
+   */
+  @Patch(':userId')
+  @ApiOperation({ summary: 'Add role to user' })
+  @ApiResponse({
+    status: 201,
+    description: 'User data',
+    type: User,
+  })
+  addRole(
+    @Param('userId') userId: string,
+    @Body() addRoleDto: AddRoleDto,
+  ): Promise<User> {
+    return this.usersService.addRole(userId, addRoleDto.roleId);
+  }
+
+  /**
+   *
+   * @param {userId} id of the user to update
+   * @param {roleId} role id to add
+   * @returns {User} updated user
+   */
+  @Delete(':userId/roles/:roleId')
+  @ApiOperation({ summary: 'Remove role from user' })
+  @ApiResponse({
+    status: 201,
+    description: 'User data',
+    type: User,
+  })
+  removeRole(
+    @Param('userId') userId: string,
+    @Param('roleId') roleId: string,
+  ): Promise<User> {
+    return this.usersService.removeRole(userId, roleId);
   }
 }

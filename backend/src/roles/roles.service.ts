@@ -16,7 +16,7 @@ export class RolesService {
   async find(roleId: string): Promise<Role> {
     const role = await this.rolesRepository.findOne({ where: { id: roleId } });
     if (!role) {
-      throw new NotFoundException('role not found');
+      throw new NotFoundException('Role not found');
     }
     return role;
   }
@@ -24,6 +24,7 @@ export class RolesService {
     return this.rolesRepository.save(newRole);
   }
   async delete(roleId: string): Promise<any> {
+    //TODO: check no user with this role
     return await this.rolesRepository.delete({ id: roleId });
   }
   async update(roleId: string, newRole: RoleDto): Promise<Role> {
