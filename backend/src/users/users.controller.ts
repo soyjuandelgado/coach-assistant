@@ -9,29 +9,29 @@ import {
 } from '@nestjs/common';
 import { UsersService } from './users.service';
 import { UserDto } from './user.dto';
-import { User } from './user.class';
+import { User } from './user.entity';
 
 @Controller('users')
 export class UsersController {
   constructor(private usersService: UsersService) {}
 
   @Get()
-  findAll(): User[] {
+  findAll(): Promise<User[]> {
     return this.usersService.findAll();
   }
 
   @Get(':userId')
-  find(@Param('userId') userId: string): User | undefined {
+  find(@Param('userId') userId: string): Promise<User> {
     return this.usersService.find(userId);
   }
 
   @Post()
-  create(@Body() newUser: UserDto): User {
+  create(@Body() newUser: UserDto): Promise<User> {
     return this.usersService.create(newUser);
   }
 
   @Delete(':userId')
-  delete(@Param('userId') userId: string): User | undefined {
+  delete(@Param('userId') userId: string): Promise<User> {
     return this.usersService.delete(userId);
   }
 
@@ -39,7 +39,7 @@ export class UsersController {
   update(
     @Param('userId') userId: string,
     @Body() newUser: UserDto,
-  ): User | undefined {
+  ): Promise<User> {
     return this.usersService.update(userId, newUser);
   }
 }
