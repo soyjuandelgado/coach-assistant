@@ -28,20 +28,32 @@ export class UsersService {
   }
 
   create(newUser: UserDto): Promise<User> {
+    //TODO: if dto contains is_active, ommit it
     return this.usersRepository.save(newUser);
   }
 
   async delete(userId: string): Promise<any> {
-    return await this.usersRepository.delete({ id: userId });
-  }
-
-  async update(userId: string, newUser: UserDto): Promise<User> {
+    // return await this.usersRepository.delete({ id: userId });
+    const inactive = { is_active: false };
     const toUpdate = await this.usersRepository.findOne({
       where: { id: userId },
     });
     if (!toUpdate) {
       throw new NotFoundException('User not found');
     }
+    const updated = Object.assign(toUpdate, inactive);
+    return this.usersRepository.save(updated);
+  }
+
+  async update(userId: string, newUser: UserDto): Promise<User> {
+    console.log(newUser);
+    const toUpdate = await this.usersRepository.findOne({
+      where: { id: userId },
+    });
+    if (!toUpdate) {
+      throw new NotFoundException('User not found');
+    }
+    //TODO: if dto contains is_active, ommit it
     const updated = Object.assign(toUpdate, newUser);
     return this.usersRepository.save(updated);
   }

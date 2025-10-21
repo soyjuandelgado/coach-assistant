@@ -5,7 +5,4 @@ export class UserDto {
 
   @ApiProperty({ example: 'asdfA2T3Wer*tdfa_sdf' })
   readonly password: string;
-
-  @ApiProperty({ example: 'true' })
-  readonly is_active: boolean;
 }
