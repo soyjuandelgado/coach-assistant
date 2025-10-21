@@ -28,7 +28,6 @@ export class UsersService {
   }
 
   create(newUser: UserDto): Promise<User> {
-    //TODO: if dto contains is_active, ommit it
     return this.usersRepository.save(newUser);
   }
 
@@ -53,7 +52,6 @@ export class UsersService {
     if (!toUpdate) {
       throw new NotFoundException('User not found');
     }
-    //TODO: if dto contains is_active, ommit it
     const updated = Object.assign(toUpdate, newUser);
     return this.usersRepository.save(updated);
   }

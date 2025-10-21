@@ -23,7 +23,7 @@ export class User {
   password: string;
 
   @ApiProperty({ example: 'true' })
-  @Column()
+  @Column({ default: true })
   is_active: boolean;
 
   @ApiProperty({ example: '2025-10-21T08:23:24.000Z' })
