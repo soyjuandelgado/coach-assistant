@@ -10,25 +10,6 @@ export class UsersService {
     @InjectRepository(User) private usersRepository: Repository<User>,
   ) {}
 
-  //   users: User[] = [
-  //     {
-  //       id: '1',
-  //       email: 'a@a.com',
-  //       password: 'pasword1',
-  //       is_active: true,
-  //       created_at: new Date('2025-10-21 10:00:00'),
-  //       updated_at: new Date('2025-10-21 10:00:00'),
-  //     },
-  //     {
-  //       id: '2',
-  //       email: 'b@b.com',
-  //       password: 'pasword2',
-  //       is_active: true,
-  //       created_at: new Date('2025-10-21 11:00:00'),
-  //       updated_at: new Date('2025-10-21 11:00:00'),
-  //     },
-  //   ];
-
   async findAll(): Promise<User[]> {
     return await this.usersRepository.find();
   }
