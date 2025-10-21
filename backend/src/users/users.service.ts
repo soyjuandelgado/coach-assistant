@@ -1,4 +1,4 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import { Injectable, Logger, NotFoundException } from '@nestjs/common';
 import { UserDto } from './user.dto';
 import { User } from './user.entity';
 import { InjectRepository } from '@nestjs/typeorm';
@@ -7,6 +7,7 @@ import { Role } from 'src/roles/role.entity';
 
 @Injectable()
 export class UsersService {
+  private readonly logger = new Logger('UsersService');
   constructor(
     @InjectRepository(User) private usersRepository: Repository<User>,
     @InjectRepository(Role) private rolesRepository: Repository<Role>,
@@ -22,6 +23,7 @@ export class UsersService {
       relations: ['roles'],
     });
     if (!user) {
+      this.logger.error('find: User not found');
       throw new NotFoundException('User not found');
     }
     return user;
@@ -38,6 +40,7 @@ export class UsersService {
       where: { id: userId },
     });
     if (!toUpdate) {
+      this.logger.error('delete: User not found');
       throw new NotFoundException('User not found');
     }
     const updated = Object.assign(toUpdate, inactive);
@@ -50,6 +53,7 @@ export class UsersService {
       where: { id: userId },
     });
     if (!toUpdate) {
+      this.logger.error('update: User not found');
       throw new NotFoundException('User not found');
     }
     const updated = Object.assign(toUpdate, newUser);
@@ -62,10 +66,12 @@ export class UsersService {
       relations: ['roles'],
     });
     if (!user) {
+      this.logger.error('addRole: User not found');
       throw new NotFoundException('User not found.');
     }
     const role = await this.rolesRepository.findOneBy({ id: roleId });
     if (!role) {
+      this.logger.error('addRole: User not found');
       throw new NotFoundException('Role not found.');
     }
     if (!user.roles.find((r) => r.id === role.id)) {
@@ -81,6 +87,7 @@ export class UsersService {
       relations: ['roles'],
     });
     if (!user) {
+      this.logger.error('removeRole: User not found');
       throw new NotFoundException('User not found.');
     }
     user.roles = user.roles.filter((role) => role.id !== roleId);

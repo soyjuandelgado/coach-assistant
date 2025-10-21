@@ -1,4 +1,4 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import { Injectable, Logger, NotFoundException } from '@nestjs/common';
 import { Role } from './role.entity';
 import { Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
@@ -6,6 +6,8 @@ import { RoleDto } from './role.dto';
 
 @Injectable()
 export class RolesService {
+  private readonly logger = new Logger('RolesService');
+
   constructor(
     @InjectRepository(Role) private rolesRepository: Repository<Role>,
   ) {}
@@ -16,6 +18,7 @@ export class RolesService {
   async find(roleId: string): Promise<Role> {
     const role = await this.rolesRepository.findOne({ where: { id: roleId } });
     if (!role) {
+      this.logger.error('find: Role not found');
       throw new NotFoundException('Role not found');
     }
     return role;
@@ -32,6 +35,7 @@ export class RolesService {
       where: { id: roleId },
     });
     if (!toUpdate) {
+      this.logger.error('update: Role not found');
       throw new NotFoundException('Role not found');
     }
     const updated = Object.assign(toUpdate, newRole);
