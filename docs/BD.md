@@ -8,7 +8,6 @@ title: COACH ASSISTANT
 erDiagram
     USERS {
         CHAR(36) id PK "UUID"
-        VARCHAR username
         VARCHAR email
         VARCHAR password "hashed"
         TINYINT is_active
@@ -22,6 +21,23 @@ erDiagram
         DATE birthdate
     }
     USERS ||--o{ USER_PROFILES : has
+
+    CREATE TABLE ROLES (
+        CHAR(36) id PRIMARY KEY,         -- UUID
+        VARCHAR(50) name UNIQUE NOT NULL, -- 'admin', 'user', 'editor', etc.
+        TEXT description
+    );
+
+    CREATE TABLE USER_ROLES (
+        CHAR(36) user_id, 
+        CHAR(36) role_id,
+        PRIMARY KEY (user_id, role_id),
+        FOREIGN KEY (user_id) REFERENCES USERS(id) ON DELETE CASCADE,
+        FOREIGN KEY (role_id) REFERENCES ROLES(id) ON DELETE CASCADE
+    );
+
+    USERS ||--o{ USER_ROLES }o--|| ROLES
+    USERS ||--o{ USER_PROFILES
 
     SESION {
         INT id_proceso
