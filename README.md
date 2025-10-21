@@ -19,9 +19,12 @@
       - [Resumen](#resumen)
         - [Principal](#principal-1)
         - [Elementos](#elementos-1)
+    - [Backend](#backend)
+    - [Base de Datos](#base-de-datos)
+      - [Usuarios](#usuarios)
   - [💻Tecnologías Utilizadas](#tecnologías-utilizadas)
     - [Frontend](#frontend)
-    - [Backend](#backend)
+    - [Backend](#backend-1)
   - [📸 Demo](#-demo)
 
 ## 📄Objetivo
@@ -90,6 +93,25 @@ En resumen, Coach Asistant permite maximizar la recogida de datos y tratarlos co
 ##### Elementos
 
 <img src="docs/images/summary-profile.png" width="300" style="vertical-align: top;">
+
+
+### Backend
+
+### Base de Datos
+
+#### Usuarios
+
+```mermaid
+erDiagram
+    USERS {
+        CHAR(36) id PK "UUID"
+        VARCHAR email
+        VARCHAR password "hashed"
+        TINYINT is_active
+        DATETIME created_at
+        DATETIME updated_at
+    }
+```
 
 ## 💻Tecnologías Utilizadas
 
