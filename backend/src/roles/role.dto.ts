@@ -1,5 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IsString } from 'class-validator';
+import { IsBoolean, IsString } from 'class-validator';
 export class RoleDto {
   @ApiProperty({ example: 'coach' })
   @IsString()
@@ -8,6 +8,14 @@ export class RoleDto {
   @ApiProperty({ example: 'Description of the role' })
   @IsString()
   readonly description: string;
+
+  @ApiProperty({ example: 'false' })
+  @IsBoolean()
+  readonly admin_access: boolean;
+
+  @ApiProperty({ example: 'false' })
+  @IsBoolean()
+  readonly coachees_access: boolean;
 }
 
 //TODO: Export to new file?

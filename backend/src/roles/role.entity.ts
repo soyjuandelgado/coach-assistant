@@ -16,6 +16,14 @@ export class Role {
   @Column('text')
   description: string;
 
+  @ApiProperty({ example: 'false' })
+  @Column({ default: false })
+  admin_access: boolean;
+
+  @ApiProperty({ example: 'false' })
+  @Column({ default: false })
+  coachees_access: boolean;
+
   @ManyToMany(() => User, (user) => user.roles)
   users: User[];
 }
