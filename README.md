@@ -154,6 +154,7 @@ erDiagram
 - [x] Nest.js
 - [x] TypeORM
 - [x] Swagger
+- [x] Logger
 - [x] CORS
 - [x] Docker
 - [ ] Jest
