@@ -19,9 +19,13 @@
       - [Resumen](#resumen)
         - [Principal](#principal-1)
         - [Elementos](#elementos-1)
+    - [Backend](#backend)
+    - [Base de Datos](#base-de-datos)
+      - [Usuarios](#usuarios)
+      - [Roles](#roles)
   - [💻Tecnologías Utilizadas](#tecnologías-utilizadas)
     - [Frontend](#frontend)
-    - [Backend](#backend)
+    - [Backend](#backend-1)
   - [📸 Demo](#-demo)
 
 ## 📄Objetivo
@@ -91,6 +95,45 @@ En resumen, Coach Asistant permite maximizar la recogida de datos y tratarlos co
 
 <img src="docs/images/summary-profile.png" width="300" style="vertical-align: top;">
 
+
+### Backend
+
+### Base de Datos
+
+#### Usuarios
+
+```mermaid
+erDiagram
+    USERS {
+        CHAR(36) id PK "UUID"
+        VARCHAR email
+        VARCHAR password "hashed"
+        TINYINT is_active
+        DATETIME created_at
+        DATETIME updated_at
+    }
+```
+
+#### Roles
+
+```mermaid
+erDiagram
+    ROLES {
+        CHAR(36) id PK "UUID"
+        VARCHAR name
+        TEXT description
+    }
+
+    USER_ROLES {
+        CHAR(36) user_id FK
+        CHAR(36) role_id FK
+    }
+
+    USERS ||--o{ USER_ROLES : has
+    ROLES ||--o{ USER_ROLES : assigned_to
+```
+
+
 ## 💻Tecnologías Utilizadas
 
 ### Frontend
@@ -111,6 +154,7 @@ En resumen, Coach Asistant permite maximizar la recogida de datos y tratarlos co
 - [x] Nest.js
 - [x] TypeORM
 - [x] Swagger
+- [x] Logger
 - [x] CORS
 - [x] Docker
 - [ ] Jest
