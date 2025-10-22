@@ -1,4 +1,9 @@
-import { Injectable, Logger, NotFoundException } from '@nestjs/common';
+import {
+  BadRequestException,
+  Injectable,
+  Logger,
+  NotFoundException,
+} from '@nestjs/common';
 import { Role } from './role.entity';
 import { Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
@@ -23,11 +28,18 @@ export class RolesService {
     }
     return role;
   }
-  create(newRole: RoleDto): Promise<Role> {
-    return this.rolesRepository.save(newRole);
+  async create(newRole: RoleDto): Promise<Role> {
+    return await this.rolesRepository.save(newRole);
   }
   async delete(roleId: string): Promise<any> {
-    //TODO: check no user with this role
+    const roleWithUsers = await this.rolesRepository.findOne({
+      where: { id: roleId },
+      relations: ['users'],
+    });
+    if (!roleWithUsers) throw new NotFoundException('Role not found');
+    if (roleWithUsers.users.length > 0) {
+      throw new BadRequestException('Cannot delete role assigned to users');
+    }
     return await this.rolesRepository.delete({ id: roleId });
   }
   async update(roleId: string, newRole: RoleDto): Promise<Role> {

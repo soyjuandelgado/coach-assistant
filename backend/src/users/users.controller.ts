@@ -105,11 +105,43 @@ export class UsersController {
 
   /**
    *
+   * @param {userId} id of the user to remove
+   * @returns {User} removed user
+   */
+  @Patch(':userId/remove')
+  @ApiOperation({ summary: 'Soft remove user' })
+  @ApiResponse({
+    status: 201,
+    description: 'User data',
+    type: User,
+  })
+  softRemove(@Param('userId') userId: string): Promise<User> {
+    return this.usersService.softRemove(userId);
+  }
+
+  /**
+   *
+   * @param {userId} id of the user to restore
+   * @returns {User} restored user
+   */
+  @Patch(':userId/restore')
+  @ApiOperation({ summary: 'Restore removed user' })
+  @ApiResponse({
+    status: 201,
+    description: 'User data',
+    type: User,
+  })
+  restore(@Param('userId') userId: string): Promise<User> {
+    return this.usersService.restore(userId);
+  }
+
+  /**
+   *
    * @param {userId} id of the user to update
    * @param {roleId} role id to add
    * @returns {User} updated user
    */
-  @Patch(':userId')
+  @Patch(':userId/roles')
   @ApiOperation({ summary: 'Add role to user' })
   @ApiResponse({
     status: 201,

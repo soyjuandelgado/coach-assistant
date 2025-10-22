@@ -4,9 +4,14 @@ import {
   PrimaryGeneratedColumn,
   ManyToMany,
   JoinTable,
+  OneToMany,
+  CreateDateColumn,
+  UpdateDateColumn,
+  DeleteDateColumn,
 } from 'typeorm';
 import { ApiProperty } from '@nestjs/swagger';
 import { Role } from 'src/roles/role.entity';
+import { Coachee } from 'src/coachees/coachee.entity';
 
 @Entity()
 export class User {
@@ -22,28 +27,26 @@ export class User {
   @Column()
   password: string;
 
-  @ApiProperty({ example: 'true' })
-  @Column({ default: true })
-  is_active: boolean;
+  @ApiProperty({ example: '2025-10-21T08:23:24.000Z' })
+  @CreateDateColumn()
+  created_at?: Date;
 
   @ApiProperty({ example: '2025-10-21T08:23:24.000Z' })
-  @Column({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' })
-  created_at: Date;
+  @UpdateDateColumn()
+  updated_at?: Date;
 
   @ApiProperty({ example: '2025-10-21T08:23:24.000Z' })
-  @Column({
-    type: 'timestamp',
-    default: () => 'CURRENT_TIMESTAMP',
-    onUpdate: 'CURRENT_TIMESTAMP',
-    nullable: true,
-  })
-  updated_at: Date;
+  @DeleteDateColumn()
+  deleted_at?: Date;
 
-  @ManyToMany(() => Role, (role) => role.users, { cascade: true })
+  @ManyToMany(() => Role, (role) => role.users)
   @JoinTable({
     name: 'user_roles',
     joinColumn: { name: 'user_id', referencedColumnName: 'id' },
     inverseJoinColumn: { name: 'role_id', referencedColumnName: 'id' },
   })
   roles: Role[];
+
+  @OneToMany(() => Coachee, (coachee) => coachee.coach, { cascade: true })
+  coachees: Coachee[];
 }
