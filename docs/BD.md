@@ -131,7 +131,8 @@ erDiagram
         INT id PK
         tipo
         duracion_sesion
-        VARCHAR(50) metodologia 
+        VARCHAR(50) metodologia
+        VARCHAR objetivo
     }
 
     PALABRA {
