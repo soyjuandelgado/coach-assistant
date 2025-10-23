@@ -5,6 +5,7 @@ import { ToolbarModule } from 'primeng/toolbar';
 import { FullScreen } from '../shared/services/full-screen';
 import { Router } from '@angular/router';
 import { CoacheesService } from '../shared/services/coachees-service';
+import { ICoachee } from '../shared/models/coachee.interface';
 
 interface Coachee {
   id: number;
@@ -27,7 +28,7 @@ export class Coachees {
     this.fullScreenService.toggle();
   }
 
-  service = inject(CoacheesService)
+  service = inject(CoacheesService);
   coachees = this.service.coachees;
   private router = inject(Router);
 
@@ -45,13 +46,34 @@ export class Coachees {
     this.router.navigate(['/session']);
   }
 
-  // coachees = signal<Coachee[]>([
-  //   { id: 1, name: 'Pedro Pérez' },
-  //   { id: 2, name: 'José García' },
-  //   { id: 3, name: 'Juan Sánchez' },
-  //   { id: 4, name: 'María Gutiérrez' },
-  //   { id: 5, name: 'Ana Domínguez' },
-  // ]);
+  // createCoachee() {
+  //   const userId = '0241cf11-82ba-4804-abe8-f1d958f30183';
+  //   const coachee: ICoachee = {
+  //     name: 'Pedro',
+  //     surname: 'Perez',
+  //   };
+  //   this.service.createCoachee(userId, coachee);
+  // }
+
+  // updateCoachee(coacheeId: string) {
+  //   const coachee: ICoachee = {
+  //     name: 'Modificado',
+  //     surname: 'Modificado',
+  //   };
+  //   this.service.updateCoachee(coacheeId, coachee);
+  // }
+
+  // deleteCoachee(coacheeId: string) {
+  //   this.service.deleteCoachee(coacheeId);
+  // }
+
+  // removeCoachee(coacheeId: string) {
+  //   this.service.removeCoachee(coacheeId);
+  // }
+
+  // restoreCoachee() {
+  //   this.service.restoreCoachee("765a5370-0f61-40c9-97c9-c3d34693de4b");
+  // }
 
   selectedCoachee = signal<Coachee | undefined>(undefined);
 }
