@@ -140,23 +140,23 @@ erDiagram
 ```mermaid
 erDiagram
   COACHEES {
-  CHAR(36) id PK "UUID"
-  VARCHAR id PK 
-  VARCHAR name 
-  VARCHAR surname 
-  VARCHAR middlename NULL 
-  VARCHAR email NULL 
-  VARCHAR address NULL 
-  VARCHAR phone NULL 
-  DATE birthdate NULL
-  VARCHAR dni NULL 
-  VARCHAR company NULL 
-  VARCHAR company_role NULL 
-  VARCHAR company_address NULL 
-  DATETIME created_at NULL
-  DATETIME updated_at NULL
-  DATETIME deleted_at NULL
-  CHAR(36) coach FK
+    CHAR(36) id PK "UUID"
+    VARCHAR id PK 
+    VARCHAR name 
+    VARCHAR surname 
+    VARCHAR middlename NULL 
+    VARCHAR email NULL 
+    VARCHAR address NULL 
+    VARCHAR phone NULL 
+    DATE birthdate NULL
+    VARCHAR dni NULL 
+    VARCHAR company NULL 
+    VARCHAR company_role NULL 
+    VARCHAR company_address NULL 
+    DATETIME created_at NULL
+    DATETIME updated_at NULL
+    DATETIME deleted_at NULL
+    CHAR(36) coach FK
   }
 
 USERS ||--o{ COACHEES : has

@@ -10,6 +10,7 @@ import { routes } from './app.routes';
 import { providePrimeNG } from 'primeng/config';
 import {ThemeAura } from './theme-aura';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
+import { provideHttpClient, withFetch } from '@angular/common/http';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -28,5 +29,6 @@ export const appConfig: ApplicationConfig = {
       },
     }),
     provideAnimationsAsync(),
+    provideHttpClient(withFetch()),
   ],
 };
