@@ -4,6 +4,7 @@ import { ButtonModule } from 'primeng/button';
 import { ToolbarModule } from 'primeng/toolbar';
 import { FullScreen } from '../shared/services/full-screen';
 import { Router } from '@angular/router';
+import { CoacheesService } from '../shared/services/coachees-service';
 
 interface Coachee {
   id: number;
@@ -26,6 +27,8 @@ export class Coachees {
     this.fullScreenService.toggle();
   }
 
+  service = inject(CoacheesService)
+  coachees = this.service.coachees;
   private router = inject(Router);
 
   visible = false;
@@ -42,13 +45,13 @@ export class Coachees {
     this.router.navigate(['/session']);
   }
 
-  coachees = signal<Coachee[]>([
-    { id: 1, name: 'Pedro Pérez' },
-    { id: 2, name: 'José García' },
-    { id: 3, name: 'Juan Sánchez' },
-    { id: 4, name: 'María Gutiérrez' },
-    { id: 5, name: 'Ana Domínguez' },
-  ]);
+  // coachees = signal<Coachee[]>([
+  //   { id: 1, name: 'Pedro Pérez' },
+  //   { id: 2, name: 'José García' },
+  //   { id: 3, name: 'Juan Sánchez' },
+  //   { id: 4, name: 'María Gutiérrez' },
+  //   { id: 5, name: 'Ana Domínguez' },
+  // ]);
 
   selectedCoachee = signal<Coachee | undefined>(undefined);
 }

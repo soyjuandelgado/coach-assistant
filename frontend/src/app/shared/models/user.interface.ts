@@ -1,5 +1,5 @@
-import { ICoachee } from "./icoachee";
-import { IRole } from "./irole";
+import { ICoachee } from "./coachee.interface";
+import { IRole } from "./role.interface";
 
 export interface IUser {
   id: string;

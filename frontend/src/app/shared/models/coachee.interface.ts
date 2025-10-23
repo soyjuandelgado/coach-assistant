@@ -1,4 +1,4 @@
-import { IUser } from "./iuser";
+import { IUser } from "./user.interface";
 
 export interface ICoachee {
   id: string;
