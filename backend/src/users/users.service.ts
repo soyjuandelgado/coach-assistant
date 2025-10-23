@@ -13,8 +13,8 @@ export class UsersService {
     @InjectRepository(Role) private rolesRepository: Repository<Role>,
   ) {}
 
-  async findAll(): Promise<User[]> {
-    return await this.usersRepository.find({ relations: ['roles'] });
+  findAll(): Promise<User[]> {
+    return this.usersRepository.find({ relations: ['roles'] });
   }
 
   async find(userId: string): Promise<User> {
@@ -29,12 +29,12 @@ export class UsersService {
     return user;
   }
 
-  async create(newUser: UserDto): Promise<User> {
-    return await this.usersRepository.save(newUser);
+  create(newUser: UserDto): Promise<User> {
+    return this.usersRepository.save(newUser);
   }
 
-  async delete(userId: string): Promise<any> {
-    return await this.usersRepository.delete({ id: userId });
+  delete(userId: string): Promise<any> {
+    return this.usersRepository.delete({ id: userId });
   }
 
   async softRemove(userId: string): Promise<User> {
@@ -43,7 +43,7 @@ export class UsersService {
       this.logger.error('softRemove: User not found.');
       throw new NotFoundException('User not found');
     }
-    return await this.usersRepository.softRemove(user);
+    return this.usersRepository.softRemove(user);
   }
 
   async restore(userId: string): Promise<User> {

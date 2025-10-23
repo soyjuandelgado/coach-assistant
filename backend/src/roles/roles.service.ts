@@ -17,8 +17,8 @@ export class RolesService {
     @InjectRepository(Role) private rolesRepository: Repository<Role>,
   ) {}
 
-  async findAll(): Promise<Role[]> {
-    return await this.rolesRepository.find();
+  findAll(): Promise<Role[]> {
+    return this.rolesRepository.find();
   }
   async find(roleId: string): Promise<Role> {
     const role = await this.rolesRepository.findOne({ where: { id: roleId } });
@@ -28,8 +28,8 @@ export class RolesService {
     }
     return role;
   }
-  async create(newRole: RoleDto): Promise<Role> {
-    return await this.rolesRepository.save(newRole);
+  create(newRole: RoleDto): Promise<Role> {
+    return this.rolesRepository.save(newRole);
   }
   async delete(roleId: string): Promise<any> {
     const roleWithUsers = await this.rolesRepository.findOne({
@@ -40,7 +40,7 @@ export class RolesService {
     if (roleWithUsers.users.length > 0) {
       throw new BadRequestException('Cannot delete role assigned to users');
     }
-    return await this.rolesRepository.delete({ id: roleId });
+    return this.rolesRepository.delete({ id: roleId });
   }
   async update(roleId: string, newRole: RoleDto): Promise<Role> {
     const toUpdate = await this.rolesRepository.findOne({

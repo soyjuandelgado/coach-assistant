@@ -13,8 +13,8 @@ export class CoacheesService {
     @InjectRepository(User) private usersRepository: Repository<User>,
   ) {}
 
-  async findAll(): Promise<Coachee[]> {
-    return await this.coacheesRepository.find();
+  findAll(): Promise<Coachee[]> {
+    return this.coacheesRepository.find();
   }
 
   async find(coacheeId: string): Promise<Coachee> {
@@ -36,11 +36,11 @@ export class CoacheesService {
       ...newCoacheeDto,
       coach: user,
     });
-    return await this.coacheesRepository.save(newCoachee);
+    return this.coacheesRepository.save(newCoachee);
   }
 
-  async delete(coacheeId: string): Promise<any> {
-    return await this.coacheesRepository.delete({ id: coacheeId });
+  delete(coacheeId: string): Promise<any> {
+    return this.coacheesRepository.delete({ id: coacheeId });
   }
 
   async softRemove(coacheeId: string): Promise<Coachee> {
@@ -49,7 +49,7 @@ export class CoacheesService {
       this.logger.error('softRemove: Coachee not found.');
       throw new NotFoundException('Coachee not found');
     }
-    return await this.coacheesRepository.softRemove(coachee);
+    return this.coacheesRepository.softRemove(coachee);
   }
 
   async restore(coacheeId: string): Promise<Coachee> {
