@@ -10,7 +10,4 @@ export interface ICoacheeDto {
   company?: string;
   company_role?: string;
   company_address?: string;
-  created_at?: Date;
-  updated_at?: Date;
-  deleted_at?: Date;
 }

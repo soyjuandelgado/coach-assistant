@@ -1,8 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
-import { ICoachee } from '../models/coachee.interface';
-import { ICoacheeDto } from '../models/coachee.dto';
-import { environment } from '../../../environments/environment';
+import { ICoachee } from '../../models/coachee.interface';
+import { ICoacheeDto } from '../../models/coachee.dto';
+import { environment } from '../../../../environments/environment';
 
 @Injectable({
   providedIn: 'root',
@@ -15,8 +15,9 @@ export class CoacheesApiService {
     const {id: _id, ...dtoWithoutCoach } = coachee;
     const dto: ICoacheeDto = {
       ...dtoWithoutCoach,
-      birthdate: coachee.birthdate?.toLocaleDateString(),
+      birthdate: coachee.birthdate?.toISOString(),
     };
+    console.log(dto);
     return dto;
   }
   getCoachees$() {
