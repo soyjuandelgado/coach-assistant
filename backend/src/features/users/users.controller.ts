@@ -27,7 +27,7 @@ export class UsersController {
   @Get()
   @ApiOperation({ summary: 'Get user list' })
   @ApiResponse({
-    status: 201,
+    status: 200,
     description: 'User list',
     type: User,
   })
@@ -43,7 +43,7 @@ export class UsersController {
   @Get(':userId')
   @ApiOperation({ summary: 'Get user' })
   @ApiResponse({
-    status: 201,
+    status: 200,
     description: 'User data',
     type: User,
   })
@@ -75,7 +75,7 @@ export class UsersController {
   @Delete(':userId')
   @ApiOperation({ summary: 'Delete user' })
   @ApiResponse({
-    status: 201,
+    status: 200,
     description: 'User data',
     type: User,
   })
@@ -92,7 +92,7 @@ export class UsersController {
   @Put(':userId')
   @ApiOperation({ summary: 'Update user' })
   @ApiResponse({
-    status: 201,
+    status: 200,
     description: 'User data',
     type: User,
   })
@@ -111,7 +111,7 @@ export class UsersController {
   @Patch(':userId/remove')
   @ApiOperation({ summary: 'Soft remove user' })
   @ApiResponse({
-    status: 201,
+    status: 200,
     description: 'User data',
     type: User,
   })
@@ -127,7 +127,7 @@ export class UsersController {
   @Patch(':userId/restore')
   @ApiOperation({ summary: 'Restore removed user' })
   @ApiResponse({
-    status: 201,
+    status: 200,
     description: 'User data',
     type: User,
   })
@@ -144,7 +144,7 @@ export class UsersController {
   @Patch(':userId/roles')
   @ApiOperation({ summary: 'Add role to user' })
   @ApiResponse({
-    status: 201,
+    status: 200,
     description: 'User data',
     type: User,
   })
@@ -164,7 +164,7 @@ export class UsersController {
   @Delete(':userId/roles/:roleId')
   @ApiOperation({ summary: 'Remove role from user' })
   @ApiResponse({
-    status: 201,
+    status: 200,
     description: 'User data',
     type: User,
   })

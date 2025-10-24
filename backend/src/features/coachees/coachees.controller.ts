@@ -26,7 +26,7 @@ export class CoacheesController {
   @Get()
   @ApiOperation({ summary: 'Get coachee list' })
   @ApiResponse({
-    status: 201,
+    status: 200,
     description: 'Coachee list',
     type: Coachee,
   })
@@ -42,7 +42,7 @@ export class CoacheesController {
   @Get(':coacheeId')
   @ApiOperation({ summary: 'Get coachee' })
   @ApiResponse({
-    status: 201,
+    status: 200,
     description: 'Coachee data',
     type: Coachee,
   })
@@ -77,7 +77,7 @@ export class CoacheesController {
   @Delete(':coacheeId')
   @ApiOperation({ summary: 'Delete coachee' })
   @ApiResponse({
-    status: 201,
+    status: 200,
     description: 'Coachee data',
     type: Coachee,
   })
@@ -94,7 +94,7 @@ export class CoacheesController {
   @Put(':userId')
   @ApiOperation({ summary: 'Update coachee' })
   @ApiResponse({
-    status: 201,
+    status: 200,
     description: 'Coachee data',
     type: Coachee,
   })
@@ -113,7 +113,7 @@ export class CoacheesController {
   @Patch(':coacheeId/remove')
   @ApiOperation({ summary: 'Soft remove coachee' })
   @ApiResponse({
-    status: 201,
+    status: 200,
     description: 'Coachee data',
     type: Coachee,
   })
@@ -129,7 +129,7 @@ export class CoacheesController {
   @Patch(':coacheeId/restore')
   @ApiOperation({ summary: 'Restore removed coachee' })
   @ApiResponse({
-    status: 201,
+    status: 200,
     description: 'Coachee data',
     type: Coachee,
   })
