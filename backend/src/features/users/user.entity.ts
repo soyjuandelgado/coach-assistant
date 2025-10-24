@@ -10,8 +10,8 @@ import {
   DeleteDateColumn,
 } from 'typeorm';
 import { ApiProperty } from '@nestjs/swagger';
-import { Role } from 'src/roles/role.entity';
-import { Coachee } from 'src/coachees/coachee.entity';
+import { Role } from 'src/features/roles/role.entity';
+import { Coachee } from 'src/features/coachees/coachee.entity';
 
 @Entity()
 export class User {

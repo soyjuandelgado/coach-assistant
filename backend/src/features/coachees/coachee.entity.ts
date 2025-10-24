@@ -1,5 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { User } from 'src/users/user.entity';
+import { User } from 'src/features/users/user.entity';
 import {
   Column,
   CreateDateColumn,
@@ -7,9 +7,11 @@ import {
   Entity,
   JoinColumn,
   ManyToOne,
+  OneToMany,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
+import { Process } from '../processes/process.entity';
 
 @Entity()
 export class Coachee {
@@ -76,4 +78,7 @@ export class Coachee {
   @ManyToOne(() => User, (user) => user.coachees)
   @JoinColumn({ name: 'user_id', referencedColumnName: 'id' })
   coach: User;
+
+  @OneToMany(() => Process, (process) => process.coachee, { cascade: true })
+  processes: Process[];
 }

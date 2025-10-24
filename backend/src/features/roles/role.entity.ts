@@ -1,6 +1,6 @@
 import { Entity, Column, PrimaryGeneratedColumn, ManyToMany } from 'typeorm';
 import { ApiProperty } from '@nestjs/swagger';
-import { User } from 'src/users/user.entity';
+import { User } from 'src/features/users/user.entity';
 
 @Entity()
 export class Role {

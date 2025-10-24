@@ -128,11 +128,11 @@ erDiagram
     }
 
     PROCESO {
-        INT id PK
-        tipo
-        duracion_sesion
-        VARCHAR(50) metodologia
-        VARCHAR objetivo
+        CHAR(36) id PK UUID
+        VARCHAR type
+        INT duration
+        BOOLEAN is_grow
+        VARCHAR goal
     }
 
     PALABRA {

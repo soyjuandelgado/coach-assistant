@@ -12,7 +12,7 @@ import { UsersService } from './users.service';
 import { UserDto } from './user.dto';
 import { User } from './user.entity';
 import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
-import { AddRoleDto } from 'src/roles/role.dto';
+import { AddRoleDto } from 'src/features/roles/role.dto';
 
 @ApiTags('User')
 @Controller('users')
