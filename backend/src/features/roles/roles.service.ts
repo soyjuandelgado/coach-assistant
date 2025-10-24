@@ -40,7 +40,11 @@ export class RolesService {
     if (roleWithUsers.users.length > 0) {
       throw new BadRequestException('Cannot delete role assigned to users');
     }
-    return this.rolesRepository.delete({ id: roleId });
+    const result = await this.rolesRepository.delete({ id: roleId });
+    if (result.affected === 0) {
+      this.logger.error('delete: Role not found.');
+      throw new NotFoundException('Role not found');
+    }
   }
   async update(roleId: string, newRole: RoleDto): Promise<Role> {
     const toUpdate = await this.rolesRepository.findOne({

@@ -39,8 +39,12 @@ export class ProcessesService {
     return this.processesRepository.save(newProcess);
   }
 
-  delete(processId: string): Promise<any> {
-    return this.processesRepository.delete({ id: processId });
+  async delete(processId: string): Promise<any> {
+    const result = await this.processesRepository.delete({ id: processId });
+    if (result.affected === 0) {
+      this.logger.error('delete: Process not found.');
+      throw new NotFoundException('Process not found');
+    }
   }
 
   async softRemove(processId: string): Promise<Process> {

@@ -72,14 +72,12 @@ export class ProcessesController {
   /**
    *
    * @param {processId} process id
-   * @returns {Process} deleted process
    */
   @Delete(':processId')
   @ApiOperation({ summary: 'Delete process' })
   @ApiResponse({
     status: 200,
-    description: 'Process data',
-    type: Process,
+    description: 'Process deleted',
   })
   delete(@Param('processId') processId: string): Promise<Process> {
     return this.processesService.delete(processId);

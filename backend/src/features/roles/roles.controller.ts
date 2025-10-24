@@ -68,14 +68,12 @@ export class RolesController {
   /**
    *
    * @param {roleId} role id
-   * @returns {Role} deleted role
    */
   @Delete(':roleId')
   @ApiOperation({ summary: 'Delete role' })
   @ApiResponse({
     status: 200,
-    description: 'Role data',
-    type: Role,
+    description: 'Role deleted',
   })
   delete(@Param('roleId') roleId: string): Promise<Role> {
     return this.rolesService.delete(roleId);

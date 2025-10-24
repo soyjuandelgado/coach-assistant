@@ -72,14 +72,12 @@ export class CoacheesController {
   /**
    *
    * @param {coacheeId} coachee id
-   * @returns {Coachee} deleted coachee
    */
   @Delete(':coacheeId')
   @ApiOperation({ summary: 'Delete coachee' })
   @ApiResponse({
     status: 200,
-    description: 'Coachee data',
-    type: Coachee,
+    description: 'Coachee deleted',
   })
   delete(@Param('coacheeId') coacheeId: string): Promise<Coachee> {
     return this.coacheesService.delete(coacheeId);

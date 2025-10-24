@@ -70,14 +70,12 @@ export class UsersController {
   /**
    *
    * @param {userId} user id
-   * @returns {User} deleted user
    */
   @Delete(':userId')
   @ApiOperation({ summary: 'Delete user' })
   @ApiResponse({
     status: 200,
-    description: 'User data',
-    type: User,
+    description: 'User deleted',
   })
   delete(@Param('userId') userId: string): Promise<User> {
     return this.usersService.delete(userId);

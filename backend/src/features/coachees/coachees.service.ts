@@ -39,8 +39,12 @@ export class CoacheesService {
     return this.coacheesRepository.save(newCoachee);
   }
 
-  delete(coacheeId: string): Promise<any> {
-    return this.coacheesRepository.delete({ id: coacheeId });
+  async delete(coacheeId: string): Promise<any> {
+    const result = await this.coacheesRepository.delete({ id: coacheeId });
+    if (result.affected === 0) {
+      this.logger.error('delete: Coachee not found.');
+      throw new NotFoundException('Coachee not found');
+    }
   }
 
   async softRemove(coacheeId: string): Promise<Coachee> {

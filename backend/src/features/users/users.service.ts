@@ -33,8 +33,12 @@ export class UsersService {
     return this.usersRepository.save(newUser);
   }
 
-  delete(userId: string): Promise<any> {
-    return this.usersRepository.delete({ id: userId });
+  async delete(userId: string): Promise<any> {
+    const result = await this.usersRepository.delete(userId);
+    if (result.affected === 0) {
+      this.logger.error('delete: User not found.');
+      throw new NotFoundException('User not found');
+    }
   }
 
   async softRemove(userId: string): Promise<User> {
