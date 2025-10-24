@@ -1,6 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { IsBoolean, IsNumber, IsOptional, IsString } from 'class-validator';
-import { CreateDateColumn, DeleteDateColumn, UpdateDateColumn } from 'typeorm';
 
 export class ProcessDto {
   @ApiProperty({ example: 'Directivo' })
@@ -21,16 +20,4 @@ export class ProcessDto {
   @IsOptional()
   @IsString()
   goal?: string;
-
-  @ApiProperty({ example: '2025-10-21T08:23:24.000Z' })
-  @CreateDateColumn()
-  created_at?: Date;
-
-  @ApiProperty({ example: '2025-10-21T08:23:24.000Z' })
-  @UpdateDateColumn()
-  updated_at?: Date;
-
-  @ApiProperty({ example: '2025-10-21T08:23:24.000Z' })
-  @DeleteDateColumn()
-  deleted_at?: Date;
 }
