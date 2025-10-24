@@ -82,7 +82,9 @@ export class CoacheesService {
         tap({
           next: () => {
             // Usa el método 'update' para filtrar y eliminar la reunión
-            this._coachees.update((currentCoachees) => currentCoachees.filter((c) => c.id !== coacheeId));
+            this._coachees.update((currentCoachees) =>
+              currentCoachees.filter((c) => c.id !== coacheeId)
+            );
           },
           error: (err) => {
             console.error('Coachee deleting error', err);
@@ -90,7 +92,7 @@ export class CoacheesService {
         })
       )
       .subscribe();
-  }  
+  }
 
   removeCoachee(coacheeId: string): void {
     this.api
@@ -99,7 +101,9 @@ export class CoacheesService {
         tap({
           next: () => {
             // Usa el método 'update' para filtrar y eliminar la reunión
-            this._coachees.update((currentCoachees) => currentCoachees.filter((c) => c.id !== coacheeId));
+            this._coachees.update((currentCoachees) =>
+              currentCoachees.filter((c) => c.id !== coacheeId)
+            );
           },
           error: (err) => {
             console.error('Coachee removing error', err);
@@ -107,8 +111,8 @@ export class CoacheesService {
         })
       )
       .subscribe();
-  }  
-  
+  }
+
   restoreCoachee(coacheeId: string): void {
     this.api
       .restoreCoachee$(coacheeId)
@@ -120,7 +124,7 @@ export class CoacheesService {
             // this._coachees.update((currentCoachees) => [...currentCoachees, coacheeResponse]);
           },
           error: (err) => {
-            console.error('Coachee restorin error', err);
+            console.error('Coachee restoring error', err);
           },
         })
       )

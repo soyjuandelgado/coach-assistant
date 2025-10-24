@@ -5,5 +5,6 @@ export const environment = {
   usersUrl: `${API_URL}users/`,
   rolesUrl: `${API_URL}roles/`,
   coacheesUrl: `${API_URL}coachees/`,
+  processesUrl: `${API_URL}processes/`,
 };
 
