@@ -1,6 +1,6 @@
 import { TestBed } from '@angular/core/testing';
 
-import { FullScreen } from './full-screen';
+import { FullScreen } from './full-screen/full-screen';
 
 describe('FullScreen', () => {
   let service: FullScreen;

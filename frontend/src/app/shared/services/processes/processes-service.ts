@@ -1,6 +1,6 @@
 import { inject, Injectable, signal } from '@angular/core';
 import { ProcessesApiService } from './processes-api-service';
-import { IProcess } from '../models/process.interface';
+import { IProcess } from '../../models/process.interface';
 import { tap } from 'rxjs';
 
 @Injectable({
@@ -14,7 +14,7 @@ export class ProcessesService {
   public readonly processes = this._processes.asReadonly();
   public readonly process = this._process.asReadonly();
 
-  constructor(){
+  constructor() {
     this.getProcesses();
   }
 

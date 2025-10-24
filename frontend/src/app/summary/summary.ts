@@ -1,5 +1,5 @@
 import { Component, inject } from '@angular/core';
-import { FullScreen } from '../shared/services/full-screen';
+import { FullScreen } from '../shared/services/full-screen/full-screen';
 
 import { ToolbarModule } from 'primeng/toolbar';
 import { ButtonModule } from 'primeng/button';

@@ -1,8 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
-import { IProcess } from '../models/process.interface';
-import { IProcessDto } from '../models/process.dto';
-import { environment } from '../../../environments/environment';
+import { IProcess } from '../../models/process.interface';
+import { IProcessDto } from '../../models/process.dto';
+import { environment } from '../../../../environments/environment';
 
 @Injectable({
   providedIn: 'root',

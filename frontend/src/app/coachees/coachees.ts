@@ -2,12 +2,12 @@ import { Component, inject, signal } from '@angular/core';
 import { TableModule } from 'primeng/table';
 import { ButtonModule } from 'primeng/button';
 import { ToolbarModule } from 'primeng/toolbar';
-import { FullScreen } from '../shared/services/full-screen';
+import { FullScreen } from '../shared/services/full-screen/full-screen';
 import { Router } from '@angular/router';
-import { CoacheesService } from '../shared/services/coachees-service';
+import { CoacheesService } from '../shared/services/coachees/coachees-service';
 import { ICoachee } from '../shared/models/coachee.interface';
-import { ProcessesService } from '../shared/services/processes-service';
-import { IProcess } from '../shared/models/process.interface';
+// import { ProcessesService } from '../shared/services/processes/processes-service';
+// import { IProcess } from '../shared/models/process.interface';
 
 @Component({
   selector: 'app-coachees',

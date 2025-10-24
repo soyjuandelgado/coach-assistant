@@ -1,6 +1,6 @@
 import { inject, Injectable, signal } from '@angular/core';
 import { CoacheesApiService } from './coachees-api-service';
-import { ICoachee } from '../models/coachee.interface';
+import { ICoachee } from '../../models/coachee.interface';
 import { tap } from 'rxjs';
 
 @Injectable({

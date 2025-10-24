@@ -17,7 +17,7 @@ import { TabsModule } from 'primeng/tabs';
 import { DialogModule } from 'primeng/dialog';
 import { Router } from '@angular/router';
 
-import { FullScreen } from '../shared/services/full-screen';
+import { FullScreen } from '../shared/services/full-screen/full-screen';
 
 interface Emotion {
   name: string;
