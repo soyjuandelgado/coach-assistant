@@ -1,4 +1,9 @@
-import { Injectable, Logger, NotFoundException } from '@nestjs/common';
+import {
+  BadRequestException,
+  Injectable,
+  Logger,
+  NotFoundException,
+} from '@nestjs/common';
 import { Role } from './role.entity';
 import { Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
@@ -12,8 +17,8 @@ export class RolesService {
     @InjectRepository(Role) private rolesRepository: Repository<Role>,
   ) {}
 
-  async findAll(): Promise<Role[]> {
-    return await this.rolesRepository.find();
+  findAll(): Promise<Role[]> {
+    return this.rolesRepository.find();
   }
   async find(roleId: string): Promise<Role> {
     const role = await this.rolesRepository.findOne({ where: { id: roleId } });
@@ -27,8 +32,15 @@ export class RolesService {
     return this.rolesRepository.save(newRole);
   }
   async delete(roleId: string): Promise<any> {
-    //TODO: check no user with this role
-    return await this.rolesRepository.delete({ id: roleId });
+    const roleWithUsers = await this.rolesRepository.findOne({
+      where: { id: roleId },
+      relations: ['users'],
+    });
+    if (!roleWithUsers) throw new NotFoundException('Role not found');
+    if (roleWithUsers.users.length > 0) {
+      throw new BadRequestException('Cannot delete role assigned to users');
+    }
+    return this.rolesRepository.delete({ id: roleId });
   }
   async update(roleId: string, newRole: RoleDto): Promise<Role> {
     const toUpdate = await this.rolesRepository.findOne({

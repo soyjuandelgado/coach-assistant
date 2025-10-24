@@ -11,23 +11,27 @@
         </ng-template>
     </p-toolbar>
     <div class="w-full flex flex-col">
-        <label for="coachees" class="block mb-1 font-medium">Coachees activos <p-button icon="pi pi-info-circle"
-                text severity="info" [size]="'small'" /></label>
+        <label for="coachees" class="block mb-1 font-medium">Coachees activos <p-button icon="pi pi-info-circle" text
+                severity="info" [size]="'small'" /></label>
         <p-table [value]="coachees()" selectionMode="single" [(selection)]="selectedCoachee" dataKey="id"
             scrollHeight="flex" id="coachee" [size]="'small'" disabled>
             <ng-template #header>
                 <tr>
-                    <th [width]="'80%'">Nombre</th>
+                    <th [width]="'70%'">Nombre</th>
                     <th>Acciones</th>
                 </tr>
             </ng-template>
             <ng-template pTemplate="body" let-coachee>
                 <tr [pSelectableRow]="coachee">
-                    <td>{{ coachee.name }}</td>
+                    <td>{{ coachee.name + " " + coachee.surname + (coachee.middlename ? " " + coachee.middlename : "")
+                        }}
+                    </td>
                     <td>
-                        <p-button icon="pi pi-id-card" text severity="info"/>
-                        <p-button icon="pi pi-file" text severity="warn" (onClick)="goSession()" />
-                        <p-button icon="pi pi-folder" text severity="help" (onClick)="goSummary()" />
+                        <p-button icon="pi pi-id-card" text severity="info" tooltip="Ver perfil" />
+                        <p-button icon="pi pi-file-plus" text severity="success" tooltip="Nueva Sesión"
+                            (onClick)="goSession()" />
+                        <p-button icon="pi pi-folder-plus" text severity="help" tooltip="Nuevo Resumen" (onClick)="goSummary()" />
+                        <p-button icon="pi pi-history" text severity="warn" tooltip="Ver historial" />
                     </td>
                 </tr>
             </ng-template>

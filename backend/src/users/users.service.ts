@@ -13,8 +13,8 @@ export class UsersService {
     @InjectRepository(Role) private rolesRepository: Repository<Role>,
   ) {}
 
-  async findAll(): Promise<User[]> {
-    return await this.usersRepository.find({ relations: ['roles'] });
+  findAll(): Promise<User[]> {
+    return this.usersRepository.find({ relations: ['roles'] });
   }
 
   async find(userId: string): Promise<User> {
@@ -33,25 +33,38 @@ export class UsersService {
     return this.usersRepository.save(newUser);
   }
 
-  async delete(userId: string): Promise<any> {
-    // return await this.usersRepository.delete({ id: userId });
-    const inactive = { is_active: false };
-    const toUpdate = await this.usersRepository.findOne({
-      where: { id: userId },
-    });
-    if (!toUpdate) {
-      this.logger.error('delete: User not found');
+  delete(userId: string): Promise<any> {
+    return this.usersRepository.delete({ id: userId });
+  }
+
+  async softRemove(userId: string): Promise<User> {
+    const user = await this.usersRepository.findOneBy({ id: userId });
+    if (!user) {
+      this.logger.error('softRemove: User not found.');
       throw new NotFoundException('User not found');
     }
-    const updated = Object.assign(toUpdate, inactive);
-    return this.usersRepository.save(updated);
+    return this.usersRepository.softRemove(user);
+  }
+
+  async restore(userId: string): Promise<User> {
+    const result = await this.usersRepository.restore(userId);
+    if (result.affected === 0) {
+      this.logger.error('restore: User not found or not soft deleted.');
+      throw new NotFoundException('User not found or not soft deleted');
+    }
+    const user = await this.usersRepository.findOne({
+      where: { id: userId },
+      withDeleted: true,
+    });
+    if (!user) {
+      this.logger.error('restore: User not found.');
+      throw new NotFoundException('User not found');
+    }
+    return user;
   }
 
   async update(userId: string, newUser: UserDto): Promise<User> {
-    console.log(newUser);
-    const toUpdate = await this.usersRepository.findOne({
-      where: { id: userId },
-    });
+    const toUpdate = await this.usersRepository.findOneBy({ id: userId });
     if (!toUpdate) {
       this.logger.error('update: User not found');
       throw new NotFoundException('User not found');

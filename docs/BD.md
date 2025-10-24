@@ -105,11 +105,18 @@ erDiagram
     }
 
     COACHEE {
-        CHAR(36) id PK
-        nombre
-        apellido1
-        apellido2
-        datos
+        CHAR(36) id PK UUID
+        VARCHAR name
+        VARCHAR surname
+        VARCHAR middlename
+        VARCHAR email
+        VARCHAR address
+        VARCHAR phone
+        DATE birthdate
+        VARCHAR dni
+        VARCHAR company
+        VARCHAR company_role
+        VARCHAR company_address
     }
 
     COACH {
@@ -124,7 +131,8 @@ erDiagram
         INT id PK
         tipo
         duracion_sesion
-        VARCHAR(50) metodologia 
+        VARCHAR(50) metodologia
+        VARCHAR objetivo
     }
 
     PALABRA {
