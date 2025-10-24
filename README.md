@@ -24,6 +24,7 @@
       - [Usuarios](#usuarios)
       - [Roles](#roles)
       - [Coachees](#coachees-1)
+      - [Procesos](#procesos)
   - [💻Tecnologías Utilizadas](#tecnologías-utilizadas)
     - [Frontend](#frontend)
     - [Backend](#backend-1)
@@ -141,7 +142,6 @@ erDiagram
 erDiagram
   COACHEES {
     CHAR(36) id PK "UUID"
-    VARCHAR id PK 
     VARCHAR name 
     VARCHAR surname 
     VARCHAR middlename NULL 
@@ -161,6 +161,22 @@ erDiagram
 
 USERS ||--o{ COACHEES : has
 ```
+
+#### Procesos
+
+<!-- ```mermaid
+erDiagram
+  PROCESSES {
+    CHAR(36) id PK "UUID" 
+    VARCHAR type 
+    INTEGER duration_minutes 
+    BOOLEAN is_grow 
+    VARCHAR goal NULL 
+    CHAR(36) coachee FK 
+  }
+
+COACHEES ||--o{ PROCESSES : has  
+``` -->
 
 ## 💻Tecnologías Utilizadas
 
