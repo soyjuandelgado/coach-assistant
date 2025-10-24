@@ -25,7 +25,7 @@ export class RolesController {
   @Get()
   @ApiOperation({ summary: 'Get roles list' })
   @ApiResponse({
-    status: 201,
+    status: 200,
     description: 'Roles list',
     type: Role,
   })
@@ -41,7 +41,7 @@ export class RolesController {
   @Get(':roleId')
   @ApiOperation({ summary: 'Get role' })
   @ApiResponse({
-    status: 201,
+    status: 200,
     description: 'Role data',
     type: Role,
   })
@@ -73,7 +73,7 @@ export class RolesController {
   @Delete(':roleId')
   @ApiOperation({ summary: 'Delete role' })
   @ApiResponse({
-    status: 201,
+    status: 200,
     description: 'Role data',
     type: Role,
   })
@@ -90,7 +90,7 @@ export class RolesController {
   @Put(':roleId')
   @ApiOperation({ summary: 'Update role' })
   @ApiResponse({
-    status: 201,
+    status: 200,
     description: 'Role data',
     type: Role,
   })

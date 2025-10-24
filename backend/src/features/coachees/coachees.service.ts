@@ -3,7 +3,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Coachee } from './coachee.entity';
 import { Repository } from 'typeorm';
 import { CoacheeDto } from './coachee.dto';
-import { User } from 'src/users/user.entity';
+import { User } from 'src/features/users/user.entity';
 
 @Injectable()
 export class CoacheesService {
