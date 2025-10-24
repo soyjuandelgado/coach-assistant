@@ -23,13 +23,15 @@
             </ng-template>
             <ng-template pTemplate="body" let-coachee>
                 <tr [pSelectableRow]="coachee">
-                    <td>{{ coachee.name + " " + coachee.surname + (coachee.middlename ? " " + coachee.middlename : "") }}
+                    <td>{{ coachee.name + " " + coachee.surname + (coachee.middlename ? " " + coachee.middlename : "")
+                        }}
                     </td>
                     <td>
-                        <p-button icon="pi pi-id-card" text severity="info"/>
-                        <p-button icon="pi pi-file-plus" text severity="success" (onClick)="goSession()" />
-                        <p-button icon="pi pi-folder-plus" text severity="help" (onClick)="goSummary()" />
-                        <p-button icon="pi pi-history" text severity="warn" />
+                        <p-button icon="pi pi-id-card" text severity="info" tooltip="Ver perfil" />
+                        <p-button icon="pi pi-file-plus" text severity="success" tooltip="Nueva Sesión"
+                            (onClick)="goSession()" />
+                        <p-button icon="pi pi-folder-plus" text severity="help" tooltip="Nuevo Resumen" (onClick)="goSummary()" />
+                        <p-button icon="pi pi-history" text severity="warn" tooltip="Ver historial" />
                     </td>
                 </tr>
             </ng-template>
