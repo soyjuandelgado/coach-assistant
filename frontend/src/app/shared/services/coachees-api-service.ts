@@ -15,8 +15,9 @@ export class CoacheesApiService {
     const {id: _id, ...dtoWithoutCoach } = coachee;
     const dto: ICoacheeDto = {
       ...dtoWithoutCoach,
-      birthdate: coachee.birthdate?.toLocaleDateString(),
+      birthdate: coachee.birthdate?.toISOString(),
     };
+    console.log(dto);
     return dto;
   }
   getCoachees$() {

@@ -49,8 +49,9 @@ export class Coachees {
   // createCoachee() {
   //   const userId = '0241cf11-82ba-4804-abe8-f1d958f30183';
   //   const coachee: ICoachee = {
-  //     name: 'Pedro',
-  //     surname: 'Perez',
+  //     name: 'Maria',
+  //     surname: 'García',
+  //     birthdate: new Date("2000-10-24"),
   //   };
   //   this.service.createCoachee(userId, coachee);
   // }
