@@ -22,6 +22,10 @@ export const routes: Routes = [
     component: Coachees,
   },
   {
+    path: 'coachee/:id',
+    loadComponent: () => import('./coachee/coachee').then((m) => m.Coachee),
+  },
+  {
     path: '**',
     redirectTo: '',
   },

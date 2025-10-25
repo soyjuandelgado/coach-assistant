@@ -3,7 +3,7 @@ import { TableModule } from 'primeng/table';
 import { ButtonModule } from 'primeng/button';
 import { ToolbarModule } from 'primeng/toolbar';
 import { FullScreen } from '../shared/services/full-screen/full-screen';
-import { Router } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { CoacheesService } from '../shared/services/coachees/coachees-service';
 import { ICoachee } from '../shared/models/coachee.interface';
 // import { ProcessesService } from '../shared/services/processes/processes-service';
@@ -11,7 +11,7 @@ import { ICoachee } from '../shared/models/coachee.interface';
 
 @Component({
   selector: 'app-coachees',
-  imports: [TableModule, ButtonModule, ToolbarModule],
+  imports: [TableModule, ButtonModule, ToolbarModule, RouterLink],
   templateUrl: './coachees.html',
   styleUrl: './coachees.css',
 })
@@ -42,6 +42,10 @@ export class Coachees {
   goSession() {
     this.router.navigate(['/session']);
   }
+
+  // goCoacheeProfile(coacheeId: string) {
+  //   this.router.navigate([`/coachee/${coacheeId}`]);
+  // }
 
   // createCoachee() {
   //   const userId = '0241cf11-82ba-4804-abe8-f1d958f30183';

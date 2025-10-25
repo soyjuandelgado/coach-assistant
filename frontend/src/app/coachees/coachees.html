@@ -27,7 +27,8 @@
                         }}
                     </td>
                     <td>
-                        <p-button icon="pi pi-id-card" text severity="info" tooltip="Ver perfil" />
+                        <p-button icon="pi pi-id-card" text severity="info" tooltip="Ver perfil"
+                            [routerLink]="['/coachee', coachee.id]" />
                         <p-button icon="pi pi-file-plus" text severity="success" tooltip="Nueva Sesión"
                             (onClick)="goSession()" />
                         <p-button icon="pi pi-folder-plus" text severity="help" tooltip="Nuevo Resumen"
@@ -37,4 +38,6 @@
                 </tr>
             </ng-template>
         </p-table>
+        <p-button class="self-end pt-3" icon="pi pi-user-plus" severity="info" label="Nuevo Coachee"
+            tooltip="Nuevo Coachee" [routerLink]="['/coachee', '']" />
     </div>
