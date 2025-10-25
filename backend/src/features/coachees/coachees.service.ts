@@ -14,7 +14,7 @@ export class CoacheesService {
   ) {}
 
   findAll(): Promise<Coachee[]> {
-    return this.coacheesRepository.find();
+    return this.coacheesRepository.find(); //{ withDeleted: true }
   }
 
   async find(coacheeId: string): Promise<Coachee> {
