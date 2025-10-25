@@ -1,41 +1,40 @@
 import { Component, inject, signal } from '@angular/core';
+import { Router, RouterLink } from '@angular/router';
 import { TableModule } from 'primeng/table';
 import { ButtonModule } from 'primeng/button';
 import { ToolbarModule } from 'primeng/toolbar';
+import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { FullScreen } from '../shared/services/full-screen/full-screen';
-import { Router, RouterLink } from '@angular/router';
 import { CoacheesService } from '../shared/services/coachees/coachees-service';
 import { ICoachee } from '../shared/models/coachee.interface';
+import { ConfirmationService } from 'primeng/api';
 // import { ProcessesService } from '../shared/services/processes/processes-service';
 // import { IProcess } from '../shared/models/process.interface';
 
 @Component({
   selector: 'app-coachees',
-  imports: [TableModule, ButtonModule, ToolbarModule, RouterLink],
+  imports: [TableModule, ButtonModule, ToolbarModule, ConfirmDialogModule, RouterLink],
   templateUrl: './coachees.html',
   styleUrl: './coachees.css',
+  providers: [ConfirmationService],
 })
 export class Coachees {
   private fullScreenService = inject(FullScreen);
   // Exponemos la señal del servicio a la plantilla
   public isFullScreen = this.fullScreenService.isFullScreen;
-
+  
   // Método para llamar al servicio
   public toggleFullScreen(): void {
     this.fullScreenService.toggle();
   }
-
-  service = inject(CoacheesService);
-  coachees = this.service.coachees;
+  
   private router = inject(Router);
-
-  visible = false;
-  visibleNotes = false;
-
-  showDialogNotes() {
-    this.visibleNotes = true;
-  }
-
+  private confirmationService = inject(ConfirmationService);
+  private service = inject(CoacheesService);
+  coachees = this.service.coachees;
+  
+  selectedCoachee = signal<ICoachee | undefined>(undefined);
+ 
   goSummary() {
     this.router.navigate(['/summary']);
   }
@@ -43,41 +42,33 @@ export class Coachees {
     this.router.navigate(['/session']);
   }
 
-  // goCoacheeProfile(coacheeId: string) {
-  //   this.router.navigate([`/coachee/${coacheeId}`]);
-  // }
+  showRemoveDialog(event: Event, coacheeId: string) {
+    this.confirmationService.confirm({
+      target: event.target as EventTarget,
+      message: 'El Coachee va a ser eliminado.</br>¿Estás seguro?',
+      header: '¡Atención!',
+      icon: 'pi pi-exclamation-triangle',
+      rejectLabel: 'Cancelar',
+      rejectButtonProps: {
+        label: 'Cancelar',
+        severity: 'secondary',
+        outlined: true,
+      },
+      acceptButtonProps: {
+        label: 'Eliminar',
+        severity: 'danger',
+      },
 
-  // createCoachee() {
-  //   const userId = '0241cf11-82ba-4804-abe8-f1d958f30183';
-  //   const coachee: ICoachee = {
-  //     name: 'Maria',
-  //     surname: 'García',
-  //     birthdate: new Date("2000-10-24"),
-  //   };
-  //   this.service.createCoachee(userId, coachee);
-  // }
+      accept: () => {
+        this.removeCoachee(coacheeId);
+      },
+    });
+  }
 
-  // updateCoachee(coacheeId: string) {
-  //   const coachee: ICoachee = {
-  //     name: 'Modificado',
-  //     surname: 'Modificado',
-  //   };
-  //   this.service.updateCoachee(coacheeId, coachee);
-  // }
+  removeCoachee(coacheeId: string) {
+    this.service.removeCoachee(coacheeId);
+  }
 
-  // deleteCoachee(coacheeId: string) {
-  //   this.service.deleteCoachee(coacheeId);
-  // }
-
-  // removeCoachee(coacheeId: string) {
-  //   this.service.removeCoachee(coacheeId);
-  // }
-
-  // restoreCoachee() {
-  //   this.service.restoreCoachee("765a5370-0f61-40c9-97c9-c3d34693de4b");
-  // }
-
-  selectedCoachee = signal<ICoachee | undefined>(undefined);
 
   // processServ = inject(ProcessesService);
   // processes = this.processServ.processes;
