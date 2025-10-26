@@ -1,7 +1,7 @@
 import { Injectable, Logger, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Coachee } from './coachee.entity';
-import { Repository } from 'typeorm';
+import { Equal, Repository } from 'typeorm';
 import { CoacheeDto } from './coachee.dto';
 import { User } from 'src/features/users/user.entity';
 
@@ -18,7 +18,9 @@ export class CoacheesService {
   }
 
   async find(coacheeId: string): Promise<Coachee> {
-    const coachee = await this.coacheesRepository.findOneBy({ id: coacheeId });
+    const coachee = await this.coacheesRepository.findOneBy({
+      id: Equal(coacheeId),
+    });
     if (!coachee) {
       this.logger.error('find: Coachee not found.');
       throw new NotFoundException('Coachee not found.');
@@ -27,7 +29,7 @@ export class CoacheesService {
   }
 
   async create(userId: string, newCoacheeDto: CoacheeDto): Promise<Coachee> {
-    const user = await this.usersRepository.findOneBy({ id: userId });
+    const user = await this.usersRepository.findOneBy({ id: Equal(userId) });
     if (!user) {
       this.logger.error('create: User not found.');
       throw new NotFoundException('User not found.');
@@ -40,7 +42,9 @@ export class CoacheesService {
   }
 
   async delete(coacheeId: string): Promise<any> {
-    const result = await this.coacheesRepository.delete({ id: coacheeId });
+    const result = await this.coacheesRepository.delete({
+      id: Equal(coacheeId),
+    });
     if (result.affected === 0) {
       this.logger.error('delete: Coachee not found.');
       throw new NotFoundException('Coachee not found');
@@ -48,7 +52,9 @@ export class CoacheesService {
   }
 
   async softRemove(coacheeId: string): Promise<Coachee> {
-    const coachee = await this.coacheesRepository.findOneBy({ id: coacheeId });
+    const coachee = await this.coacheesRepository.findOneBy({
+      id: Equal(coacheeId),
+    });
     if (!coachee) {
       this.logger.error('softRemove: Coachee not found.');
       throw new NotFoundException('Coachee not found');
@@ -63,7 +69,7 @@ export class CoacheesService {
       throw new NotFoundException('Coachee not found or not soft deleted');
     }
     const coachee = await this.coacheesRepository.findOne({
-      where: { id: coacheeId },
+      where: { id: Equal(coacheeId) },
       withDeleted: true,
     });
     if (!coachee) {
@@ -74,7 +80,9 @@ export class CoacheesService {
   }
 
   async update(coacheeId: string, newCoachee: CoacheeDto): Promise<Coachee> {
-    const toUpdate = await this.coacheesRepository.findOneBy({ id: coacheeId });
+    const toUpdate = await this.coacheesRepository.findOneBy({
+      id: Equal(coacheeId),
+    });
     if (!toUpdate) {
       this.logger.error('update: Coacchee not found.');
       throw new NotFoundException('Coacchee not found.');

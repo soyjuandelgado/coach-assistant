@@ -2,7 +2,7 @@ import { Injectable, Logger, NotFoundException } from '@nestjs/common';
 import { UserDto } from './user.dto';
 import { User } from './user.entity';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
+import { Equal, Repository } from 'typeorm';
 import { Role } from 'src/features/roles/role.entity';
 
 @Injectable()
@@ -19,7 +19,7 @@ export class UsersService {
 
   async find(userId: string): Promise<User> {
     const user = await this.usersRepository.findOne({
-      where: { id: userId },
+      where: { id: Equal(userId) },
       relations: ['roles'],
     });
     if (!user) {
@@ -42,7 +42,7 @@ export class UsersService {
   }
 
   async softRemove(userId: string): Promise<User> {
-    const user = await this.usersRepository.findOneBy({ id: userId });
+    const user = await this.usersRepository.findOneBy({ id: Equal(userId) });
     if (!user) {
       this.logger.error('softRemove: User not found.');
       throw new NotFoundException('User not found');
@@ -57,7 +57,7 @@ export class UsersService {
       throw new NotFoundException('User not found or not soft deleted');
     }
     const user = await this.usersRepository.findOne({
-      where: { id: userId },
+      where: { id: Equal(userId) },
       withDeleted: true,
     });
     if (!user) {
@@ -68,7 +68,9 @@ export class UsersService {
   }
 
   async update(userId: string, newUser: UserDto): Promise<User> {
-    const toUpdate = await this.usersRepository.findOneBy({ id: userId });
+    const toUpdate = await this.usersRepository.findOneBy({
+      id: Equal(userId),
+    });
     if (!toUpdate) {
       this.logger.error('update: User not found');
       throw new NotFoundException('User not found');
@@ -79,14 +81,14 @@ export class UsersService {
 
   async addRole(userId: string, roleId: string): Promise<User> {
     const user = await this.usersRepository.findOne({
-      where: { id: userId },
+      where: { id: Equal(userId) },
       relations: ['roles'],
     });
     if (!user) {
       this.logger.error('addRole: User not found');
       throw new NotFoundException('User not found.');
     }
-    const role = await this.rolesRepository.findOneBy({ id: roleId });
+    const role = await this.rolesRepository.findOneBy({ id: Equal(roleId) });
     if (!role) {
       this.logger.error('addRole: User not found');
       throw new NotFoundException('Role not found.');
@@ -100,7 +102,7 @@ export class UsersService {
 
   async removeRole(userId: string, roleId: string): Promise<User> {
     const user = await this.usersRepository.findOne({
-      where: { id: userId },
+      where: { id: Equal(userId) },
       relations: ['roles'],
     });
     if (!user) {

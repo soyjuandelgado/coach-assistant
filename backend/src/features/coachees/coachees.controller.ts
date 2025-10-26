@@ -4,6 +4,7 @@ import {
   Delete,
   Get,
   Param,
+  ParseUUIDPipe,
   Patch,
   Post,
   Put,
@@ -46,7 +47,9 @@ export class CoacheesController {
     description: 'Coachee data',
     type: Coachee,
   })
-  find(@Param('coacheeId') coacheeId: string): Promise<Coachee> {
+  find(
+    @Param('coacheeId', new ParseUUIDPipe()) coacheeId: string,
+  ): Promise<Coachee> {
     return this.coacheesService.find(coacheeId);
   }
 
@@ -63,7 +66,7 @@ export class CoacheesController {
     type: Coachee,
   })
   create(
-    @Param('userId') userId: string,
+    @Param('userId', new ParseUUIDPipe()) userId: string,
     @Body() newCoachee: CoacheeDto,
   ): Promise<Coachee> {
     return this.coacheesService.create(userId, newCoachee);
@@ -79,7 +82,9 @@ export class CoacheesController {
     status: 200,
     description: 'Coachee deleted',
   })
-  delete(@Param('coacheeId') coacheeId: string): Promise<Coachee> {
+  delete(
+    @Param('coacheeId', new ParseUUIDPipe()) coacheeId: string,
+  ): Promise<Coachee> {
     return this.coacheesService.delete(coacheeId);
   }
 
@@ -97,7 +102,7 @@ export class CoacheesController {
     type: Coachee,
   })
   update(
-    @Param('coacheeId') coacheeId: string,
+    @Param('coacheeId', new ParseUUIDPipe()) coacheeId: string,
     @Body() newCoachee: CoacheeDto,
   ): Promise<Coachee> {
     return this.coacheesService.update(coacheeId, newCoachee);
@@ -115,7 +120,9 @@ export class CoacheesController {
     description: 'Coachee data',
     type: Coachee,
   })
-  softRemove(@Param('coacheeId') coacheeId: string): Promise<Coachee> {
+  softRemove(
+    @Param('coacheeId', new ParseUUIDPipe()) coacheeId: string,
+  ): Promise<Coachee> {
     return this.coacheesService.softRemove(coacheeId);
   }
 
@@ -131,7 +138,9 @@ export class CoacheesController {
     description: 'Coachee data',
     type: Coachee,
   })
-  restore(@Param('coacheeId') coacheeId: string): Promise<Coachee> {
+  restore(
+    @Param('coacheeId', new ParseUUIDPipe()) coacheeId: string,
+  ): Promise<Coachee> {
     return this.coacheesService.restore(coacheeId);
   }
 }

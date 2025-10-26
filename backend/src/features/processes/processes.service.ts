@@ -1,7 +1,7 @@
 import { Injectable, Logger, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Process } from './process.entity';
-import { Repository } from 'typeorm';
+import { Equal, Repository } from 'typeorm';
 import { ProcessDto } from './process.dto';
 import { Coachee } from '../coachees/coachee.entity';
 
@@ -18,7 +18,9 @@ export class ProcessesService {
   }
 
   async find(processId: string): Promise<Process> {
-    const process = await this.processesRepository.findOneBy({ id: processId });
+    const process = await this.processesRepository.findOneBy({
+      id: Equal(processId),
+    });
     if (!process) {
       this.logger.error('find: Process not found.');
       throw new NotFoundException('Process not found.');
@@ -27,7 +29,9 @@ export class ProcessesService {
   }
 
   async create(coacheeId: string, newProcessDto: ProcessDto): Promise<Process> {
-    const coachee = await this.coacheesRepository.findOneBy({ id: coacheeId });
+    const coachee = await this.coacheesRepository.findOneBy({
+      id: Equal(coacheeId),
+    });
     if (!coachee) {
       this.logger.error('create: Coachee not found.');
       throw new NotFoundException('Coachee not found.');
@@ -40,7 +44,9 @@ export class ProcessesService {
   }
 
   async delete(processId: string): Promise<any> {
-    const result = await this.processesRepository.delete({ id: processId });
+    const result = await this.processesRepository.delete({
+      id: Equal(processId),
+    });
     if (result.affected === 0) {
       this.logger.error('delete: Process not found.');
       throw new NotFoundException('Process not found');
@@ -48,7 +54,9 @@ export class ProcessesService {
   }
 
   async softRemove(processId: string): Promise<Process> {
-    const process = await this.processesRepository.findOneBy({ id: processId });
+    const process = await this.processesRepository.findOneBy({
+      id: Equal(processId),
+    });
     if (!process) {
       this.logger.error('remove: Process not found.');
       throw new NotFoundException('Process not found.');
@@ -57,13 +65,15 @@ export class ProcessesService {
   }
 
   async restore(processId: string): Promise<Process> {
-    const result = await this.processesRepository.restore({ id: processId });
+    const result = await this.processesRepository.restore({
+      id: Equal(processId),
+    });
     if (result.affected === 0) {
       this.logger.error('restore: Process not found or not soft deleted.');
       throw new NotFoundException('Process not found or not soft deleted');
     }
     const process = await this.processesRepository.findOne({
-      where: { id: processId },
+      where: { id: Equal(processId) },
       withDeleted: true,
     });
     if (!process) {
@@ -75,7 +85,7 @@ export class ProcessesService {
 
   async update(processId: string, newProcess: ProcessDto): Promise<Process> {
     const toUpdate = await this.processesRepository.findOneBy({
-      id: processId,
+      id: Equal(processId),
     });
     if (!toUpdate) {
       this.logger.error('update: Process not found.');
