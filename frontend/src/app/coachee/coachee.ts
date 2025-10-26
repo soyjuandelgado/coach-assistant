@@ -88,16 +88,15 @@ export class Coachee {
     });
 
     effect(() => {
-        const currentError = this.error();
-        if (!this.loading()) {
-          if (currentError) {
-            this.showErrorDialog(currentError);
-          } 
-          // else {
-
-          //   this.showAceptDialog('Cambios guardados correctamente.');
-          // }
+      const currentError = this.error();
+      if (!this.loading()) {
+        if (currentError) {
+          this.showErrorDialog(currentError);
         }
+        // else {
+        //   this.showAceptDialog('Cambios guardados correctamente.');
+        // }
+      }
     });
   }
 
@@ -107,18 +106,22 @@ export class Coachee {
       header: 'Error',
       icon: 'pi pi-times-circle',
       rejectLabel: 'Cerrar',
+      rejectVisible: true,
       acceptVisible: false,
     });
   }
+
   showWarningDialog(warning: string) {
     this.confirmationService.confirm({
       message: warning,
       header: '¡Atención!',
       icon: 'pi pi-exclamation-triangle',
       rejectLabel: 'Cerrar',
+      rejectVisible: true,
       acceptVisible: false,
     });
   }
+
   showAceptDialog(message: string) {
     this.confirmationService.confirm({
       message: message,
@@ -126,24 +129,24 @@ export class Coachee {
       icon: 'pi pi.pi-info-circle',
       acceptLabel: 'Aceptar',
       rejectVisible: false,
+      acceptVisible: true,
     });
   }
 
   onSubmit() {
     this.coacheeForm.markAllAsTouched();
-    if (this.coacheeForm.valid) {
-      // console.log('Formulario válido, enviando:', this.coacheeForm.getRawValue());
-      const coacheeData = this.coacheeForm.getRawValue() as ICoachee;
-      if (coacheeData.id) {
-        this.service.updateCoachee(coacheeData.id, coacheeData);
-      } else {
-        this.service.createCoachee(this.userId, coacheeData);
-      }
-      // this.router.navigate(['/coachees']);
-    } else {
+    if (!this.coacheeForm.valid) {
       console.warn('El formulario contiene errores.');
       this.showWarningDialog('El formulario contiene errores.');
+      return;
     }
+    const coacheeData = this.coacheeForm.getRawValue() as ICoachee;
+    if (coacheeData.id) {
+      this.service.updateCoachee(coacheeData.id, coacheeData);
+    } else {
+      this.service.createCoachee(this.userId, coacheeData);
+    }
+    // this.router.navigate(['/coachees']);
   }
 
   goCoachees() {
