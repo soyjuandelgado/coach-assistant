@@ -93,15 +93,16 @@ export class Coachees {
 
   // processServ = inject(ProcessesService);
   // processes = this.processServ.processes;
-  // selectedProcess = signal<IProcess | undefined>(undefined);
 
-  // createP() {
-  //   const coacheeId = '466c16f6-aecb-47f4-94da-aa4c34f023d1';
+  // protected coacheeId = '34201a69-a4a0-4475-b94c-fbd7fb67d011';
+  // protected processId ='052e3cb7-2edc-4f58-b5f3-8e50bcd81ac2';
+  // createP(coacheeId: string) {
   //   const process: IProcess = {
   //     type: 'Directivo',
   //     duration_minutes: 90,
   //     is_grow: false,
   //     goal: 'Conseguirlo pronto',
+  //     start_date: new Date(),
   //   };
   //   this.processServ.createProcess(coacheeId, process);
   // }
@@ -112,6 +113,13 @@ export class Coachees {
   //     duration_minutes: 60,
   //     is_grow: true,
   //     goal: 'Conseguirlo pronto y bien',
+  //     frequency_days: 7,
+  //     session_price: 50.05,
+  //     payment_method: 'Transferencia',
+  //     payment_term_days: 30,
+  //     contract_signed: true,
+  //     lodp_signed: true,
+  //     rgpd_signed: true,
   //   };
   //   this.processServ.updateProcess(processId, process);
   // }
@@ -124,7 +132,7 @@ export class Coachees {
   //   this.processServ.removeProcess(processId);
   // }
 
-  // restoreP() {
-  //   this.processServ.restoreProcess("85ce5076-526d-4784-a4aa-f278172d1d9e");
+  // restoreP(processId: string) {
+  //   this.processServ.restoreProcess(processId);
   // }
 }

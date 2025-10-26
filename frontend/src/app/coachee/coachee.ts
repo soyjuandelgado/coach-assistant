@@ -43,6 +43,7 @@ export class Coachee {
     this.fullScreenService.toggle();
   }
 
+  //TODO: use real userId
   private userId = '0241cf11-82ba-4804-abe8-f1d958f30183';
   private service = inject(CoacheesService);
   private router = inject(Router);

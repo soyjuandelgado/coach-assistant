@@ -13,9 +13,9 @@ export class CoacheesApiService {
 
   toDto(coachee: ICoachee): ICoacheeDto {
     // const {id: _id, coach: _coach, ...dtoWithoutCoach } = coachee;
-    const { id: _id, ...dtoWithoutCoach } = coachee;
+    const { id: _id, ...dtoWithoutId } = coachee;
     const dto: ICoacheeDto = {
-      ...dtoWithoutCoach,
+      ...dtoWithoutId,
       birthdate: coachee.birthdate ? new Date(coachee.birthdate).toISOString() : null,
     };
     // console.log(dto);

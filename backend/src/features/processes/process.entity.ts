@@ -21,11 +21,11 @@ export class Process {
   @Column()
   type: string;
 
-  @ApiProperty({ example: '90' })
+  @ApiProperty({ example: 90 })
   @Column()
   duration_minutes: number;
 
-  @ApiProperty({ example: 'true' })
+  @ApiProperty({ example: true })
   @Column()
   is_grow: boolean;
 
@@ -34,6 +34,46 @@ export class Process {
   })
   @Column({ nullable: true })
   goal?: string;
+
+  @ApiProperty({ example: '2025-10-20' })
+  @Column({ nullable: true })
+  start_date?: Date;
+
+  @ApiProperty({ example: '2025-10-20' })
+  @Column({ nullable: true })
+  end_date?: Date;
+
+  @ApiProperty({ example: 7 })
+  @Column({ nullable: true })
+  frequency_days?: number;
+
+  @ApiProperty({ example: 'Observaciones del proceso' })
+  @Column({ type: 'text', nullable: true })
+  observations?: string;
+
+  @ApiProperty({ example: 50.0 })
+  @Column({ type: 'decimal', precision: 10, scale: 2, nullable: true })
+  session_price?: number;
+
+  @ApiProperty({ example: 'Transferencia' })
+  @Column({ nullable: true })
+  payment_method?: string;
+
+  @ApiProperty({ example: 30 })
+  @Column({ nullable: true })
+  payment_term_days?: number;
+
+  @ApiProperty({ example: true })
+  @Column({ default: false })
+  contract_signed: boolean;
+
+  @ApiProperty({ example: true })
+  @Column({ default: false })
+  lodp_signed: boolean;
+
+  @ApiProperty({ example: true })
+  @Column({ default: false })
+  rgpd_signed: boolean;
 
   @ApiProperty({ example: '2025-10-21T08:23:24.000Z' })
   @CreateDateColumn()
