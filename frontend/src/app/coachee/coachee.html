@@ -11,6 +11,7 @@
             <p-button icon="pi pi-sign-out" text severity="danger" (onClick)="goCoachees()" />
         </ng-template>
     </p-toolbar>
+    <p-confirmdialog />
     <form [formGroup]="coacheeForm" (ngSubmit)="onSubmit()">
 
         <div class="grid grid-cols-1 md:grid-cols-2 gap-x-4 gap-y-2">

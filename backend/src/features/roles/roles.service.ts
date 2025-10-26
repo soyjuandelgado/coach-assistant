@@ -5,7 +5,7 @@ import {
   NotFoundException,
 } from '@nestjs/common';
 import { Role } from './role.entity';
-import { Repository } from 'typeorm';
+import { Equal, Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
 import { RoleDto } from './role.dto';
 
@@ -21,7 +21,9 @@ export class RolesService {
     return this.rolesRepository.find();
   }
   async find(roleId: string): Promise<Role> {
-    const role = await this.rolesRepository.findOne({ where: { id: roleId } });
+    const role = await this.rolesRepository.findOne({
+      where: { id: Equal(roleId) },
+    });
     if (!role) {
       this.logger.error('find: Role not found');
       throw new NotFoundException('Role not found');
@@ -33,7 +35,7 @@ export class RolesService {
   }
   async delete(roleId: string): Promise<any> {
     const roleWithUsers = await this.rolesRepository.findOne({
-      where: { id: roleId },
+      where: { id: Equal(roleId) },
       relations: ['users'],
     });
     if (!roleWithUsers) throw new NotFoundException('Role not found');
@@ -48,7 +50,7 @@ export class RolesService {
   }
   async update(roleId: string, newRole: RoleDto): Promise<Role> {
     const toUpdate = await this.rolesRepository.findOne({
-      where: { id: roleId },
+      where: { id: Equal(roleId) },
     });
     if (!toUpdate) {
       this.logger.error('update: Role not found');

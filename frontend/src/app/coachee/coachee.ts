@@ -8,10 +8,12 @@ import { PanelModule } from 'primeng/panel';
 import { DividerModule } from 'primeng/divider';
 import { DatePickerModule } from 'primeng/datepicker';
 import { ToolbarModule } from 'primeng/toolbar';
+import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { CoacheesService } from '../shared/services/coachees/coachees-service';
 import { ICoachee } from '../shared/models/coachee.interface';
 import { Router } from '@angular/router';
 import { FullScreen } from '../shared/services/full-screen/full-screen';
+import { ConfirmationService } from 'primeng/api';
 
 @Component({
   selector: 'app-coachee',
@@ -25,9 +27,11 @@ import { FullScreen } from '../shared/services/full-screen/full-screen';
     PanelModule,
     DividerModule,
     ToolbarModule,
+    ConfirmDialogModule,
   ],
   templateUrl: './coachee.html',
   styleUrl: './coachee.css',
+  providers: [ConfirmationService],
 })
 export class Coachee {
   private fullScreenService = inject(FullScreen);
@@ -42,7 +46,10 @@ export class Coachee {
   private userId = '0241cf11-82ba-4804-abe8-f1d958f30183';
   private service = inject(CoacheesService);
   private router = inject(Router);
+  private confirmationService = inject(ConfirmationService);
   private fb = inject(FormBuilder);
+  protected loading = this.service.loading;
+  protected error = this.service.error;
 
   id = input.required<string>();
   coacheeForm = this.fb.group({
@@ -79,22 +86,67 @@ export class Coachee {
         this.coacheeForm.reset();
       }
     });
+
+    effect(() => {
+      const currentError = this.error();
+      if (!this.loading()) {
+        if (currentError) {
+          this.showErrorDialog(currentError);
+        }
+        // else {
+        //   this.showAceptDialog('Cambios guardados correctamente.');
+        // }
+      }
+    });
+  }
+
+  showErrorDialog(error: string) {
+    this.confirmationService.confirm({
+      message: error,
+      header: 'Error',
+      icon: 'pi pi-times-circle',
+      rejectLabel: 'Cerrar',
+      rejectVisible: true,
+      acceptVisible: false,
+    });
+  }
+
+  showWarningDialog(warning: string) {
+    this.confirmationService.confirm({
+      message: warning,
+      header: '¡Atención!',
+      icon: 'pi pi-exclamation-triangle',
+      rejectLabel: 'Cerrar',
+      rejectVisible: true,
+      acceptVisible: false,
+    });
+  }
+
+  showAceptDialog(message: string) {
+    this.confirmationService.confirm({
+      message: message,
+      header: 'Información',
+      icon: 'pi pi.pi-info-circle',
+      acceptLabel: 'Aceptar',
+      rejectVisible: false,
+      acceptVisible: true,
+    });
   }
 
   onSubmit() {
     this.coacheeForm.markAllAsTouched();
-    if (this.coacheeForm.valid) {
-      // console.log('Formulario válido, enviando:', this.coacheeForm.getRawValue());
-      const coacheeData = this.coacheeForm.getRawValue() as ICoachee;
-      if (coacheeData.id) {
-        this.service.updateCoachee(coacheeData.id, coacheeData);
-      } else {
-        this.service.createCoachee(this.userId, coacheeData);
-      }
-      // this.router.navigate(['/coachees']);
-    } else {
+    if (!this.coacheeForm.valid) {
       console.warn('El formulario contiene errores.');
+      this.showWarningDialog('El formulario contiene errores.');
+      return;
     }
+    const coacheeData = this.coacheeForm.getRawValue() as ICoachee;
+    if (coacheeData.id) {
+      this.service.updateCoachee(coacheeData.id, coacheeData);
+    } else {
+      this.service.createCoachee(this.userId, coacheeData);
+    }
+    // this.router.navigate(['/coachees']);
   }
 
   goCoachees() {

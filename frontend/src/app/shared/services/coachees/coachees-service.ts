@@ -14,33 +14,53 @@ export class CoacheesService {
   public readonly coachees = this._coachees.asReadonly();
   public readonly coachee = this._coachee.asReadonly();
 
+  private _error = signal<string | null>(null);
+  public readonly error = this._error.asReadonly();
+
+  private _loading = signal<boolean>(false);
+  public readonly loading = this._loading.asReadonly();
+
   constructor() {
     this.getCoachees();
   }
 
   getCoachees(): void {
+    this._loading.set(true);
+    this._error.set(null);
+
     this.api.getCoachees$().subscribe({
       next: (response) => {
         this._coachees.set(response);
+        this._loading.set(false);
       },
       error: (err) => {
         console.log('Error getting coachees.', err);
+        this._error.set(err.message);
+        this._loading.set(false);
       },
     });
   }
 
   getCoachee(coacheeId: string): void {
+    this._loading.set(true);
+    this._error.set(null);
+
     this.api.getCoachee$(coacheeId).subscribe({
       next: (response) => {
         this._coachee.set(response);
+        this._loading.set(false);
       },
       error: (err) => {
         console.log('Error getting coachee.', err);
+        this._error.set(err.message);
+        this._loading.set(false);
       },
     });
   }
 
   createCoachee(userId: string, coachee: ICoachee): void {
+    this._loading.set(true);
+    this._error.set(null);
     this.api
       .createCoachee$(userId, coachee)
       .pipe(
@@ -48,9 +68,12 @@ export class CoacheesService {
           next: (response) => {
             const coacheeResponse = response as ICoachee;
             this._coachees.update((currentCoachees) => [...currentCoachees, coacheeResponse]);
+            this._loading.set(false);
           },
           error: (err) => {
             console.error('Coachee creating error', err);
+            this._error.set(err.message);
+            this._loading.set(false);
           },
         })
       )
@@ -58,6 +81,8 @@ export class CoacheesService {
   }
 
   updateCoachee(coacheeId: string, coachee: ICoachee): void {
+    this._loading.set(true);
+    this._error.set(null);
     this.api
       .updateCoachee$(coacheeId, coachee)
       .pipe(
@@ -67,15 +92,20 @@ export class CoacheesService {
             this._coachees.update((currentCoachees) =>
               currentCoachees.map((c) => (c.id === coacheeId ? coacheeResponse : c))
             );
+            this._loading.set(false);
           },
           error: (err) => {
             console.error('Coachee updating error', err);
+            this._error.set(err.message);
+            this._loading.set(false);
           },
         })
       )
       .subscribe();
   }
   deleteCoachee(coacheeId: string): void {
+    this._loading.set(true);
+    this._error.set(null);
     this.api
       .deleteCoachee$(coacheeId)
       .pipe(
@@ -85,9 +115,12 @@ export class CoacheesService {
             this._coachees.update((currentCoachees) =>
               currentCoachees.filter((c) => c.id !== coacheeId)
             );
+            this._loading.set(false);
           },
           error: (err) => {
             console.error('Coachee deleting error', err);
+            this._error.set(err.message);
+            this._loading.set(false);
           },
         })
       )
@@ -95,6 +128,8 @@ export class CoacheesService {
   }
 
   removeCoachee(coacheeId: string): void {
+    this._loading.set(true);
+    this._error.set(null);
     this.api
       .removeCoachee$(coacheeId)
       .pipe(
@@ -104,9 +139,12 @@ export class CoacheesService {
             this._coachees.update((currentCoachees) =>
               currentCoachees.filter((c) => c.id !== coacheeId)
             );
+            this._loading.set(false);
           },
           error: (err) => {
             console.error('Coachee removing error', err);
+            this._error.set(err.message);
+            this._loading.set(false);
           },
         })
       )
@@ -114,6 +152,8 @@ export class CoacheesService {
   }
 
   restoreCoachee(coacheeId: string): void {
+    this._loading.set(true);
+    this._error.set(null);
     this.api
       .restoreCoachee$(coacheeId)
       .pipe(
@@ -122,12 +162,19 @@ export class CoacheesService {
             console.log(response);
             // const coacheeResponse = response as ICoachee;
             // this._coachees.update((currentCoachees) => [...currentCoachees, coacheeResponse]);
+            this._loading.set(false);
           },
           error: (err) => {
             console.error('Coachee restoring error', err);
+            this._error.set(err.message);
+            this._loading.set(false);
           },
         })
       )
       .subscribe();
+  }
+
+  clearError(): void {
+    this._error.set(null);
   }
 }

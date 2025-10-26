@@ -5,7 +5,7 @@ export interface ICoacheeDto {
   email?: string;
   address?: string;
   phone?: string;
-  birthdate?: string;
+  birthdate?: string | null;
   dni?: string;
   company?: string;
   company_role?: string;

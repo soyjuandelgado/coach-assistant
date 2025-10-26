@@ -4,6 +4,7 @@ import {
   Delete,
   Get,
   Param,
+  ParseUUIDPipe,
   Patch,
   Post,
   Put,
@@ -47,7 +48,7 @@ export class UsersController {
     description: 'User data',
     type: User,
   })
-  find(@Param('userId') userId: string): Promise<User> {
+  find(@Param('userId', new ParseUUIDPipe()) userId: string): Promise<User> {
     return this.usersService.find(userId);
   }
 
@@ -77,7 +78,7 @@ export class UsersController {
     status: 200,
     description: 'User deleted',
   })
-  delete(@Param('userId') userId: string): Promise<User> {
+  delete(@Param('userId', new ParseUUIDPipe()) userId: string): Promise<User> {
     return this.usersService.delete(userId);
   }
 
@@ -95,7 +96,7 @@ export class UsersController {
     type: User,
   })
   update(
-    @Param('userId') userId: string,
+    @Param('userId', new ParseUUIDPipe()) userId: string,
     @Body() newUser: UserDto,
   ): Promise<User> {
     return this.usersService.update(userId, newUser);
@@ -113,7 +114,9 @@ export class UsersController {
     description: 'User data',
     type: User,
   })
-  softRemove(@Param('userId') userId: string): Promise<User> {
+  softRemove(
+    @Param('userId', new ParseUUIDPipe()) userId: string,
+  ): Promise<User> {
     return this.usersService.softRemove(userId);
   }
 
@@ -129,7 +132,7 @@ export class UsersController {
     description: 'User data',
     type: User,
   })
-  restore(@Param('userId') userId: string): Promise<User> {
+  restore(@Param('userId', new ParseUUIDPipe()) userId: string): Promise<User> {
     return this.usersService.restore(userId);
   }
 
@@ -147,7 +150,7 @@ export class UsersController {
     type: User,
   })
   addRole(
-    @Param('userId') userId: string,
+    @Param('userId', new ParseUUIDPipe()) userId: string,
     @Body() addRoleDto: AddRoleDto,
   ): Promise<User> {
     return this.usersService.addRole(userId, addRoleDto.roleId);
@@ -167,8 +170,8 @@ export class UsersController {
     type: User,
   })
   removeRole(
-    @Param('userId') userId: string,
-    @Param('roleId') roleId: string,
+    @Param('userId', new ParseUUIDPipe()) userId: string,
+    @Param('roleId', new ParseUUIDPipe()) roleId: string,
   ): Promise<User> {
     return this.usersService.removeRole(userId, roleId);
   }

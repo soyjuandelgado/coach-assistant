@@ -4,6 +4,7 @@ import {
   Delete,
   Get,
   Param,
+  ParseUUIDPipe,
   Patch,
   Post,
   Put,
@@ -46,7 +47,9 @@ export class ProcessesController {
     description: 'Process data',
     type: Process,
   })
-  find(@Param('processId') processId: string): Promise<Process> {
+  find(
+    @Param('processId', new ParseUUIDPipe()) processId: string,
+  ): Promise<Process> {
     return this.processesService.find(processId);
   }
 
@@ -63,7 +66,7 @@ export class ProcessesController {
     type: Process,
   })
   create(
-    @Param('coacheeId') coacheeId: string,
+    @Param('coacheeId', new ParseUUIDPipe()) coacheeId: string,
     @Body() newProcess: ProcessDto,
   ): Promise<Process> {
     return this.processesService.create(coacheeId, newProcess);
@@ -79,7 +82,9 @@ export class ProcessesController {
     status: 200,
     description: 'Process deleted',
   })
-  delete(@Param('processId') processId: string): Promise<Process> {
+  delete(
+    @Param('processId', new ParseUUIDPipe()) processId: string,
+  ): Promise<Process> {
     return this.processesService.delete(processId);
   }
 
@@ -89,7 +94,7 @@ export class ProcessesController {
    * @param {newProcess} process data
    * @returns {Process} updated process
    */
-  @Put(':userId')
+  @Put(':processId')
   @ApiOperation({ summary: 'Update process' })
   @ApiResponse({
     status: 200,
@@ -97,7 +102,7 @@ export class ProcessesController {
     type: Process,
   })
   update(
-    @Param('processId') processId: string,
+    @Param('processId', new ParseUUIDPipe()) processId: string,
     @Body() newProcess: ProcessDto,
   ): Promise<Process> {
     return this.processesService.update(processId, newProcess);
@@ -115,7 +120,9 @@ export class ProcessesController {
     description: 'Process data',
     type: Process,
   })
-  softRemove(@Param('processId') processId: string): Promise<Process> {
+  softRemove(
+    @Param('processId', new ParseUUIDPipe()) processId: string,
+  ): Promise<Process> {
     return this.processesService.softRemove(processId);
   }
 
@@ -131,7 +138,9 @@ export class ProcessesController {
     description: 'Process data',
     type: Process,
   })
-  restore(@Param('processId') processId: string): Promise<Process> {
+  restore(
+    @Param('processId', new ParseUUIDPipe()) processId: string,
+  ): Promise<Process> {
     return this.processesService.restore(processId);
   }
 }

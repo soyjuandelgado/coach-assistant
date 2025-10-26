@@ -4,6 +4,7 @@ import {
   Delete,
   Get,
   Param,
+  ParseUUIDPipe,
   Post,
   Put,
 } from '@nestjs/common';
@@ -45,7 +46,7 @@ export class RolesController {
     description: 'Role data',
     type: Role,
   })
-  find(@Param('roleId') roleId: string): Promise<Role> {
+  find(@Param('roleId', new ParseUUIDPipe()) roleId: string): Promise<Role> {
     return this.rolesService.find(roleId);
   }
 
@@ -75,7 +76,7 @@ export class RolesController {
     status: 200,
     description: 'Role deleted',
   })
-  delete(@Param('roleId') roleId: string): Promise<Role> {
+  delete(@Param('roleId', new ParseUUIDPipe()) roleId: string): Promise<Role> {
     return this.rolesService.delete(roleId);
   }
 
@@ -93,7 +94,7 @@ export class RolesController {
     type: Role,
   })
   update(
-    @Param('roleId') roleId: string,
+    @Param('roleId', new ParseUUIDPipe()) roleId: string,
     @Body() newRole: RoleDto,
   ): Promise<Role> {
     return this.rolesService.update(roleId, newRole);
