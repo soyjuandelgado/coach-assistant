@@ -11,7 +11,13 @@ export class ProcessesApiService {
   private http = inject(HttpClient);
 
   toDto(process: IProcess): IProcessDto {
-    const { id: _id, ...dto } = process;
+    const { id: _id, ...dtoWithoutId } = process;
+    const dto: IProcessDto = {
+      ...dtoWithoutId,
+      start_date: process.start_date ? new Date(process.start_date).toISOString() : null,
+      end_date: process.end_date ? new Date(process.end_date).toISOString() : null,
+    };
+
     return dto;
   }
 
