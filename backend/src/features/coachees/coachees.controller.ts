@@ -89,7 +89,7 @@ export class CoacheesController {
    * @param {newCoachee} coachee data
    * @returns {Coachee} updated coachee
    */
-  @Put(':userId')
+  @Put(':coacheeId')
   @ApiOperation({ summary: 'Update coachee' })
   @ApiResponse({
     status: 200,

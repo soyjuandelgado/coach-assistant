@@ -1,4 +1,4 @@
-import { Component, inject, signal } from '@angular/core';
+import { Component, effect, inject, signal } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
 import { TableModule } from 'primeng/table';
 import { ButtonModule } from 'primeng/button';
@@ -22,19 +22,31 @@ export class Coachees {
   private fullScreenService = inject(FullScreen);
   // Exponemos la señal del servicio a la plantilla
   public isFullScreen = this.fullScreenService.isFullScreen;
-  
+
   // Método para llamar al servicio
   public toggleFullScreen(): void {
     this.fullScreenService.toggle();
   }
-  
+
   private router = inject(Router);
   private confirmationService = inject(ConfirmationService);
   private service = inject(CoacheesService);
-  coachees = this.service.coachees;
-  
+  protected coachees = this.service.coachees;
+  protected loading = this.service.loading;
+  protected error = this.service.error;
+
   selectedCoachee = signal<ICoachee | undefined>(undefined);
- 
+
+  constructor() {
+    effect(() => {
+      const currentError = this.error();
+
+      if (currentError) {
+        this.showErrorDialog(currentError);
+      }
+    });
+  }
+
   goSummary() {
     this.router.navigate(['/summary']);
   }
@@ -65,10 +77,19 @@ export class Coachees {
     });
   }
 
+  showErrorDialog(error: string) {
+    this.confirmationService.confirm({
+      message: error,
+      header: 'Error',
+      icon: 'pi pi-times-circle',
+      rejectLabel: 'Cerrar',
+      acceptVisible: false,
+    });
+  }
+
   removeCoachee(coacheeId: string) {
     this.service.removeCoachee(coacheeId);
   }
-
 
   // processServ = inject(ProcessesService);
   // processes = this.processServ.processes;
