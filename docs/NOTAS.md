@@ -73,6 +73,7 @@
     - [ ] Nueva sesion
     - [ ] Nuevo resumen
     - [ ] Historial
+  - [ ] Al guardar datos correctamente, navegar a Coachees
 - [ ] Pantalla coachees
   - [ ] Menu lateral
     - [ ] Perfil coach
@@ -93,7 +94,7 @@
     - [ ] boton inicio de sesion
   - [ ] Al clicar en nuevo resumen
     - [ ] pantalla seleccion sesiones sin resumen
-- [ ] Control de errores!!
+- [x] Control de errores!!
 
 
 ## Pantallas
