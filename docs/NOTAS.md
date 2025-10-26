@@ -54,18 +54,18 @@
   - [ ] En el caso de sesion, mostrar Desarrollo en la izquierda y objetivo, tareas e introduccion de datos a la derecha. Tener en cuenta cambiar la disposicion en personas zurdas.
 - [ ] Configurar zoom para hacer crecer los elementos en caso de necesitarlo
 - [ ] Mover is_grow de process a session
-- [ ] Añadir a process:
-  - [ ] Fecha inicio
-  - [ ] Fecha fin
-  - [ ] periodicidad
-  - [ ] --- economicos legal
-    - [ ] observaciones
-    - [ ] precio sesion
-    - [ ] forma pago
-    - [ ] plazo pago en dias
-    - [ ] contrato firmado
-    - [ ] LOPD firmada
-    - [ ] RGPD firmada
+- [x] Añadir a process:
+  - [x] Fecha inicio
+  - [x] Fecha fin
+  - [x] periodicidad
+  - [x] observaciones
+  - [x] --- economicos legal
+    - [x] precio sesion
+    - [x] forma pago
+    - [x] plazo pago en dias
+    - [x] contrato firmado
+    - [x] LOPD firmada
+    - [x] RGPD firmada
 - [ ] Pantalla Perfil Coachee
   - [ ] Boton crear proceso 
   - [ ] boton ver proceso
