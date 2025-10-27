@@ -92,5 +92,11 @@
             <p-button label="Guardar Coachee" type="submit" icon="pi pi-check" [disabled]="coacheeForm.invalid" />
         </div>
 
+        <div class="flex justify-end mt-8">
+            <p-button label="Añadir Proceso" type="submit" icon="pi pi-folder-open" severity="success" [routerLink]="['/process', this.id(), '']" [disabled]="coacheeForm.invalid" />
+        </div>
+        <div class="flex justify-end mt-8">
+            <p-button label="Ver Proceso" type="submit" icon="pi pi-folder-open" severity="success" [routerLink]="['/process', this.id(), this.processId]" [disabled]="coacheeForm.invalid" />
+        </div>
     </form>
 </div>

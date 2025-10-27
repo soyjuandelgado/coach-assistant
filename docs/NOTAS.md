@@ -95,6 +95,8 @@
   - [ ] Al clicar en nuevo resumen
     - [ ] pantalla seleccion sesiones sin resumen
 - [x] Control de errores!!
+- [ ] Pantalla Proceso
+  - [ ] Modificar tipo y metodo de pago para usar p-select
 
 
 ## Pantallas

@@ -16,6 +16,10 @@ export class ProcessesApiService {
       ...dtoWithoutId,
       start_date: process.start_date ? new Date(process.start_date).toISOString() : null,
       end_date: process.end_date ? new Date(process.end_date).toISOString() : null,
+      is_grow: process.is_grow ?? false,
+      contract_signed: process.contract_signed ?? false,
+      lodp_signed: process.lodp_signed ?? false,
+      rgpd_signed: process.rgpd_signed ?? false,
     };
 
     return dto;
@@ -39,15 +43,15 @@ export class ProcessesApiService {
     return this.http.put(environment.processesUrl + processId, dto);
   }
 
-  deleteProcess$(processId: string){
+  deleteProcess$(processId: string) {
     return this.http.delete(environment.processesUrl + processId);
   }
 
-  removeProcess$(processId: string){
+  removeProcess$(processId: string) {
     return this.http.patch(environment.processesUrl + processId + '/remove', '');
   }
 
-  restoreProcess$(processId: string){
+  restoreProcess$(processId: string) {
     return this.http.patch(environment.processesUrl + processId + '/restore', '');
   }
 }

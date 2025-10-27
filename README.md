@@ -172,6 +172,16 @@ erDiagram
     INTEGER duration_minutes 
     BOOLEAN is_grow 
     VARCHAR goal "NULL"
+    DATE start_date "NULL"
+    DATE end_date "NULL"
+    INT frequency_days "NULL"
+    TEXT observations "NULL"
+    FLOAT session_price "NULL"
+    VARCHAR payment_method "NULL"
+    INT payment_term_days "NULL"
+    BOOLEAN contract_signed "NULL"
+    BOOLEAN lodp_signed "NULL"
+    BOOLEAN rgpd_signed "NULL"
     DATETIME created_at "NULL"
     DATETIME updated_at "NULL"
     DATETIME deleted_at "NULL"

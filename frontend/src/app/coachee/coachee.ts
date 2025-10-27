@@ -11,7 +11,7 @@ import { ToolbarModule } from 'primeng/toolbar';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { CoacheesService } from '../shared/services/coachees/coachees-service';
 import { ICoachee } from '../shared/models/coachee.interface';
-import { Router } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { FullScreen } from '../shared/services/full-screen/full-screen';
 import { ConfirmationService } from 'primeng/api';
 
@@ -20,6 +20,7 @@ import { ConfirmationService } from 'primeng/api';
   imports: [
     CommonModule,
     ReactiveFormsModule,
+    RouterLink,
     InputTextModule,
     DatePickerModule,
     InputMaskModule,
@@ -45,6 +46,8 @@ export class Coachee {
 
   //TODO: use real userId
   private userId = '0241cf11-82ba-4804-abe8-f1d958f30183';
+  //TODO: use real processId
+  protected processId = '4b8f31f5-1258-4da9-8824-2c4357340593';
   private service = inject(CoacheesService);
   private router = inject(Router);
   private confirmationService = inject(ConfirmationService);
@@ -71,7 +74,7 @@ export class Coachee {
   constructor() {
     effect(() => {
       const coacheeId = this.id();
-      console.log('ID recibido:', coacheeId);
+      // console.log('ID recibido:', coacheeId);
       this.service.getCoachee(coacheeId);
     });
 
@@ -137,7 +140,7 @@ export class Coachee {
   onSubmit() {
     this.coacheeForm.markAllAsTouched();
     if (!this.coacheeForm.valid) {
-      console.warn('El formulario contiene errores.');
+      // console.warn('El formulario contiene errores.');
       this.showWarningDialog('El formulario contiene errores.');
       return;
     }
