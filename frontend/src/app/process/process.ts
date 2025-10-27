@@ -38,14 +38,11 @@ import { IProcess } from '../shared/models/process.interface';
   templateUrl: './process.html',
   styleUrl: './process.css',
   providers: [ConfirmationService],
-  // changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class Process implements OnDestroy {
   private fullScreenService = inject(FullScreen);
-  // Exponemos la señal del servicio a la plantilla
   public isFullScreen = this.fullScreenService.isFullScreen;
 
-  // Método para llamar al servicio
   public toggleFullScreen(): void {
     this.fullScreenService.toggle();
   }
@@ -63,17 +60,17 @@ export class Process implements OnDestroy {
   protected error = this.service.error;
 
   // processTypes = ['Personal', 'Directivo', 'Empresarial'];
-  processTypes = [
-    { label: 'Personal', value: 'personal' },
-    { label: 'Directivo', value: 'directivo' },
-    { label: 'Empresarial', value: 'empresarial' },
-  ];
+  // processTypes = [
+  //   { label: 'Personal', value: 'personal' },
+  //   { label: 'Directivo', value: 'directivo' },
+  //   { label: 'Empresarial', value: 'empresarial' },
+  // ];
 
-  paymentMethods = [
-    { label: 'Transferencia', value: 'transferencia' },
-    { label: 'Tarjeta', value: 'tarjeta' },
-    { label: 'Bizum', value: 'bizum' },
-  ];
+  // paymentMethods = [
+  //   { label: 'Transferencia', value: 'transferencia' },
+  //   { label: 'Tarjeta', value: 'tarjeta' },
+  //   { label: 'Bizum', value: 'bizum' },
+  // ];
 
   processForm = this.fb.group({
     id: [{ value: null as string | null, disabled: true }],
@@ -178,7 +175,7 @@ export class Process implements OnDestroy {
     }
   }
 
-  public goBackToCoachee() {
-    this.router.navigate(['/coachee', this.coacheeId()]);
+  public goCoachees() {
+    this.router.navigate(['/coachees']);
   }
 }

@@ -36,7 +36,7 @@
   - [ ] https://codepen.io/tomapaunovic/pen/BapVoqb?anon=true&view=pen
   - [ ] Tesseract.js
 - [x] Buscar info de Signal Forms
-- [ ] Hacer pantallas básicas
+- [x] Hacer pantallas básicas
   - [x] Pantalla de login sin logica
   - [x] Pantalla de sesion
   - [x] Pantalla de resumen
@@ -66,14 +66,17 @@
     - [x] contrato firmado
     - [x] LOPD firmada
     - [x] RGPD firmada
+
 - [ ] Pantalla Perfil Coachee
-  - [ ] Boton crear proceso 
-  - [ ] boton ver proceso
+  - [x] Boton crear proceso
+  - [x] boton ver proceso
   - [ ] Menu lateral
     - [ ] Nueva sesion
     - [ ] Nuevo resumen
     - [ ] Historial
   - [ ] Al guardar datos correctamente, navegar a Coachees
+  - [ ] Mostrar p-toast cuando se guarden los cambios
+
 - [ ] Pantalla coachees
   - [ ] Menu lateral
     - [ ] Perfil coach
@@ -81,12 +84,12 @@
     - [ ] Ultimos 10 resumenes hechos (de cualquier proceso)
     - [ ] Salir (pi-power-off)
   - [ ] Tabla
-    - [ ] Boton en grid para ver los datos del proceso (carpeta abierta pi-folder-open)
-    - [ ] Desactivar botones que no se pueden usar
+    - [x] Boton en grid para ver los datos del proceso (carpeta abierta pi-folder-open)
+    - [x] Desactivar botones que no se pueden usar
     - [ ] Boton archivar / desarchivar (pi-download / pi-upload)
     - [ ] Buscar
     - [ ] Filtrar
-    - [ ] ver archivados 
+    - [ ] ver archivados
   - [ ] al clicar en nueva sesion
     - [ ] muestra datos basicos inicio
     - [ ] tiempo de sesion
@@ -97,7 +100,9 @@
 - [x] Control de errores!!
 - [ ] Pantalla Proceso
   - [ ] Modificar tipo y metodo de pago para usar p-select
-
+  - [ ] Mostrar p-toast cuando se guarden los cambios
+  - [ ] Menú lateral
+    - [ ] Historial de sesiones
 
 ## Pantallas
 

@@ -41,11 +41,9 @@ export class ProcessesService {
   }
 
   getProcess(processId: string): void {
-    // Evita volver a cargar si ya tenemos el proceso correcto
     if (this._process()?.id === processId) {
       return;
     }
-
     this._loading.set(true);
     this._error.set(null);
     if (processId.length == 0) {

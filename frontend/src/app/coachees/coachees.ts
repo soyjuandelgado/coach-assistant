@@ -1,4 +1,4 @@
-import { Component, effect, inject, signal } from '@angular/core';
+import { Component, effect, inject, OnInit, signal } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
 import { TableModule } from 'primeng/table';
 import { ButtonModule } from 'primeng/button';
@@ -18,7 +18,7 @@ import { ConfirmationService } from 'primeng/api';
   styleUrl: './coachees.css',
   providers: [ConfirmationService],
 })
-export class Coachees {
+export class Coachees implements OnInit{
   private fullScreenService = inject(FullScreen);
   // Exponemos la señal del servicio a la plantilla
   public isFullScreen = this.fullScreenService.isFullScreen;
@@ -45,6 +45,9 @@ export class Coachees {
         this.showErrorDialog(currentError);
       }
     });
+  }
+  ngOnInit(): void {
+    this.service.getCoachees();
   }
 
   goSummary() {

@@ -69,7 +69,7 @@
                 <input pInputText id="address" formControlName="address" />
             </div>
 
-            <p-divider class="md:col-span-2"/>
+            <p-divider class="md:col-span-2" />
 
             <div class="flex flex-col gap-2">
                 <label for="company" class="font-semibold">Empresa</label>
@@ -88,15 +88,42 @@
 
         </div>
 
-        <div class="flex justify-end mt-8">
-            <p-button label="Guardar Coachee" type="submit" icon="pi pi-check" [disabled]="coacheeForm.invalid" />
-        </div>
-
-        <div class="flex justify-end mt-8">
-            <p-button label="Añadir Proceso" type="submit" icon="pi pi-folder-open" severity="success" [routerLink]="['/process', this.id(), '']" [disabled]="coacheeForm.invalid" />
-        </div>
-        <div class="flex justify-end mt-8">
-            <p-button label="Ver Proceso" type="submit" icon="pi pi-folder-open" severity="success" [routerLink]="['/process', this.id(), this.processId]" [disabled]="coacheeForm.invalid" />
+        <div class="flex justify-center gap-2 my-4">
+            <p-button label="Guardar Coachee" type="submit" icon="pi pi-check" [disabled]="coacheeForm.invalid"/>
         </div>
     </form>
+    <div class="flex flex-col justify-between items-center gap-2">
+        @if (process()) {
+        <a class="self-start font-semibold">Datos del Proceso</a>
+        <p-table [value]="[process()]" dataKey="id" scrollHeight="flex" id="process" [size]="'small'" disabled
+            class="w-full">
+            <ng-template #header>
+                <tr>
+                    <th [width]="'30%'">Tipo de Proceso</th>
+                    <th [width]="'30%'">Duración minutos</th>
+                    <th [width]="'30%'">Fecha inicio</th>
+                    <th>Acción</th>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-process>
+                <tr>
+                    <td>{{ process.type }}
+                    </td>
+                    <td>{{ process.duration_minutes }}
+                    </td>
+                    <td>{{ process.start_date | date:'dd-MM-yyyy' }}
+                    </td>
+                    <td>
+                        <p-button icon="pi pi-folder-open" text severity="warn" tooltip="Ver proceso"
+                            [routerLink]="['/process', this.id(), this.process()?.id]" />
+                    </td>
+                </tr>
+            </ng-template>
+        </p-table>
+        }@else {
+        <p-button label="Agregar Proceso&nbsp;" icon="pi pi-folder-plus" severity="success"
+            [routerLink]="['/process', this.id(), '']" [hidden]="!this.id()" />
+        }
+    </div>
+
 </div>

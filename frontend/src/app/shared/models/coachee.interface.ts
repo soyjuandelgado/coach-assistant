@@ -1,3 +1,5 @@
+import { IProcess } from "./process.interface";
+
 export interface ICoachee {
   id?: string;
   name: string;
@@ -11,4 +13,5 @@ export interface ICoachee {
   company?: string;
   company_role?: string;
   company_address?: string;
+  processes?: IProcess[];
 }
