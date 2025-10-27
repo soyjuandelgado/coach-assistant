@@ -97,12 +97,23 @@
     - [ ] boton inicio de sesion
   - [ ] Al clicar en nuevo resumen
     - [ ] pantalla seleccion sesiones sin resumen
+  
 - [x] Control de errores!!
+
 - [ ] Pantalla Proceso
   - [ ] Modificar tipo y metodo de pago para usar p-select
   - [ ] Mostrar p-toast cuando se guarden los cambios
   - [ ] Menú lateral
     - [ ] Historial de sesiones
+  
+- [ ] Menú de navegación
+  - [ ] Extraerlo a un componente
+  - [ ] Colocarlo en app.html
+  - [ ] Modificarlo dependiendo de la pantalla visible
+
+- [ ] Menú lateral
+  - [ ] Extraerlo a un componente
+  - [ ] Modificarlo dependiendo de la pantalla visible
 
 ## Pantallas
 

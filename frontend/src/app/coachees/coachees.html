@@ -30,7 +30,7 @@
                     <td>
                         <p-button icon="pi pi-id-card" text severity="info" tooltip="Ver perfil"
                             [routerLink]="['/coachee', coachee.id]" />
-                        @if(coachee.processes.length > 0 ){
+                        @if(coachee.processes && coachee.processes.length > 0 ){
                         <p-button icon="pi pi-folder-open" text severity="warn" tooltip="Ver proceso"
                             [routerLink]="['/process', coachee.id, coachee.processes[0].id]" />
                         }@else{
@@ -38,11 +38,11 @@
                             [disabled]="true" />
                         }
                         <p-button icon="pi pi-file-plus" text severity="success" tooltip="Nueva Sesión"
-                            (onClick)="goSession()" [disabled]="coachee.processes.length === 0" />
+                            (onClick)="goSession()" [disabled]="!coachee.processes || coachee.processes.length === 0" />
                         <p-button icon="pi pi-folder-plus" text severity="help" tooltip="Nuevo Resumen"
-                            (onClick)="goSummary()" [disabled]="coachee.processes.length === 0" />
+                            (onClick)="goSummary()" [disabled]="!coachee.processes || coachee.processes.length === 0" />
                         <p-button icon="pi pi-history" text severity="secondary" tooltip="Ver historial"
-                            [disabled]="coachee.processes.length === 0" />
+                            [disabled]="!coachee.processes || coachee.processes.length === 0" />
                         <p-button icon="pi pi-trash" text severity="danger" tooltip="Eliminar Coachee"
                             (onClick)="showRemoveDialog($event, coachee.id)" />
                     </td>
