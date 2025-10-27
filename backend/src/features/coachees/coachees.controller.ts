@@ -8,11 +8,14 @@ import {
   Patch,
   Post,
   Put,
+  Query,
 } from '@nestjs/common';
+import type { Request } from 'express';
 import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { CoacheesService } from './coachees.service';
 import { Coachee } from './coachee.entity';
 import { CoacheeDto } from './coachee.dto';
+import { CoacheesGetQueryDto } from './coachees-get-query.dto';
 
 @ApiTags('Coachee')
 @Controller('coachees')
@@ -29,10 +32,10 @@ export class CoacheesController {
   @ApiResponse({
     status: 200,
     description: 'Coachee list',
-    type: Coachee,
+    type: [Coachee],
   })
-  findAll(): Promise<Coachee[]> {
-    return this.coacheesService.findAll();
+  findAll(@Query() query: CoacheesGetQueryDto): Promise<Coachee[]> {
+    return this.coacheesService.findAll(query);
   }
 
   /**

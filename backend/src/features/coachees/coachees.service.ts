@@ -4,6 +4,7 @@ import { Coachee } from './coachee.entity';
 import { Equal, Repository } from 'typeorm';
 import { CoacheeDto } from './coachee.dto';
 import { User } from 'src/features/users/user.entity';
+import { CoacheesGetQueryDto } from './coachees-get-query.dto';
 
 @Injectable()
 export class CoacheesService {
@@ -13,13 +14,22 @@ export class CoacheesService {
     @InjectRepository(User) private usersRepository: Repository<User>,
   ) {}
 
-  findAll(): Promise<Coachee[]> {
-    return this.coacheesRepository.find(); //{ withDeleted: true }
+  findAll(params: CoacheesGetQueryDto): Promise<Coachee[]> {
+    const findOptions: any = {};
+
+    if (params.relations) {
+      findOptions.relations = params.relations;
+    }
+    if (params.deleted) {
+      findOptions.withDeleted = true;
+    }
+    return this.coacheesRepository.find(findOptions); //{ withDeleted: true } //{ relations: ['processes'] }
   }
 
   async find(coacheeId: string): Promise<Coachee> {
-    const coachee = await this.coacheesRepository.findOneBy({
-      id: Equal(coacheeId),
+    const coachee = await this.coacheesRepository.findOne({
+      where: { id: Equal(coacheeId) },
+      relations: ['processes'],
     });
     if (!coachee) {
       this.logger.error('find: Coachee not found.');

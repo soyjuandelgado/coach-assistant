@@ -1,0 +1,129 @@
+<div class="w-full h-full flex flex-col gap-2 bg-primary-50">
+    <p-toolbar [style]="{ 'padding': '0' }">
+        <ng-template #start>
+            <p-button icon="pi pi-bars" text severity="contrast" />
+        </ng-template>
+        <ng-template #center>
+            <p-button icon="pi pi-folder-open" text severity="success" label="Datos del Proceso" />
+        </ng-template>
+        <ng-template #end>
+            <p-button icon="pi pi-window-maximize" text severity="info" (onClick)="toggleFullScreen()" />
+            <p-button icon="pi pi-sign-out" text severity="danger" (onClick)="goCoachees()" />
+        </ng-template>
+    </p-toolbar>
+    <p-confirmdialog />
+    <form [formGroup]="processForm" (ngSubmit)="onSubmit()">
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-4 gap-y-2">
+
+            <div class="flex flex-col gap-2 md:col-span-2 lg:col-span-3">
+                <label for="goal" class="font-semibold">Objetivo General</label>
+                <input id="goal" type="text" pInputText formControlName="goal" class="w-full" />
+            </div>
+
+            <div class="flex flex-col gap-2">
+                <label for="type" class="font-semibold">Tipo *</label>
+                <input id="type" type="text" pInputText formControlName="type" class="w-full" />
+                <!-- <p-select id="type" formControlName="type" [options]="processTypes" placeholder="Selecciona un tipo"
+                    class="w-full" optionLabel="label" optionValue="value" [editable]="true" /> -->
+
+                @if (processForm.controls.type.invalid && processForm.controls.type.touched) {
+                <small class="text-red-500">El tipo es obligatorio.</small>
+                }
+            </div>
+
+            <div class="flex flex-col gap-2">
+                <label for="is_grow" class="font-semibold">Proceso "GROW"</label>
+                <p-toggleSwitch id="is_grow" formControlName="is_grow" class="my-2" />
+            </div>
+
+            <div class="flex flex-col gap-2">
+                <label for="duration_minutes" class="font-semibold">Duración (min) *</label>
+                <p-inputNumber id="duration_minutes" formControlName="duration_minutes" [min]="1" suffix=" min"
+                    class="w-full" inputStyleClass="w-full" />
+
+                @if (processForm.controls.duration_minutes.invalid && processForm.controls.duration_minutes.touched) {
+                <small class="text-red-500">La duración es obligatoria.</small>
+                }
+
+            </div>
+
+            <div class="flex flex-col gap-2">
+                <label for="frequency" class="font-semibold">Frecuencia (días)</label>
+                <p-inputNumber id="frequency" formControlName="frequency_days" [min]="1" suffix=" días" class="w-full"
+                    inputStyleClass="w-full" />
+            </div>
+
+            <div class="flex flex-col gap-2">
+                <label for="start_date" class="font-semibold">Fecha Inicio</label>
+                <p-datepicker id="start_date" formControlName="start_date" [showIcon]="true" dateFormat="dd-mm-yy"
+                    class="w-full" />
+            </div>
+
+            <div class="flex flex-col gap-2">
+                <label for="end_date" class="font-semibold">Fecha Fin</label>
+                <p-datepicker id="end_date" formControlName="end_date" [showIcon]="true" dateFormat="dd-mm-yy"
+                    class="w-full" />
+            </div>
+
+            <p-divider class="md:col-span-2 lg:col-span-3" />
+
+            <div class="flex flex-col gap-2">
+                <label for="price" class="font-semibold">Precio Sesión</label>
+                <p-inputNumber id="price" formControlName="session_price" mode="currency" currency="EUR" locale="es-ES"
+                    class="w-full" inputStyleClass="w-full" />
+            </div>
+
+            <div class="flex flex-col gap-2">
+                <label for="payment_method" class="font-semibold">Método de Pago</label>
+                <input id="payment_method" type="text" pInputText formControlName="payment_method" class="w-full" />
+                <!-- <p-select id="payment_method" formControlName="payment_method" [options]="paymentMethods"
+                    placeholder="Selecciona método" class="w-full" optionLabel="label" 
+                    optionValue="value" [editable]="true" /> -->
+            </div>
+
+            <div class="flex flex-col gap-2">
+                <label for="payment_term" class="font-semibold">Plazo Pago (días)</label>
+                <p-inputNumber id="payment_term" formControlName="payment_term_days" [min]="0" suffix=" días"
+                    class="w-full" inputStyleClass="w-full" />
+            </div>
+
+            <p-panel id="documents" class="flex flex-col gap-2 md:col-span-2 lg:col-span-3 p-2 mt-2 ">
+                <div class="flex flex-row justify-between gap-2">
+                    <div class="flex justify-between items-center gap-2">
+                        <label for="contract_signed" class="font-semibold">Contrato Firmado</label>
+                        <p-toggleSwitch id="contract_signed" formControlName="contract_signed" />
+                    </div>
+
+                    <div class="flex justify-between items-center gap-2">
+                        <label for="lodp_signed" class="font-semibold">LODP Firmada</label>
+                        <p-toggleSwitch id="lodp_signed" formControlName="lodp_signed" />
+                    </div>
+
+                    <div class="flex justify-between items-center gap-2">
+                        <label for="rgpd_signed" class="font-semibold">RGPD Firmado</label>
+                        <p-toggleSwitch id="rgpd_signed" formControlName="rgpd_signed" />
+                    </div>
+                </div>
+
+            </p-panel>
+
+            <p-divider class="md:col-span-2 lg:col-span-3" />
+
+
+            <div class="flex flex-col gap-2 md:col-span-2 lg:col-span-3">
+                <label for="observations" class="font-semibold">Observaciones</label>
+                <textarea id="observations" pInputTextarea formControlName="observations" rows="4" class="w-full"
+                    [autoResize]="true"></textarea>
+            </div>
+
+        </div>
+
+        <div class="flex justify-center mt-4 gap-4">
+            <!-- <p-button type="button" label="Borrar" severity="secondary" [outlined]="true"
+                (onClick)="processForm.reset()" /> -->
+            <p-button type="submit" label="Guardar Proceso" icon="pi pi-check" [disabled]="processForm.invalid" />
+        </div>
+
+    </form>
+</div>

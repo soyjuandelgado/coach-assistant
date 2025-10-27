@@ -10,9 +10,9 @@ erDiagram
         CHAR(36) id PK "UUID"
         VARCHAR email
         VARCHAR password "hashed"
-        TINYINT is_active
         DATETIME created_at
         DATETIME updated_at
+        DATETIME deleted_at
     }
     USER_PROFILES {
         CHAR(36) user_id FK "UUID"
@@ -40,10 +40,11 @@ erDiagram
     USERS ||--o{ USER_PROFILES
 
     SESION {
-        INT id_proceso
+        CHAR(36) id_proceso "UUID"
         CHAR(36) id PK "UUID"
         DATE fecha
         INT num_sesion
+        BOOLEAN is_grow
         VARCHAR(50) localizacion
         VARCHAR(200) objetivo
     }
@@ -127,13 +128,26 @@ erDiagram
         datos
     }
 
-    PROCESO {
+    PROCESS {
         CHAR(36) id PK UUID
         VARCHAR type
         INT duration
         BOOLEAN is_grow
         VARCHAR goal
-    }
+        DATE start_date
+        DATE end_date
+        INT frequency_days
+        TEXT observations
+        FLOAT session_price
+        VARCHAR payment_method
+        INT payment_term_days
+        BOOLEAN contract_signed
+        BOOLEAN lodp_signed
+        BOOLEAN rgpd_signed
+        DATETIME created_at
+        DATETIME updated_at
+        DATETIME deleted_at
+      }
 
     PALABRA {
         id_proceso

@@ -21,7 +21,7 @@ export class CoacheesService {
   public readonly loading = this._loading.asReadonly();
 
   constructor() {
-    this.getCoachees();
+    // this.getCoachees();
   }
 
   getCoachees(): void {
@@ -176,5 +176,8 @@ export class CoacheesService {
 
   clearError(): void {
     this._error.set(null);
+  }
+  clearCoachee(): void {
+    this._coachee.set(undefined);
   }
 }

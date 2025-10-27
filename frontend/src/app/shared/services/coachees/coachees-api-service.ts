@@ -1,4 +1,4 @@
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse, HttpParams } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { ICoachee } from '../../models/coachee.interface';
 import { ICoacheeDto } from '../../models/coachee.dto';
@@ -22,7 +22,20 @@ export class CoacheesApiService {
     return dto;
   }
   getCoachees$() {
-    return this.http.get<ICoachee[]>(environment.coacheesUrl);
+    let params = new HttpParams();
+    params = params.append('relations', 'processes');
+    // params = params.append('deleted', 'true');
+    return this.http.get<ICoachee[]>(environment.coacheesUrl, { params }).pipe(
+      catchError((error: HttpErrorResponse) => {
+        let appError: string;
+        if (error.status === 401) {
+          appError = 'Not authorized';
+        } else {
+          appError = `Server generic error: ${error}`;
+        }
+        return throwError(() => new Error(appError));
+      })
+    );
   }
 
   getCoachee$(coacheeId: string) {
@@ -30,7 +43,7 @@ export class CoacheesApiService {
       catchError((error: HttpErrorResponse) => {
         let appError: string;
         if (error.status === 404) {
-          appError = `Coachee not found (ID: ${coacheeId})`;
+          appError = `Coachee not found.`;
         } else if (error.status === 401) {
           appError = 'Not authorized';
         } else {
@@ -48,7 +61,7 @@ export class CoacheesApiService {
       catchError((error: HttpErrorResponse) => {
         let appError: string;
         if (error.status === 404) {
-          appError = `User not found (ID: ${userId})`;
+          appError = `User not found.`;
         } else if (error.status === 401) {
           appError = 'Not authorized';
         } else {
@@ -65,7 +78,7 @@ export class CoacheesApiService {
       catchError((error: HttpErrorResponse) => {
         let appError: string;
         if (error.status === 404) {
-          appError = `Coachee not found (ID: ${coacheeId})`;
+          appError = `Coachee not found`;
         } else if (error.status === 401) {
           appError = 'Not authorized';
         } else {
@@ -81,7 +94,7 @@ export class CoacheesApiService {
       catchError((error: HttpErrorResponse) => {
         let appError: string;
         if (error.status === 404) {
-          appError = `Coachee not found (ID: ${coacheeId})`;
+          appError = `Coachee not found`;
         } else if (error.status === 401) {
           appError = 'Not authorized';
         } else {
@@ -97,7 +110,7 @@ export class CoacheesApiService {
       catchError((error: HttpErrorResponse) => {
         let appError: string;
         if (error.status === 404) {
-          appError = `Coachee not found (ID: ${coacheeId})`;
+          appError = `Coachee not found`;
         } else if (error.status === 401) {
           appError = 'Not authorized';
         } else {
@@ -113,7 +126,7 @@ export class CoacheesApiService {
       catchError((error: HttpErrorResponse) => {
         let appError: string;
         if (error.status === 404) {
-          appError = `Coachee not found (ID: ${coacheeId})`;
+          appError = `Coachee not found`;
         } else if (error.status === 401) {
           appError = 'Not authorized';
         } else {

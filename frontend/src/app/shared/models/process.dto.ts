@@ -5,12 +5,12 @@ export interface IProcessDto {
   goal?: string;
   start_date?: string | null;
   end_date?: string | null;
-  frequency_days?: number;
+  frequency_days?: number | null;
   observations?: string;
-  session_price?: number;
+  session_price?: number | null;
   payment_method?: string;
-  payment_term_days?: number;
-  contract_signed?: boolean;
-  lodp_signed?: boolean;
-  rgpd_signed?: boolean;
+  payment_term_days?: number | null;
+  contract_signed: boolean;
+  lodp_signed: boolean;
+  rgpd_signed: boolean;
 }

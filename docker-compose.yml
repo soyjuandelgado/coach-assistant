@@ -1,0 +1,52 @@
+version: '3.8'
+
+services:
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
+    environment:
+      # Importante: El host de la base de datos ahora es el nombre del servicio 'db'
+      COACH_ASSISTANT_HOST: db
+      COACH_ASSISTANT_PORT: 3306
+      COACH_ASSISTANT_USER: root
+      COACH_ASSISTANT_PASSWORD: secret
+      COACH_ASSISTANT_DATABASE: coachassistant
+    depends_on:
+      - db
+    networks:
+      - coach-net
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    ports:
+      - "80:80"
+    depends_on:
+      - backend
+    networks:
+      - coach-net
+
+  db:
+    image: mysql:5.7
+    restart: always
+    environment:
+      MYSQL_DATABASE: coachassistant
+      MYSQL_ROOT_PASSWORD: secret
+    ports:
+      # Expone el puerto 3307 en tu máquina para que puedas conectarte con un cliente de BD
+      - "3307:3306"
+    volumes:
+      - db_data:/var/lib/mysql
+    networks:
+      - coach-net
+
+networks:
+  coach-net:
+    driver: bridge
+
+volumes:
+  db_data:

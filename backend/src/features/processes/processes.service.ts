@@ -14,7 +14,7 @@ export class ProcessesService {
   ) {}
 
   findAll(): Promise<Process[]> {
-    return this.processesRepository.find();
+    return this.processesRepository.find(); //{ relations: ['coachee'] }
   }
 
   async find(processId: string): Promise<Process> {

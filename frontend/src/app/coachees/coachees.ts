@@ -38,6 +38,8 @@ export class Coachees {
   selectedCoachee = signal<ICoachee | undefined>(undefined);
 
   constructor() {
+    this.service.getCoachees();
+
     effect(() => {
       const currentError = this.error();
 

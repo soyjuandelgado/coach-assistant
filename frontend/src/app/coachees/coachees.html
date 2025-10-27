@@ -18,7 +18,7 @@
             scrollHeight="flex" id="coachee" [size]="'small'" disabled>
             <ng-template #header>
                 <tr>
-                    <th [width]="'70%'">Nombre</th>
+                    <th [width]="'60%'">Nombre</th>
                     <th>Acciones</th>
                 </tr>
             </ng-template>
@@ -30,12 +30,21 @@
                     <td>
                         <p-button icon="pi pi-id-card" text severity="info" tooltip="Ver perfil"
                             [routerLink]="['/coachee', coachee.id]" />
+                        @if(coachee.processes && coachee.processes.length > 0 ){
+                        <p-button icon="pi pi-folder-open" text severity="warn" tooltip="Ver proceso"
+                            [routerLink]="['/process', coachee.id, coachee.processes[0].id]" />
+                        }@else{
+                        <p-button icon="pi pi-folder-open" text severity="warn" tooltip="Ver proceso"
+                            [disabled]="true" />
+                        }
                         <p-button icon="pi pi-file-plus" text severity="success" tooltip="Nueva Sesión"
-                            (onClick)="goSession()" />
+                            (onClick)="goSession()" [disabled]="!coachee.processes || coachee.processes.length === 0" />
                         <p-button icon="pi pi-folder-plus" text severity="help" tooltip="Nuevo Resumen"
-                            (onClick)="goSummary()" />
-                        <p-button icon="pi pi-history" text severity="warn" tooltip="Ver historial" />
-                        <p-button icon="pi pi-trash" text severity="danger" tooltip="Eliminar Coachee" (onClick)="showRemoveDialog($event, coachee.id)"/>
+                            (onClick)="goSummary()" [disabled]="!coachee.processes || coachee.processes.length === 0" />
+                        <p-button icon="pi pi-history" text severity="secondary" tooltip="Ver historial"
+                            [disabled]="!coachee.processes || coachee.processes.length === 0" />
+                        <p-button icon="pi pi-trash" text severity="danger" tooltip="Eliminar Coachee"
+                            (onClick)="showRemoveDialog($event, coachee.id)" />
                     </td>
                 </tr>
             </ng-template>
@@ -48,4 +57,4 @@
         <p-button class="self-center pt-3" severity="info" label="Archiva Proceso" (onClick)="removeP(processId)"/>
         <p-button class="self-center pt-3" severity="info" label="Desarchiva Proceso" (onClick)="restoreP(processId)"/> -->
 
-        </div>
+    </div>

@@ -13,6 +13,8 @@
     - [Frontend páginas](#frontend-páginas)
       - [Login](#login)
       - [Coachees](#coachees)
+      - [Coachee](#coachee)
+      - [Process](#process)
       - [Sesion](#sesion)
         - [Principal](#principal)
         - [Elementos](#elementos)
@@ -66,6 +68,17 @@ En resumen, Coach Asistant permite maximizar la recogida de datos y tratarlos co
 #### Coachees
 
   <img src="docs/images/coachees.png" width="300" style="vertical-align: top;">
+
+#### Coachee
+
+<div style="display: flex; flex-wrap: wrap; gap: 20px; align-items: flex-start; margin-top: 1rem;">
+  <img src="docs/images/coachee.png" width="300" style="vertical-align: top;">
+  <img src="docs/images/coachee2.png" width="300" style="vertical-align: top;">
+</div>
+
+#### Process
+
+  <img src="docs/images/process.png" width="300" style="vertical-align: top;">
 
 #### Sesion
 
@@ -172,6 +185,16 @@ erDiagram
     INTEGER duration_minutes 
     BOOLEAN is_grow 
     VARCHAR goal "NULL"
+    DATE start_date "NULL"
+    DATE end_date "NULL"
+    INT frequency_days "NULL"
+    TEXT observations "NULL"
+    FLOAT session_price "NULL"
+    VARCHAR payment_method "NULL"
+    INT payment_term_days "NULL"
+    BOOLEAN contract_signed "NULL"
+    BOOLEAN lodp_signed "NULL"
+    BOOLEAN rgpd_signed "NULL"
     DATETIME created_at "NULL"
     DATETIME updated_at "NULL"
     DATETIME deleted_at "NULL"

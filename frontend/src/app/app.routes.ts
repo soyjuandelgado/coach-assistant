@@ -26,6 +26,10 @@ export const routes: Routes = [
     loadComponent: () => import('./coachee/coachee').then((m) => m.Coachee),
   },
   {
+    path: 'process/:coacheeId/:id',
+    loadComponent: () => import('./process/process').then((m) => m.Process),
+  },
+  {
     path: '**',
     redirectTo: '',
   },
