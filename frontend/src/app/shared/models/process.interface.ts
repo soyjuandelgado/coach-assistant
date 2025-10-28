@@ -1,3 +1,5 @@
+import { ISession } from "./session.interface";
+
 export interface IProcess {
   id?: string;
   type: string;
@@ -14,4 +16,5 @@ export interface IProcess {
   contract_signed?: boolean;
   lodp_signed?: boolean;
   rgpd_signed?: boolean;
+  sessions: ISession[];
 }

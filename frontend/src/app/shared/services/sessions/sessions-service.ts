@@ -1,18 +1,18 @@
 import { inject, Injectable, signal } from '@angular/core';
-import { CoacheesApiService } from './coachees-api-service';
-import { ICoachee } from '../../models/coachee.interface';
+import { SessionsApiService } from './sessions-api-service';
+import { ISession } from '../../models/session.interface';
 import { tap } from 'rxjs';
 
 @Injectable({
-  providedIn: 'root',
+  providedIn: 'root'
 })
-export class CoacheesService {
-  private api = inject(CoacheesApiService);
-  private _coachees = signal<ICoachee[]>([]);
-  private _coachee = signal<ICoachee | undefined>(undefined);
+export class SessionsService {
+  private api = inject(SessionsApiService);
+  private _sessions = signal<ISession[]>([]);
+  private _session = signal<ISession | undefined>(undefined);
 
-  public readonly coachees = this._coachees.asReadonly();
-  public readonly coachee = this._coachee.asReadonly();
+  public readonly sessions = this._sessions.asReadonly();
+  public readonly session = this._session.asReadonly();
 
   private _error = signal<string | null>(null);
   public readonly error = this._error.asReadonly();
@@ -20,54 +20,59 @@ export class CoacheesService {
   private _loading = signal<boolean>(false);
   public readonly loading = this._loading.asReadonly();
 
-  getCoachees(): void {
+  getSessions(): void {
     this._loading.set(true);
     this._error.set(null);
-
-    this.api.getCoachees$().subscribe({
+    this.api.getSessions$().subscribe({
       next: (response) => {
-        this._coachees.set(response);
+        this._sessions.set(response);
         this._loading.set(false);
       },
       error: (err) => {
-        console.log('Error getting coachees.', err);
+        console.log('Error getting sessions.', err);
         this._error.set(err.message);
         this._loading.set(false);
       },
     });
   }
 
-  getCoachee(coacheeId: string): void {
+  getSession(sessionId: string): void {
+    if (this._session()?.id === sessionId) {
+      return;
+    }
     this._loading.set(true);
     this._error.set(null);
-
-    this.api.getCoachee$(coacheeId).subscribe({
+    if (sessionId.length == 0) {
+      this._session.set(undefined);
+      return;
+    }
+    this.api.getSession$(sessionId).subscribe({
       next: (response) => {
-        this._coachee.set(response);
+        this._session.set(response);
         this._loading.set(false);
       },
       error: (err) => {
-        console.log('Error getting coachee.', err);
+        console.log('Error getting session.', err);
         this._error.set(err.message);
         this._loading.set(false);
       },
     });
   }
 
-  createCoachee(userId: string, coachee: ICoachee): void {
+  createSession(processId: string, session: ISession): void {
     this._loading.set(true);
     this._error.set(null);
     this.api
-      .createCoachee$(userId, coachee)
+      .createSession$(processId, session)
       .pipe(
         tap({
           next: (response) => {
-            const coacheeResponse = response as ICoachee;
-            this._coachees.update((currentCoachees) => [...currentCoachees, coacheeResponse]);
+            const sessionResponse = response as ISession;
+            this._sessions.update((currentSessions) => [...currentSessions, sessionResponse]);
             this._loading.set(false);
           },
           error: (err) => {
-            console.error('Coachee creating error', err);
+            console.error('Session creating error', err);
             this._error.set(err.message);
             this._loading.set(false);
           },
@@ -76,22 +81,22 @@ export class CoacheesService {
       .subscribe();
   }
 
-  updateCoachee(coacheeId: string, coachee: ICoachee): void {
+  updateSession(sessionId: string, session: ISession): void {
     this._loading.set(true);
     this._error.set(null);
     this.api
-      .updateCoachee$(coacheeId, coachee)
+      .updateSession$(sessionId, session)
       .pipe(
         tap({
           next: (response) => {
-            const coacheeResponse = response as ICoachee;
-            this._coachees.update((currentCoachees) =>
-              currentCoachees.map((c) => (c.id === coacheeId ? coacheeResponse : c))
+            const sessionResponse = response as ISession;
+            this._sessions.update((currentSessions) =>
+              currentSessions.map((c) => (c.id === sessionId ? sessionResponse : c))
             );
             this._loading.set(false);
           },
           error: (err) => {
-            console.error('Coachee updating error', err);
+            console.error('Session updating error', err);
             this._error.set(err.message);
             this._loading.set(false);
           },
@@ -99,22 +104,21 @@ export class CoacheesService {
       )
       .subscribe();
   }
-  deleteCoachee(coacheeId: string): void {
+  deleteSession(sessionId: string): void {
     this._loading.set(true);
     this._error.set(null);
     this.api
-      .deleteCoachee$(coacheeId)
+      .deleteSession$(sessionId)
       .pipe(
         tap({
           next: () => {
-            // Usa el método 'update' para filtrar y eliminar la reunión
-            this._coachees.update((currentCoachees) =>
-              currentCoachees.filter((c) => c.id !== coacheeId)
+            this._sessions.update((currentSessions) =>
+              currentSessions.filter((c) => c.id !== sessionId)
             );
             this._loading.set(false);
           },
           error: (err) => {
-            console.error('Coachee deleting error', err);
+            console.error('Session deleting error', err);
             this._error.set(err.message);
             this._loading.set(false);
           },
@@ -123,22 +127,21 @@ export class CoacheesService {
       .subscribe();
   }
 
-  removeCoachee(coacheeId: string): void {
+  removeSession(sessionId: string): void {
     this._loading.set(true);
     this._error.set(null);
     this.api
-      .removeCoachee$(coacheeId)
+      .removeSession$(sessionId)
       .pipe(
         tap({
           next: () => {
-            // Usa el método 'update' para filtrar y eliminar la reunión
-            this._coachees.update((currentCoachees) =>
-              currentCoachees.filter((c) => c.id !== coacheeId)
+            this._sessions.update((currentSessions) =>
+              currentSessions.filter((c) => c.id !== sessionId)
             );
             this._loading.set(false);
           },
           error: (err) => {
-            console.error('Coachee removing error', err);
+            console.error('Session removing error', err);
             this._error.set(err.message);
             this._loading.set(false);
           },
@@ -147,21 +150,19 @@ export class CoacheesService {
       .subscribe();
   }
 
-  restoreCoachee(coacheeId: string): void {
+  restoreSession(sessionId: string): void {
     this._loading.set(true);
     this._error.set(null);
     this.api
-      .restoreCoachee$(coacheeId)
+      .restoreSession$(sessionId)
       .pipe(
         tap({
           next: (response) => {
             console.log(response);
-            // const coacheeResponse = response as ICoachee;
-            // this._coachees.update((currentCoachees) => [...currentCoachees, coacheeResponse]);
             this._loading.set(false);
           },
           error: (err) => {
-            console.error('Coachee restoring error', err);
+            console.error('Session restoring error', err);
             this._error.set(err.message);
             this._loading.set(false);
           },
@@ -170,10 +171,8 @@ export class CoacheesService {
       .subscribe();
   }
 
-  clearError(): void {
-    this._error.set(null);
+  clearSession(): void {
+    this._session.set(undefined);
   }
-  clearCoachee(): void {
-    this._coachee.set(undefined);
-  }
+
 }

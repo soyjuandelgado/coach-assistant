@@ -8,7 +8,8 @@ import { InputTextModule } from 'primeng/inputtext';
 import { ToggleSwitchModule } from 'primeng/toggleswitch';
 import { PanelModule } from 'primeng/panel';
 import { FormBuilder, Validators, ReactiveFormsModule } from '@angular/forms';
-import { ConfirmationService } from 'primeng/api';
+import { SessionsService } from '../shared/services/sessions/sessions-service';
+import { ISession } from '../shared/models/session.interface';
 
 @Component({
   selector: 'app-new-session-dialog',
@@ -24,12 +25,11 @@ import { ConfirmationService } from 'primeng/api';
   ],
   templateUrl: './new-session-dialog.html',
   styleUrl: './new-session-dialog.css',
-  providers: [ConfirmationService],
 })
 export class NewSessionDialog {
-  private service = inject(ProcessesService);
-  protected process = this.service.process;
-  private confirmationService = inject(ConfirmationService);
+  private processesService = inject(ProcessesService);
+  private sessionsService = inject(SessionsService);
+  protected process = this.processesService.process;
   private fb = inject(FormBuilder);
   visible = input(false);
   visibleChange = output<boolean>();
@@ -43,9 +43,8 @@ export class NewSessionDialog {
 
   constructor() {
     effect(() => {
-      if (this.processId()) {
-        console.log('effect:' + this.processId());
-        this.service.getProcess(this.processId()!);
+      if (this.visible() && this.processId()) {
+        this.processesService.getProcess(this.processId()!);
       }
     });
 
@@ -60,34 +59,23 @@ export class NewSessionDialog {
     });
   }
 
-  // showWarningDialog(warning: string) {
-  //   this.confirmationService.confirm({
-  //     message: warning,
-  //     header: '¡Atención!',
-  //     icon: 'pi pi-exclamation-triangle',
-  //     rejectLabel: 'Cerrar',
-  //     rejectVisible: true,
-  //     acceptVisible: false,
-  //   });
-  // }
-
   close() {
     this.visibleChange.emit(false);
   }
 
   onSubmit() {
     this.sessionForm.markAllAsTouched();
-    // if (!this.sessionForm.valid) {
-    //   console.warn('El formulario de proceso contiene errores.');
-    //   this.showWarningDialog('El formulario de proceso contiene errores.');
-    //   return;
-    // }
 
-    //TODO: createSession. Calculate session number. Add actual date
-    // const sessionData = this.sessionForm.getRawValue() as ISession;
-    // console.log(this.processId());
-    // console.log(sessionData);
-    // this.service.createSession(this.processId(), sessionData);
+    const sessionData = this.sessionForm.getRawValue() as ISession;
+    const now = new Date();
+    sessionData.date = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+    if (this.process() && this.process()!.sessions) {
+      console.log(this.process()?.sessions);
+      sessionData.session_number = this.process()!.sessions.length + 1;
+    } else {
+      sessionData.session_number = 1;
+    }
+    this.sessionsService.createSession(this.processId()!, sessionData);
 
     this.close();
   }

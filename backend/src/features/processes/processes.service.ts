@@ -18,8 +18,9 @@ export class ProcessesService {
   }
 
   async find(processId: string): Promise<Process> {
-    const process = await this.processesRepository.findOneBy({
-      id: Equal(processId),
+    const process = await this.processesRepository.findOne({
+      where: { id: Equal(processId) },
+      relations: ['sessions'],
     });
     if (!process) {
       this.logger.error('find: Process not found.');

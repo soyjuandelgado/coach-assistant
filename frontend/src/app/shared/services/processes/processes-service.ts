@@ -20,10 +20,6 @@ export class ProcessesService {
   private _loading = signal<boolean>(false);
   public readonly loading = this._loading.asReadonly();
 
-  constructor() {
-    this.getProcesses();
-  }
-
   getProcesses(): void {
     this._loading.set(true);
     this._error.set(null);
@@ -41,9 +37,6 @@ export class ProcessesService {
   }
 
   getProcess(processId: string): void {
-    if (this._process()?.id === processId) {
-      return;
-    }
     this._loading.set(true);
     this._error.set(null);
     if (processId.length == 0) {
