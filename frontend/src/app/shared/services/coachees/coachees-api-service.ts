@@ -4,12 +4,14 @@ import { ICoachee } from '../../models/coachee.interface';
 import { ICoacheeDto } from '../../models/coachee.dto';
 import { environment } from '../../../../environments/environment';
 import { catchError, throwError } from 'rxjs';
+import { ErrorText } from '../error-text/error-text';
 
 @Injectable({
   providedIn: 'root',
 })
 export class CoacheesApiService {
   private http = inject(HttpClient);
+  private errorText = inject(ErrorText);
 
   toDto(coachee: ICoachee): ICoacheeDto {
     // const {id: _id, coach: _coach, ...dtoWithoutCoach } = coachee;
@@ -21,19 +23,14 @@ export class CoacheesApiService {
     // console.log(dto);
     return dto;
   }
+
   getCoachees$() {
     let params = new HttpParams();
     params = params.append('relations', 'processes');
     // params = params.append('deleted', 'true');
     return this.http.get<ICoachee[]>(environment.coacheesUrl, { params }).pipe(
       catchError((error: HttpErrorResponse) => {
-        let appError: string;
-        if (error.status === 401) {
-          appError = 'Not authorized';
-        } else {
-          appError = `Server generic error: ${error}`;
-        }
-        return throwError(() => new Error(appError));
+        return throwError(() => new Error(this.errorText.get(error, 'Coachee')));
       })
     );
   }
@@ -41,15 +38,7 @@ export class CoacheesApiService {
   getCoachee$(coacheeId: string) {
     return this.http.get<ICoachee>(environment.coacheesUrl + coacheeId).pipe(
       catchError((error: HttpErrorResponse) => {
-        let appError: string;
-        if (error.status === 404) {
-          appError = `Coachee not found.`;
-        } else if (error.status === 401) {
-          appError = 'Not authorized';
-        } else {
-          appError = `Server generic error: ${error}`;
-        }
-        return throwError(() => new Error(appError));
+        return throwError(() => new Error(this.errorText.get(error, 'Coachee')));
       })
     );
   }
@@ -59,15 +48,7 @@ export class CoacheesApiService {
     const dto = this.toDto(newCoachee);
     return this.http.post(environment.coacheesUrl + userId, dto).pipe(
       catchError((error: HttpErrorResponse) => {
-        let appError: string;
-        if (error.status === 404) {
-          appError = `User not found.`;
-        } else if (error.status === 401) {
-          appError = 'Not authorized';
-        } else {
-          appError = `Server generic error: ${error}`;
-        }
-        return throwError(() => new Error(appError));
+        return throwError(() => new Error(this.errorText.get(error, 'Coachee')));
       })
     );
   }
@@ -76,15 +57,7 @@ export class CoacheesApiService {
     const dto = this.toDto(newCoachee);
     return this.http.put(environment.coacheesUrl + coacheeId, dto).pipe(
       catchError((error: HttpErrorResponse) => {
-        let appError: string;
-        if (error.status === 404) {
-          appError = `Coachee not found`;
-        } else if (error.status === 401) {
-          appError = 'Not authorized';
-        } else {
-          appError = `Server generic error: ${error}`;
-        }
-        return throwError(() => new Error(appError));
+        return throwError(() => new Error(this.errorText.get(error, 'Coachee')));
       })
     );
   }
@@ -92,15 +65,7 @@ export class CoacheesApiService {
   deleteCoachee$(coacheeId: string) {
     return this.http.delete(environment.coacheesUrl + coacheeId).pipe(
       catchError((error: HttpErrorResponse) => {
-        let appError: string;
-        if (error.status === 404) {
-          appError = `Coachee not found`;
-        } else if (error.status === 401) {
-          appError = 'Not authorized';
-        } else {
-          appError = `Server generic error: ${error}`;
-        }
-        return throwError(() => new Error(appError));
+        return throwError(() => new Error(this.errorText.get(error, 'Coachee')));
       })
     );
   }
@@ -108,15 +73,7 @@ export class CoacheesApiService {
   removeCoachee$(coacheeId: string) {
     return this.http.patch<ICoachee[]>(environment.coacheesUrl + coacheeId + '/remove', '').pipe(
       catchError((error: HttpErrorResponse) => {
-        let appError: string;
-        if (error.status === 404) {
-          appError = `Coachee not found`;
-        } else if (error.status === 401) {
-          appError = 'Not authorized';
-        } else {
-          appError = `Server generic error: ${error}`;
-        }
-        return throwError(() => new Error(appError));
+        return throwError(() => new Error(this.errorText.get(error, 'Coachee')));
       })
     );
   }
@@ -124,15 +81,7 @@ export class CoacheesApiService {
   restoreCoachee$(coacheeId: string) {
     return this.http.patch<ICoachee[]>(environment.coacheesUrl + coacheeId + '/restore', '').pipe(
       catchError((error: HttpErrorResponse) => {
-        let appError: string;
-        if (error.status === 404) {
-          appError = `Coachee not found`;
-        } else if (error.status === 401) {
-          appError = 'Not authorized';
-        } else {
-          appError = `Server generic error: ${error}`;
-        }
-        return throwError(() => new Error(appError));
+        return throwError(() => new Error(this.errorText.get(error, 'Coachee')));
       })
     );
   }

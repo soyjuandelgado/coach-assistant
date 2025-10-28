@@ -72,6 +72,7 @@ export class Coachees {
       header: '¡Atención!',
       icon: 'pi pi-exclamation-triangle',
       rejectLabel: 'Cancelar',
+      acceptVisible: true,
       rejectButtonProps: {
         label: 'Cancelar',
         severity: 'secondary',
