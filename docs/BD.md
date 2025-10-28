@@ -39,14 +39,18 @@ erDiagram
     USERS ||--o{ USER_ROLES }o--|| ROLES
     USERS ||--o{ USER_PROFILES
 
-    SESION {
-        CHAR(36) id_proceso "UUID"
+    SESSION {
         CHAR(36) id PK "UUID"
-        DATE fecha
-        INT num_sesion
+        DATE date
+        INT session_number
         BOOLEAN is_grow
-        VARCHAR(50) localizacion
-        VARCHAR(200) objetivo
+        INT duration_minutes
+        VARCHAR(50) location
+        VARCHAR(200) goal
+        DATETIME created_at
+        DATETIME updated_at
+        DATETIME deleted_at
+        CHAR(36) process_id "UUID"
     }
 
     NOTA_SESION {

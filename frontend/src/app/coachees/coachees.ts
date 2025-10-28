@@ -4,16 +4,24 @@ import { TableModule } from 'primeng/table';
 import { ButtonModule } from 'primeng/button';
 import { ToolbarModule } from 'primeng/toolbar';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
+import { DialogModule } from 'primeng/dialog';
 import { FullScreen } from '../shared/services/full-screen/full-screen';
 import { CoacheesService } from '../shared/services/coachees/coachees-service';
-import { ICoachee } from '../shared/models/coachee.interface';
 import { ConfirmationService } from 'primeng/api';
-// import { ProcessesService } from '../shared/services/processes/processes-service';
-// import { IProcess } from '../shared/models/process.interface';
+import { NewSessionDialog } from '../new-session-dialog/new-session-dialog';
+import { IProcess } from '../shared/models/process.interface';
 
 @Component({
   selector: 'app-coachees',
-  imports: [TableModule, ButtonModule, ToolbarModule, ConfirmDialogModule, RouterLink],
+  imports: [
+    TableModule,
+    ButtonModule,
+    ToolbarModule,
+    ConfirmDialogModule,
+    DialogModule,
+    RouterLink,
+    NewSessionDialog,
+  ],
   templateUrl: './coachees.html',
   styleUrl: './coachees.css',
   providers: [ConfirmationService],
@@ -35,7 +43,8 @@ export class Coachees {
   protected loading = this.service.loading;
   protected error = this.service.error;
 
-  selectedCoachee = signal<ICoachee | undefined>(undefined);
+  visibleNewSession = signal(false);
+  selectedProcessId = signal<string | undefined>(undefined);
 
   constructor() {
     this.service.getCoachees();
@@ -93,48 +102,11 @@ export class Coachees {
     this.service.removeCoachee(coacheeId);
   }
 
-  // processServ = inject(ProcessesService);
-  // processes = this.processServ.processes;
-
-  // protected coacheeId = '34201a69-a4a0-4475-b94c-fbd7fb67d011';
-  // protected processId ='052e3cb7-2edc-4f58-b5f3-8e50bcd81ac2';
-  // createP(coacheeId: string) {
-  //   const process: IProcess = {
-  //     type: 'Directivo',
-  //     duration_minutes: 90,
-  //     is_grow: false,
-  //     goal: 'Conseguirlo pronto',
-  //     start_date: new Date(),
-  //   };
-  //   this.processServ.createProcess(coacheeId, process);
-  // }
-
-  // updateP(processId: string) {
-  //   const process: IProcess = {
-  //     type: 'Directivo Modificado',
-  //     duration_minutes: 60,
-  //     is_grow: true,
-  //     goal: 'Conseguirlo pronto y bien',
-  //     frequency_days: 7,
-  //     session_price: 50.05,
-  //     payment_method: 'Transferencia',
-  //     payment_term_days: 30,
-  //     contract_signed: true,
-  //     lodp_signed: true,
-  //     rgpd_signed: true,
-  //   };
-  //   this.processServ.updateProcess(processId, process);
-  // }
-
-  // deleteP(processId: string) {
-  //   this.processServ.deleteProcess(processId);
-  // }
-
-  // removeP(processId: string) {
-  //   this.processServ.removeProcess(processId);
-  // }
-
-  // restoreP(processId: string) {
-  //   this.processServ.restoreProcess(processId);
-  // }
+  showNewSession(processes: IProcess[]) {
+    if (!processes || processes.length === 0) {
+      return;
+    }
+    this.selectedProcessId.set(processes[0].id);
+    this.visibleNewSession.set(true);
+  }
 }

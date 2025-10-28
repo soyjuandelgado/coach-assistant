@@ -11,11 +11,12 @@
         </ng-template>
     </p-toolbar>
     <p-confirmdialog />
+    <app-new-session-dialog [(visible)]="visibleNewSession" [processId]="selectedProcessId()"></app-new-session-dialog>
     <div class="w-full flex flex-col">
         <label for="coachees" class="block mb-1 font-medium">Coachees activos <p-button icon="pi pi-info-circle" text
                 severity="info" [size]="'small'" /></label>
-        <p-table [value]="coachees()" selectionMode="single" [(selection)]="selectedCoachee" dataKey="id"
-            scrollHeight="flex" id="coachee" [size]="'small'" disabled>
+        <p-table [value]="coachees()" selectionMode="single" dataKey="id" scrollHeight="flex" id="coachee"
+            [size]="'small'" disabled>
             <ng-template #header>
                 <tr>
                     <th [width]="'60%'">Nombre</th>
@@ -38,11 +39,12 @@
                             [disabled]="true" />
                         }
                         <p-button icon="pi pi-file-plus" text severity="success" tooltip="Nueva Sesión"
-                            (onClick)="goSession()" [disabled]="!coachee.processes || coachee.processes.length === 0" />
+                            (onClick)="showNewSession(coachee.processes)"
+                            [disabled]="!coachee.processes || coachee.processes.length === 0" />
                         <p-button icon="pi pi-folder-plus" text severity="help" tooltip="Nuevo Resumen"
                             (onClick)="goSummary()" [disabled]="!coachee.processes || coachee.processes.length === 0" />
                         <p-button icon="pi pi-history" text severity="secondary" tooltip="Ver historial"
-                            [disabled]="!coachee.processes || coachee.processes.length === 0" />
+                            [disabled]="!coachee.processes || coachee.processes.length === 0" [hidden]="true" />
                         <p-button icon="pi pi-trash" text severity="danger" tooltip="Eliminar Coachee"
                             (onClick)="showRemoveDialog($event, coachee.id)" />
                     </td>
@@ -51,10 +53,4 @@
         </p-table>
         <p-button class="self-center pt-3" icon="pi pi-user-plus" severity="info" label="Nuevo Coachee"
             tooltip="Nuevo Coachee" [routerLink]="['/coachee', '']" />
-        <!-- <p-button class="self-center pt-3" severity="info" label="Nuevo Proceso" (onClick)="createP(coacheeId)"/>
-        <p-button class="self-center pt-3" severity="info" label="Modifica Proceso" (onClick)="updateP(processId)"/>
-        <p-button class="self-center pt-3" severity="info" label="Elimina Proceso" (onClick)="deleteP(processId)"/>
-        <p-button class="self-center pt-3" severity="info" label="Archiva Proceso" (onClick)="removeP(processId)"/>
-        <p-button class="self-center pt-3" severity="info" label="Desarchiva Proceso" (onClick)="restoreP(processId)"/> -->
-
     </div>
