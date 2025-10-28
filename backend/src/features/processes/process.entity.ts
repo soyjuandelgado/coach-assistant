@@ -6,10 +6,12 @@ import {
   Entity,
   JoinColumn,
   ManyToOne,
+  OneToMany,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
 import { Coachee } from '../coachees/coachee.entity';
+import { Session } from '../sessions/session.entity';
 
 @Entity()
 export class Process {
@@ -90,4 +92,7 @@ export class Process {
   @ManyToOne(() => Coachee, (coachee) => coachee.processes)
   @JoinColumn({ name: 'coachee_id', referencedColumnName: 'id' })
   coachee: Coachee;
+
+  @OneToMany(() => Session, (session) => session.process, { cascade: true })
+  sessions: Session[];
 }

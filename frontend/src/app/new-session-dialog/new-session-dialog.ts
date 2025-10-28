@@ -83,7 +83,7 @@ export class NewSessionDialog {
     //   return;
     // }
 
-    //TODO: createSession. Calculate session number
+    //TODO: createSession. Calculate session number. Add actual date
     // const sessionData = this.sessionForm.getRawValue() as ISession;
     // console.log(this.processId());
     // console.log(sessionData);

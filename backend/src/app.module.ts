@@ -5,6 +5,7 @@ import { configService } from './config/config.service';
 import { RolesModule } from './features/roles/role.module';
 import { CoacheesModule } from './features/coachees/coachees.module';
 import { ProcessesModule } from './features/processes/processes.module';
+import { SessionsModule } from './features/sessions/sessions.module';
 
 @Module({
   imports: [
@@ -12,6 +13,7 @@ import { ProcessesModule } from './features/processes/processes.module';
     RolesModule,
     CoacheesModule,
     ProcessesModule,
+    SessionsModule,
     TypeOrmModule.forRoot(configService.getTypeOrmConfig()),
   ],
   controllers: [],
