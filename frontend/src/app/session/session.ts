@@ -15,8 +15,10 @@ import { DividerModule } from 'primeng/divider';
 import { PanelModule } from 'primeng/panel';
 import { TabsModule } from 'primeng/tabs';
 import { DialogModule } from 'primeng/dialog';
-import { Router } from '@angular/router';
 
+import { CoacheeProfile } from './coachee-profile/coachee-profile';
+
+import { Router } from '@angular/router';
 import { FullScreen } from '../shared/services/full-screen/full-screen';
 import { SessionsService } from '../shared/services/sessions/sessions-service';
 import { IProcess } from '../shared/models/process.interface';
@@ -62,6 +64,7 @@ interface TaskOption {
     PanelModule,
     TabsModule,
     DialogModule,
+    CoacheeProfile,
   ],
   templateUrl: './session.html',
   styleUrl: './session.css',
@@ -89,6 +92,7 @@ export class Session {
   visible = false;
   visibleNotes = false;
   visibleEmotions = false;
+  visibleProfile = false;
   hidden = false;
 
   constructor() {
@@ -124,6 +128,8 @@ export class Session {
   showProfile(){
     //TODO: show dialog with coachee data
     console.log(this.coachee());
+    this.visible = false;
+    this.visibleProfile = true;
   }
 
   showErrorDialog(error: string) {

@@ -16,7 +16,8 @@
             <p-button icon="pi pi-sign-out" text severity="danger" (onClick)="goCoachees()" />
         </ng-template>
     </p-toolbar>
-    <p-dialog header="Notas Previas" [(visible)]="visibleNotes" position="top" [style]="{ width: '45rem' }">
+    <app-coachee-profile [coachee]="this.coachee()" [(visible)]="this.visibleProfile"></app-coachee-profile>
+    <p-dialog header="Notas Previas" [(visible)]="visibleNotes" position="top" draggable="false" [style]="{ width: '45rem' }">
         <div class="flex flex-col">
             <div class="py-1 flex flex-col">
                 <span class="font-medium">Objetivo Proceso:</span>
@@ -24,7 +25,8 @@
             </div>
             <div class="py-1 flex flex-col">
                 <span class="font-medium">Objetivo Anterior:</span>
-                <span>{{this.process() ? (this.process()!.sessions && this.process()!.sessions[1] ? this.process()!.sessions[1].goal : "- No existe-") : "- No existe -"}}</span>
+                <span>{{this.process() ? (this.process()!.sessions && this.process()!.sessions[1] ?
+                    this.process()!.sessions[1].goal : "- No existe-") : "- No existe -"}}</span>
             </div>
             <div class="py-1 flex flex-col">
                 <span class="font-medium">Resumen Anterior:</span>
@@ -87,7 +89,7 @@
     <p-drawer [(visible)]="visible" header="Opciones">
         <p-button class="w-full" icon="pi pi-face-smile" text label="Cuadro Emociones" severity="help"
             (onClick)="showDialogEmotions()" />
-        <p-button class="w-full" icon="pi pi-id-card" text label="Expediente" (onClick)="showProfile()"/>
+        <p-button class="w-full" icon="pi pi-id-card" text label="Expediente" (onClick)="showProfile()" />
         <p-divider />
         <p-button class="w-full" icon="pi pi-history" text label="Historial" severity="warn" />
         <ul class="list-none p-0 m-0">

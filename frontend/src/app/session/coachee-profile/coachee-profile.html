@@ -1,0 +1,27 @@
+<p-dialog header="Perfil del Coachee" [visible]="visible()" closable="false" modal="true">
+    <div class="grid grid-cols-2 gap-2">
+        <span class="font-medium">Nombre Completo:</span>
+        <span>{{this.coachee()?.name + ' ' + this.coachee()?.surname + ' ' + this.coachee()?.middlename }}</span>
+        <span class="font-medium">Fecha Nacimiento:</span>
+        <span>{{this.coachee()?.birthdate | date:'dd-MM-yyyy'}}</span>
+        <span class="font-medium">Dirección:</span>
+        <span>{{this.coachee()?.address}}</span>
+        <span class="font-medium">Correo electrónico:</span>
+        <span>{{this.coachee()?.email}}</span>
+        <span class="font-medium">Teléfono:</span>
+        <span>{{this.coachee()?.phone}}</span>
+        <span class="font-medium">DNI:</span>
+        <span>{{this.coachee()?.dni}}</span>
+        <p-divider class="col-span-2" />
+        <span class="font-medium">Empresa:</span>
+        <span>{{this.coachee()?.company}}</span>
+        <span class="font-medium">Cargo:</span>
+        <span>{{this.coachee()?.company_role}}</span>
+        <span class="font-medium">Dirección Trabajo:</span>
+        <span>{{this.coachee()?.company_address}}</span>
+    </div>
+
+    <div class="flex justify-center gap-2 mt-8">
+        <p-button label="Cerrar" (onClick)="close()" />
+    </div>
+</p-dialog>
