@@ -1,3 +1,5 @@
+import { IProcess } from "./process.interface";
+
 export interface ISession {
   id: string;
   date: Date;
@@ -6,4 +8,5 @@ export interface ISession {
   duration_minutes: number;
   location: string;
   goal?: string;
+  process?: IProcess;
 }

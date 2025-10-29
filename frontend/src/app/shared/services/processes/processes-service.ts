@@ -55,6 +55,9 @@ export class ProcessesService {
       },
     });
   }
+  getProcess$(processId: string): Observable<IProcess> {
+    return this.api.getProcess$(processId);
+  }
 
   createProcess(userId: string, process: IProcess): void {
     this._loading.set(true);

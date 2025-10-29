@@ -4,9 +4,11 @@
             <p-button icon="pi pi-bars" text severity="contrast" (click)="visible = true" />
         </ng-template>
         <ng-template #center>
-            <p-button id="title" icon="pi pi-folder-open" text severity="warn" label="Pedro Pérez - Sesión {{this.session()?.session_number}}"
+            <p-button id="title" icon="pi pi-folder-open" text severity="warn"
+                label="{{this.process() ? (this.coachee() ? this.coachee()!.name + ' ' + this.coachee()!.surname  : '' ) : ''}} - Sesión {{this.session()?.session_number}}"
                 (click)="showDialogNotes()" />
-            <p-button icon="pi pi-stopwatch" label="{{this.session()?.duration_minutes}}'" severity="success" variant="text" />
+            <p-button icon="pi pi-stopwatch" label="{{this.session()?.duration_minutes}}'" severity="success"
+                variant="text" />
         </ng-template>
         <ng-template #end>
             <p-button icon="pi pi-eye" text severity="contrast" (onClick)="changeHidden()" />
@@ -14,23 +16,15 @@
             <p-button icon="pi pi-sign-out" text severity="danger" (onClick)="goCoachees()" />
         </ng-template>
     </p-toolbar>
-    <p-dialog header="Notas Previas" [(visible)]="visibleNotes" [position]="'top'" [style]="{ width: '45rem' }">
+    <p-dialog header="Notas Previas" [(visible)]="visibleNotes" position="top" [style]="{ width: '45rem' }">
         <div class="flex flex-col">
             <div class="py-1 flex flex-col">
                 <span class="font-medium">Objetivo Proceso:</span>
-                <span>Conseguir aumentar las ventas un 30% el 31/01/2026</span>
+                <span>{{this.process() ? this.process()!.goal : "- No definido -"}}</span>
             </div>
             <div class="py-1 flex flex-col">
                 <span class="font-medium">Objetivo Anterior:</span>
-                <span>Buscar mejoras en el diseño</span>
-            </div>
-            <div class="py-1 flex flex-col">
-                <span class="font-medium">Objetivos pactados:</span>
-                <ul class="list-inside list-none">
-                    <li><i class="pi pi-check-square pr-2"></i>Mejorar flujo de datos interno</li>
-                    <li><i class="pi pi-stop pr-2"></i>Lanzar nuevo producto</li>
-                    <li><i class="pi pi-stop pr-2"></i>Conseguir ventas por 100k</li>
-                </ul>
+                <span>{{this.process() ? (this.process()!.sessions && this.process()!.sessions[1] ? this.process()!.sessions[1].goal : "- No existe-") : "- No existe -"}}</span>
             </div>
             <div class="py-1 flex flex-col">
                 <span class="font-medium">Resumen Anterior:</span>
@@ -67,7 +61,8 @@
             <p-button label="Cerrar" (click)="visibleNotes = false" />
         </div>
     </p-dialog>
-    <p-dialog id="emotions-dialog" header="Cuadro Emociones" [(visible)]="visibleEmotions" [modal]="true" [style]="{ width: '45rem' }">
+    <p-dialog id="emotions-dialog" header="Cuadro Emociones" [(visible)]="visibleEmotions" [modal]="true"
+        [style]="{ width: '45rem' }">
         <p-table [value]="detailEmotions()" selectionMode="single" dataKey="id" scrollHeight="flex" id="emotions"
             [size]="'small'">
             <ng-template pTemplate="body" let-row let-rowIndex="rowIndex">
@@ -90,20 +85,21 @@
         </div>
     </p-dialog>
     <p-drawer [(visible)]="visible" header="Opciones">
-        <p-button class="w-full" icon="pi pi-face-smile" text label="Cuadro Emociones" [severity]="'warn'"
+        <p-button class="w-full" icon="pi pi-face-smile" text label="Cuadro Emociones" severity="help"
             (onClick)="showDialogEmotions()" />
-        <p-button class="w-full" icon="pi pi-id-card" text label="Expediente" />
+        <p-button class="w-full" icon="pi pi-id-card" text label="Expediente" (onClick)="showProfile()"/>
         <p-divider />
-        <h3 class="pi pi-history text-orange-700"> Ver Historial</h3>
-        <ul>
-            <li class="ml-2">S3: Rueda Vida</li>
-            <li class="ml-2"><a href="#">R2: Objetivo sesion 2</a></li>
-            <li class="ml-2">S2: Objetivo sesion 2</li>
-            <li class="ml-2">R1: Objetivo sesion 1</li>
-            <li class="ml-2">S1: Objetivo sesion 1</li>
+        <p-button class="w-full" icon="pi pi-history" text label="Historial" severity="warn" />
+        <ul class="list-none p-0 m-0">
+            @for (session of process()?.sessions?.slice(1); track session.id) {
+            <li class="ml-2 py-1">
+                <a class="no-underline text-primary-700 hover:text-primary-500">S{{session.session_number}}:
+                    {{session.goal || 'Sin objetivo definido'}}</a>
+            </li>
+            }
         </ul>
         <p-divider />
-        <h4 class="pi pi-wrench text-blue-700"> Herramientas</h4>
+        <p-button class="w-full" icon="pi pi-wrench" text label="Herramientas" severity="secondary" />
         <ul>
             <li class="ml-2">Rueda de la Vida</li>
             <li class="ml-2">Valores</li>
@@ -112,14 +108,16 @@
             <li class="ml-2">Ficha Objetivo</li>
         </ul>
         <p-divider />
-        <h4 class="pi pi-graduation-cap text-green-700"> Píldoras Formativas</h4>
+        <p-button class="w-full" icon="pi pi-graduation-cap" text label="Píldoras Formativas" severity="success" />
         <ul>
             <li class="ml-2">Emociones Básicas</li>
             <li class="ml-2">Camino Autoestima</li>
             <li class="ml-2">REA</li>
         </ul>
         <p-divider />
-        <p-button class="w-full" icon="pi pi-pencil" text label="Pizarra" />
+        <h4 class="text-primary-700 font-semibold">
+            <span class="pi pi-pencil mr-2"></span>Pizarra
+        </h4>
         <ng-template #footer>
             <div class="flex items-center gap-2">
                 <button pButton label="Terminar Sesión" icon="pi pi-sign-out" class="w-full" severity="danger" outlined>

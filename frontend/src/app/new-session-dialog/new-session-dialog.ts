@@ -27,11 +27,11 @@ import { ConfirmationService } from 'primeng/api';
   ],
   templateUrl: './new-session-dialog.html',
   styleUrl: './new-session-dialog.css',
-  providers:[ConfirmationService]
+  providers: [ConfirmationService],
 })
 export class NewSessionDialog {
   private router = inject(Router);
-   private confirmationService = inject(ConfirmationService);
+  private confirmationService = inject(ConfirmationService);
   private processesService = inject(ProcessesService);
   private sessionsService = inject(SessionsService);
   protected process = this.processesService.process;
@@ -86,12 +86,12 @@ export class NewSessionDialog {
   createSession(processId: string, session: ISession) {
     this.sessionsService.createSession$(processId, session).subscribe({
       next: (response: ISession) => {
-        console.log('Navegar a session')
+        console.log('Navegar a session');
         this.router.navigate(['session', response.id]);
         // this.close();
       },
       error: (err) => {
-        this.showErrorDialog(err)
+        this.showErrorDialog(err);
         console.error('Error creating session:', err);
       },
     });

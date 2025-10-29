@@ -19,6 +19,10 @@ import { Router } from '@angular/router';
 
 import { FullScreen } from '../shared/services/full-screen/full-screen';
 import { SessionsService } from '../shared/services/sessions/sessions-service';
+import { IProcess } from '../shared/models/process.interface';
+import { ProcessesService } from '../shared/services/processes/processes-service';
+import { ConfirmationService } from 'primeng/api';
+import { ICoachee } from '../shared/models/coachee.interface';
 
 interface Emotion {
   name: string;
@@ -61,6 +65,7 @@ interface TaskOption {
   ],
   templateUrl: './session.html',
   styleUrl: './session.css',
+  providers: [ConfirmationService],
 })
 export class Session {
   private fullScreenService = inject(FullScreen);
@@ -74,23 +79,61 @@ export class Session {
 
   protected id = input.required<string>();
   private router = inject(Router);
-  private service = inject(SessionsService);
-  protected session = this.service.session;
+  private confirmationService = inject(ConfirmationService);
+  private sessionsService = inject(SessionsService);
+  private processesService = inject(ProcessesService);
+  protected session = this.sessionsService.session;
+  protected process = signal<IProcess | undefined>(undefined);
+  protected coachee = signal<ICoachee | undefined>(undefined);
 
   visible = false;
   visibleNotes = false;
   visibleEmotions = false;
-  hidden = true;
+  hidden = false;
 
-  constructor(){
-    effect(()=>{
+  constructor() {
+    effect(() => {
       const sessionId = this.id();
-      this.service.getSession(sessionId);
-    })
+      this.sessionsService.getSession(sessionId);
+    });
 
     effect(() => {
       const session = this.session();
-    })
+      if (session) {
+        if (session.process) {
+          console.log(session.process);
+          this.getProcess(session!.process!.id!);
+        }
+      }
+    });
+  }
+
+  getProcess(processId: string) {
+    this.processesService.getProcess$(processId).subscribe({
+      next: (response: IProcess) => {
+        this.process.set(response);
+        this.coachee.set(response.coachee);
+      },
+      error: (err) => {
+        this.showErrorDialog(err);
+        console.error('Error creating session:', err);
+      },
+    });
+  }
+
+  showProfile(){
+    //TODO: show dialog with coachee data
+    console.log(this.coachee());
+  }
+
+  showErrorDialog(error: string) {
+    this.confirmationService.confirm({
+      message: error,
+      header: 'Error',
+      icon: 'pi pi-times-circle',
+      rejectLabel: 'Cerrar',
+      acceptVisible: false,
+    });
   }
 
   showDialogNotes() {
