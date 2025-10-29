@@ -1,7 +1,7 @@
 import { inject, Injectable, signal } from '@angular/core';
 import { ProcessesApiService } from './processes-api-service';
 import { IProcess } from '../../models/process.interface';
-import { tap } from 'rxjs';
+import { Observable, tap } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -78,6 +78,10 @@ export class ProcessesService {
       .subscribe();
   }
 
+  createProcess$(userId: string, process: IProcess): Observable<IProcess> {
+    return this.api.createProcess$(userId, process);
+  }
+
   updateProcess(processId: string, process: IProcess): void {
     this._loading.set(true);
     this._error.set(null);
@@ -101,6 +105,10 @@ export class ProcessesService {
       )
       .subscribe();
   }
+  updateProcess$(processId: string, process: IProcess): Observable<IProcess> {
+    return this.api.updateProcess$(processId, process);
+  }
+
   deleteProcess(processId: string): void {
     this._loading.set(true);
     this._error.set(null);

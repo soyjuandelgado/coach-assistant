@@ -3,7 +3,7 @@ import { inject, Injectable } from '@angular/core';
 import { IProcess } from '../../models/process.interface';
 import { IProcessDto } from '../../models/process.dto';
 import { environment } from '../../../../environments/environment';
-import { catchError, throwError } from 'rxjs';
+import { catchError, Observable, throwError } from 'rxjs';
 import { ErrorText } from '../error-text/error-text';
 
 @Injectable({
@@ -44,18 +44,18 @@ export class ProcessesApiService {
     );
   }
 
-  createProcess$(coacheeId: string, newProcess: IProcess) {
+  createProcess$(coacheeId: string, newProcess: IProcess): Observable<IProcess> {
     const dto = this.toDto(newProcess);
-    return this.http.post(environment.processesUrl + coacheeId, dto).pipe(
+    return (this.http.post(environment.processesUrl + coacheeId, dto) as Observable<IProcess>).pipe(
       catchError((error: HttpErrorResponse) => {
         return throwError(() => new Error(this.errorText.get(error, 'Process')));
       })
     );
   }
 
-  updateProcess$(processId: string, newProcess: IProcess) {
+  updateProcess$(processId: string, newProcess: IProcess): Observable<IProcess> {
     const dto = this.toDto(newProcess);
-    return this.http.put(environment.processesUrl + processId, dto).pipe(
+    return (this.http.put(environment.processesUrl + processId, dto) as Observable<IProcess>).pipe(
       catchError((error: HttpErrorResponse) => {
         return throwError(() => new Error(this.errorText.get(error, 'Process')));
       })
