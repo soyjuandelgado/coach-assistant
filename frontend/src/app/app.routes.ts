@@ -2,11 +2,17 @@ import { Routes } from '@angular/router';
 import { Login } from './login/login';
 import { Summary } from './summary/summary';
 import { Coachees } from './coachees/coachees';
+import { Session } from './session/session';
 
 export const routes: Routes = [
   {
     path: '',
     component: Login,
+  },
+  //TODO: Delete route 'session'
+  {
+    path: 'session',
+    component: Session,
   },
   {
     path: 'session/:id',
