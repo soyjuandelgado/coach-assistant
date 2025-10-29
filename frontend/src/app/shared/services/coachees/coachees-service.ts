@@ -1,7 +1,7 @@
 import { inject, Injectable, signal } from '@angular/core';
 import { CoacheesApiService } from './coachees-api-service';
 import { ICoachee } from '../../models/coachee.interface';
-import { tap } from 'rxjs';
+import { Observable, tap } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -76,6 +76,10 @@ export class CoacheesService {
       .subscribe();
   }
 
+  createCoachee$(userId: string, coachee: ICoachee): Observable<ICoachee> {
+    return this.api.createCoachee$(userId, coachee);
+  }
+
   updateCoachee(coacheeId: string, coachee: ICoachee): void {
     this._loading.set(true);
     this._error.set(null);
@@ -99,6 +103,10 @@ export class CoacheesService {
       )
       .subscribe();
   }
+  updateCoachee$(coacheeId: string, coachee: ICoachee): Observable<ICoachee> {
+    return this.api.updateCoachee$(coacheeId, coachee);
+  }
+
   deleteCoachee(coacheeId: string): void {
     this._loading.set(true);
     this._error.set(null);

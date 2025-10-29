@@ -3,7 +3,7 @@ import { inject, Injectable } from '@angular/core';
 import { ICoachee } from '../../models/coachee.interface';
 import { ICoacheeDto } from '../../models/coachee.dto';
 import { environment } from '../../../../environments/environment';
-import { catchError, throwError } from 'rxjs';
+import { catchError, Observable, throwError } from 'rxjs';
 import { ErrorText } from '../error-text/error-text';
 
 @Injectable({
@@ -43,19 +43,19 @@ export class CoacheesApiService {
     );
   }
 
-  createCoachee$(userId: string, newCoachee: ICoachee) {
+  createCoachee$(userId: string, newCoachee: ICoachee): Observable<ICoachee> {
     // return this.http.post(environment.coacheesUrl, newCoachee, { params: { userId: userId } });
     const dto = this.toDto(newCoachee);
-    return this.http.post(environment.coacheesUrl + userId, dto).pipe(
+    return (this.http.post(environment.coacheesUrl + userId, dto) as Observable<ICoachee>).pipe(
       catchError((error: HttpErrorResponse) => {
         return throwError(() => new Error(this.errorText.get(error, 'Coachee')));
       })
     );
   }
 
-  updateCoachee$(coacheeId: string, newCoachee: ICoachee) {
+  updateCoachee$(coacheeId: string, newCoachee: ICoachee): Observable<ICoachee> {
     const dto = this.toDto(newCoachee);
-    return this.http.put(environment.coacheesUrl + coacheeId, dto).pipe(
+    return (this.http.put(environment.coacheesUrl + coacheeId, dto) as Observable<ICoachee>).pipe(
       catchError((error: HttpErrorResponse) => {
         return throwError(() => new Error(this.errorText.get(error, 'Coachee')));
       })
