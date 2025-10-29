@@ -1,18 +1,18 @@
 import { inject, Injectable, signal } from '@angular/core';
-import { ProcessesApiService } from './processes-api-service';
-import { IProcess } from '../../models/process.interface';
+import { SessionsApiService } from './sessions-api-service';
+import { ISession } from '../../models/session.interface';
 import { Observable, tap } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
 })
-export class ProcessesService {
-  private api = inject(ProcessesApiService);
-  private _processes = signal<IProcess[]>([]);
-  private _process = signal<IProcess | undefined>(undefined);
+export class SessionsService {
+  private api = inject(SessionsApiService);
+  private _sessions = signal<ISession[]>([]);
+  private _session = signal<ISession | undefined>(undefined);
 
-  public readonly processes = this._processes.asReadonly();
-  public readonly process = this._process.asReadonly();
+  public readonly sessions = this._sessions.asReadonly();
+  public readonly session = this._session.asReadonly();
 
   private _error = signal<string | null>(null);
   public readonly error = this._error.asReadonly();
@@ -20,56 +20,59 @@ export class ProcessesService {
   private _loading = signal<boolean>(false);
   public readonly loading = this._loading.asReadonly();
 
-  getProcesses(): void {
+  getSessions(): void {
     this._loading.set(true);
     this._error.set(null);
-    this.api.getProcesses$().subscribe({
+    this.api.getSessions$().subscribe({
       next: (response) => {
-        this._processes.set(response);
+        this._sessions.set(response);
         this._loading.set(false);
       },
       error: (err) => {
-        console.log('Error getting processes.', err);
+        console.log('Error getting sessions.', err);
         this._error.set(err.message);
         this._loading.set(false);
       },
     });
   }
 
-  getProcess(processId: string): void {
-    this._loading.set(true);
-    this._error.set(null);
-    if (processId.length == 0) {
-      this._process.set(undefined);
+  getSession(sessionId: string): void {
+    if (this._session()?.id === sessionId) {
       return;
     }
-    this.api.getProcess$(processId).subscribe({
+    this._loading.set(true);
+    this._error.set(null);
+    if (sessionId.length == 0) {
+      this._session.set(undefined);
+      return;
+    }
+    this.api.getSession$(sessionId).subscribe({
       next: (response) => {
-        this._process.set(response);
+        this._session.set(response);
         this._loading.set(false);
       },
       error: (err) => {
-        console.log('Error getting process.', err);
+        console.log('Error getting session.', err);
         this._error.set(err.message);
         this._loading.set(false);
       },
     });
   }
 
-  createProcess(userId: string, process: IProcess): void {
+  createSession(processId: string, session: ISession): void {
     this._loading.set(true);
     this._error.set(null);
     this.api
-      .createProcess$(userId, process)
+      .createSession$(processId, session)
       .pipe(
         tap({
           next: (response) => {
-            const processResponse = response as IProcess;
-            this._processes.update((currentProcesses) => [...currentProcesses, processResponse]);
+            const sessionResponse = response as ISession;
+            this._sessions.update((currentSessions) => [...currentSessions, sessionResponse]);
             this._loading.set(false);
           },
           error: (err) => {
-            console.error('Process creating error', err);
+            console.error('Session creating error', err);
             this._error.set(err.message);
             this._loading.set(false);
           },
@@ -77,27 +80,27 @@ export class ProcessesService {
       )
       .subscribe();
   }
-
-  createProcess$(userId: string, process: IProcess): Observable<IProcess> {
-    return this.api.createProcess$(userId, process);
+  
+  createSession$(processId: string, session: ISession): Observable<ISession> {
+    return this.api.createSession$(processId, session);
   }
 
-  updateProcess(processId: string, process: IProcess): void {
+  updateSession(sessionId: string, session: ISession): void {
     this._loading.set(true);
     this._error.set(null);
     this.api
-      .updateProcess$(processId, process)
+      .updateSession$(sessionId, session)
       .pipe(
         tap({
           next: (response) => {
-            const processResponse = response as IProcess;
-            this._processes.update((currentProcesses) =>
-              currentProcesses.map((c) => (c.id === processId ? processResponse : c))
+            const sessionResponse = response as ISession;
+            this._sessions.update((currentSessions) =>
+              currentSessions.map((c) => (c.id === sessionId ? sessionResponse : c))
             );
             this._loading.set(false);
           },
           error: (err) => {
-            console.error('Process updating error', err);
+            console.error('Session updating error', err);
             this._error.set(err.message);
             this._loading.set(false);
           },
@@ -105,25 +108,21 @@ export class ProcessesService {
       )
       .subscribe();
   }
-  updateProcess$(processId: string, process: IProcess): Observable<IProcess> {
-    return this.api.updateProcess$(processId, process);
-  }
-
-  deleteProcess(processId: string): void {
+  deleteSession(sessionId: string): void {
     this._loading.set(true);
     this._error.set(null);
     this.api
-      .deleteProcess$(processId)
+      .deleteSession$(sessionId)
       .pipe(
         tap({
           next: () => {
-            this._processes.update((currentProcesses) =>
-              currentProcesses.filter((c) => c.id !== processId)
+            this._sessions.update((currentSessions) =>
+              currentSessions.filter((c) => c.id !== sessionId)
             );
             this._loading.set(false);
           },
           error: (err) => {
-            console.error('Process deleting error', err);
+            console.error('Session deleting error', err);
             this._error.set(err.message);
             this._loading.set(false);
           },
@@ -132,21 +131,21 @@ export class ProcessesService {
       .subscribe();
   }
 
-  removeProcess(processId: string): void {
+  removeSession(sessionId: string): void {
     this._loading.set(true);
     this._error.set(null);
     this.api
-      .removeProcess$(processId)
+      .removeSession$(sessionId)
       .pipe(
         tap({
           next: () => {
-            this._processes.update((currentProcesses) =>
-              currentProcesses.filter((c) => c.id !== processId)
+            this._sessions.update((currentSessions) =>
+              currentSessions.filter((c) => c.id !== sessionId)
             );
             this._loading.set(false);
           },
           error: (err) => {
-            console.error('Process removing error', err);
+            console.error('Session removing error', err);
             this._error.set(err.message);
             this._loading.set(false);
           },
@@ -155,11 +154,11 @@ export class ProcessesService {
       .subscribe();
   }
 
-  restoreProcess(processId: string): void {
+  restoreSession(sessionId: string): void {
     this._loading.set(true);
     this._error.set(null);
     this.api
-      .restoreProcess$(processId)
+      .restoreSession$(sessionId)
       .pipe(
         tap({
           next: (response) => {
@@ -167,7 +166,7 @@ export class ProcessesService {
             this._loading.set(false);
           },
           error: (err) => {
-            console.error('Process restoring error', err);
+            console.error('Session restoring error', err);
             this._error.set(err.message);
             this._loading.set(false);
           },
@@ -176,7 +175,7 @@ export class ProcessesService {
       .subscribe();
   }
 
-  clearProcess(): void {
-    this._process.set(undefined);
+  clearSession(): void {
+    this._session.set(undefined);
   }
 }

@@ -110,10 +110,12 @@
   - [ ] Extraerlo a un componente
   - [ ] Colocarlo en app.html
   - [ ] Modificarlo dependiendo de la pantalla visible
+  - [ ] ¿Pasar funciones como parámetro para realizar las acciones del menu?
 
 - [ ] Menú lateral
   - [ ] Extraerlo a un componente
   - [ ] Modificarlo dependiendo de la pantalla visible
+  - [ ] ¿Pasar funciones como parámetro para realizar las acciones del menu?
 
 ## Pantallas
 

@@ -4,9 +4,9 @@
             <p-button icon="pi pi-bars" text severity="contrast" (click)="visible = true" />
         </ng-template>
         <ng-template #center>
-            <p-button icon="pi pi-folder-open" text severity="warn" label="Pedro Pérez - Sesión 4"
+            <p-button id="title" icon="pi pi-folder-open" text severity="warn" label="Pedro Pérez - Sesión {{this.session()?.session_number}}"
                 (click)="showDialogNotes()" />
-            <p-button icon="pi pi-stopwatch" label="52'" severity="success" variant="text" />
+            <p-button icon="pi pi-stopwatch" label="{{this.session()?.duration_minutes}}'" severity="success" variant="text" />
         </ng-template>
         <ng-template #end>
             <p-button icon="pi pi-eye" text severity="contrast" (onClick)="changeHidden()" />

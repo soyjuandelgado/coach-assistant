@@ -109,7 +109,10 @@ export class Process implements OnDestroy {
           end_date: process.end_date ? new Date(process.end_date) : null,
           frequency_days: process.frequency_days,
           observations: process.observations,
-          session_price: (typeof process.session_price === 'string') ? parseFloat(process.session_price) : process.session_price,
+          session_price:
+            typeof process.session_price === 'string'
+              ? parseFloat(process.session_price)
+              : process.session_price,
           payment_method: process.payment_method || null,
           payment_term_days: process.payment_term_days,
           contract_signed: process.contract_signed ?? false,
@@ -166,13 +169,36 @@ export class Process implements OnDestroy {
     const processData = this.processForm.getRawValue() as IProcess;
 
     if (processData.id) {
-      console.log(processData);
-      this.service.updateProcess(processData.id, processData);
+      this.updateProcess(processData.id, processData);
     } else {
-      console.log(this.coacheeId());
-      console.log(processData);
-      this.service.createProcess(this.coacheeId(), processData);
+      this.createProcess(this.coacheeId(), processData);
     }
+  }
+
+  createProcess(coacheeId: string, process: IProcess) {
+    this.service.createProcess$(coacheeId, process).subscribe({
+      next: () => {
+        console.log('Navegar a coachees');
+        this.router.navigate(['/coachees']);
+      },
+      error: (err) => {
+        this.showErrorDialog(err);
+        console.error('Error creating coachee:', err);
+      },
+    });
+  }
+
+  updateProcess(processId: string, process: IProcess) {
+    this.service.updateProcess$(processId, process).subscribe({
+      next: () => {
+        console.log('Navegar a coachees');
+        this.router.navigate(['/coachees']);
+      },
+      error: (err) => {
+        this.showErrorDialog(err);
+        console.error('Error creating coachee:', err);
+      },
+    });
   }
 
   public goCoachees() {

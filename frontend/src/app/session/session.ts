@@ -1,4 +1,4 @@
-import { Component, inject, signal } from '@angular/core';
+import { Component, effect, inject, input, signal } from '@angular/core';
 import { DatePipe } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { InputText } from 'primeng/inputtext';
@@ -18,6 +18,7 @@ import { DialogModule } from 'primeng/dialog';
 import { Router } from '@angular/router';
 
 import { FullScreen } from '../shared/services/full-screen/full-screen';
+import { SessionsService } from '../shared/services/sessions/sessions-service';
 
 interface Emotion {
   name: string;
@@ -71,12 +72,26 @@ export class Session {
     this.fullScreenService.toggle();
   }
 
+  protected id = input.required<string>();
   private router = inject(Router);
+  private service = inject(SessionsService);
+  protected session = this.service.session;
 
   visible = false;
   visibleNotes = false;
   visibleEmotions = false;
   hidden = true;
+
+  constructor(){
+    effect(()=>{
+      const sessionId = this.id();
+      this.service.getSession(sessionId);
+    })
+
+    effect(() => {
+      const session = this.session();
+    })
+  }
 
   showDialogNotes() {
     this.visibleNotes = true;

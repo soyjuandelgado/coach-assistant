@@ -1,0 +1,90 @@
+@if(process()){
+<p-dialog header="Nueva Sesión" [visible]="visible()" [style]="{ width: '45rem' }" [modal]="true" [closable]="false">
+    <p-panel header="Datos de Proceso" class="flex flex-col mb-3">
+        <div class="py-1 flex flex-col">
+            <span class="font-medium">Objetivo Proceso:</span>
+            <span>{{ this.process()!.goal ? this.process()!.goal : "- No definido -" }}</span>
+        </div>
+        <div class="flex flex-row justify-start gap-10">
+            <div class="py-1 flex flex-col">
+                <span class="font-medium">Tipo Proceso</span>
+                <span>{{ this.process()!.type }}</span>
+            </div>
+            <div class="py-1 flex flex-col">
+                <span class="font-medium">Frecuencia</span>
+                <span>{{ this.process()!.frequency_days}}</span>
+            </div>
+            <div class="py-1 flex flex-col">
+                <span class="font-medium">Fecha Inicio</span>
+                <span>{{ this.process()!.start_date | date:'dd-MM-yyyy' }}</span>
+            </div>
+        </div>
+    </p-panel>
+    <p-panel header="Datos de Resumen" class="flex flex-col mb-3">
+
+        <div class="py-1 flex flex-col">
+            <span class="font-medium">Objetivo Anterior:</span>
+            <span>Buscar mejoras en el diseño</span>
+        </div>
+        <div class="py-1 flex flex-col">
+            <span class="font-medium">Resumen Anterior:</span>
+            <p>
+                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aperiam optio est necessitatibus
+                perspiciatis ex quod odit rem qui incidunt, voluptas id fugiat corporis quo, sapiente, hic eos harum
+                illum voluptatibus!
+            </p>
+        </div>
+        <div class="py-1 flex flex-col">
+            <span class="font-medium">Planes de acción pendientes:</span>
+            <ul class="list-inside list-disc">
+                <li>10/10 07/10 15:00 Reunión nuevo diseño</li>
+                <li>10/10 08/10 23:59 Decidir qué diseño nuevo se hace</li>
+            </ul>
+        </div>
+        <div class="py-1 flex flex-col">
+            <span class="font-medium">Etiquetas:</span>
+            <ul class="list-inside list-disc">
+                <li>Ansioso, agotado, nervioso</li>
+                <li>Dinero, compromiso</li>
+            </ul>
+        </div>
+        <div class="py-1 flex flex-col">
+            <span class="font-medium">Ideas:</span>
+            <ul class="list-inside list-disc">
+                <li>Idea 1</li>
+                <li>Idea 2</li>
+            </ul>
+        </div>
+    </p-panel>
+
+    <p-panel header="Datos de Sesión">
+        <form [formGroup]="sessionForm" (ngSubmit)="onSubmit()" class="flex flex-row justify-start gap-4">
+            <div class="flex flex-col gap-2">
+                <label for="duration_minutes" class="font-semibold">Duración (min) *</label>
+                <p-inputNumber id="duration_minutes" formControlName="duration_minutes" [min]="1" suffix=" min"
+                    class="w-full" inputStyleClass="w-full" />
+
+                @if (sessionForm.controls.duration_minutes.invalid && sessionForm.controls.duration_minutes.touched) {
+                <small class="text-red-500">La duración es obligatoria.</small>
+                }
+            </div>
+            <div class="flex flex-col gap-2">
+                <label for="location" class="font-semibold">Localización</label>
+                <input id="location" type="text" pInputText formControlName="location" class="w-full" />
+                @if (sessionForm.controls.location.invalid && sessionForm.controls.location.touched) {
+                <small class="text-red-500">La localización es obligatoria.</small>
+                }
+            </div>
+            <div class="flex flex-col gap-2">
+                <label for="is_grow" class="font-semibold">Proceso "GROW"</label>
+                <p-toggleSwitch id="is_grow" formControlName="is_grow" class="my-2" />
+            </div>
+        </form>
+    </p-panel>
+
+    <div class="flex justify-end gap-2 mt-4">
+        <p-button label="Iniciar" [disabled]="sessionForm.invalid" (onClick)="onSubmit()" />
+        <p-button label="Cerrar" severity="warn" (click)="close()" />
+    </div>
+</p-dialog>
+}

@@ -37,7 +37,7 @@ import { IProcess } from '../shared/models/process.interface';
   styleUrl: './coachee.css',
   providers: [ConfirmationService],
 })
-export class Coachee  implements OnDestroy {
+export class Coachee implements OnDestroy {
   private fullScreenService = inject(FullScreen);
   // Exponemos la señal del servicio a la plantilla
   public isFullScreen = this.fullScreenService.isFullScreen;
@@ -151,21 +151,44 @@ export class Coachee  implements OnDestroy {
   onSubmit() {
     this.coacheeForm.markAllAsTouched();
     if (!this.coacheeForm.valid) {
-      // console.warn('El formulario contiene errores.');
       this.showWarningDialog('El formulario contiene errores.');
       return;
     }
     const coacheeData = this.coacheeForm.getRawValue() as ICoachee;
     if (coacheeData.id) {
-      this.service.updateCoachee(coacheeData.id, coacheeData);
+      this.updateCoachee(coacheeData.id, coacheeData);
     } else {
-      this.service.createCoachee(this.userId, coacheeData);
+      this.createCoachee(this.userId, coacheeData);
     }
-    // this.router.navigate(['/coachees']);
+  }
+
+  createCoachee(userId: string, coachee: ICoachee) {
+    this.service.createCoachee$(userId, coachee).subscribe({
+      next: () => {
+        console.log('Navegar a coachees');
+        this.router.navigate(['/coachees']);
+      },
+      error: (err) => {
+        this.showErrorDialog(err);
+        console.error('Error creating coachee:', err);
+      },
+    });
+  }
+
+  updateCoachee(coacheeId: string, coachee: ICoachee) {
+    this.service.updateCoachee$(coacheeId, coachee).subscribe({
+      next: () => {
+        console.log('Navegar a coachees');
+        this.router.navigate(['coachees']);
+      },
+      error: (err) => {
+        this.showErrorDialog(err);
+        console.error('Error updating coachee:', err);
+      },
+    });
   }
 
   goCoachees() {
     this.router.navigate(['/coachees']);
   }
 }
-
