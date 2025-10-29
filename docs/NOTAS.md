@@ -67,7 +67,7 @@
     - [x] LOPD firmada
     - [x] RGPD firmada
 
-- [ ] Pantalla Perfil Coachee
+- [ ] Pantalla Coachee
   - [x] Boton crear proceso
   - [x] boton ver proceso
   - [ ] Menu lateral
