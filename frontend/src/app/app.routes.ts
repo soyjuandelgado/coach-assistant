@@ -10,8 +10,9 @@ export const routes: Routes = [
     component: Login,
   },
   {
-    path: 'session',
-    component: Session,
+    path: 'session/:id',
+    // component: Session,
+    loadComponent: () => import('./session/session').then((m) => m.Session),
   },
   {
     path: 'summary',

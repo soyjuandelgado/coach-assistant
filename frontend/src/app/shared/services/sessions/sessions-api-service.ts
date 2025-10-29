@@ -4,7 +4,7 @@ import { ErrorText } from '../error-text/error-text';
 import { ISession } from '../../models/session.interface';
 import { ISessionDto } from '../../models/session.dto';
 import { environment } from '../../../../environments/environment';
-import { catchError, throwError } from 'rxjs';
+import { catchError, Observable, throwError } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -39,9 +39,9 @@ export class SessionsApiService {
     );
   }
 
-  createSession$(processId: string, newSession: ISession) {
+  createSession$(processId: string, newSession: ISession): Observable<ISession> {
     const dto = this.toDto(newSession);
-    return this.http.post(environment.sessionsUrl + processId, dto).pipe(
+    return (this.http.post(environment.sessionsUrl + processId, dto) as Observable<ISession>).pipe(
       catchError((error: HttpErrorResponse) => {
         return throwError(() => new Error(this.errorText.get(error, 'Session')));
       })

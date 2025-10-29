@@ -10,6 +10,8 @@ import { PanelModule } from 'primeng/panel';
 import { FormBuilder, Validators, ReactiveFormsModule } from '@angular/forms';
 import { SessionsService } from '../shared/services/sessions/sessions-service';
 import { ISession } from '../shared/models/session.interface';
+import { Router } from '@angular/router';
+import { ConfirmationService } from 'primeng/api';
 
 @Component({
   selector: 'app-new-session-dialog',
@@ -25,8 +27,11 @@ import { ISession } from '../shared/models/session.interface';
   ],
   templateUrl: './new-session-dialog.html',
   styleUrl: './new-session-dialog.css',
+  providers:[ConfirmationService]
 })
 export class NewSessionDialog {
+  private router = inject(Router);
+   private confirmationService = inject(ConfirmationService);
   private processesService = inject(ProcessesService);
   private sessionsService = inject(SessionsService);
   protected process = this.processesService.process;
@@ -75,8 +80,30 @@ export class NewSessionDialog {
     } else {
       sessionData.session_number = 1;
     }
-    this.sessionsService.createSession(this.processId()!, sessionData);
+    this.createSession(this.processId()!, sessionData);
+  }
 
-    this.close();
+  createSession(processId: string, session: ISession) {
+    this.sessionsService.createSession$(processId, session).subscribe({
+      next: (response: ISession) => {
+        console.log('Navegar a session')
+        this.router.navigate(['session', response.id]);
+        // this.close();
+      },
+      error: (err) => {
+        this.showErrorDialog(err)
+        console.error('Error creating session:', err);
+      },
+    });
+  }
+
+  showErrorDialog(error: string) {
+    this.confirmationService.confirm({
+      message: error,
+      header: 'Error',
+      icon: 'pi pi-times-circle',
+      rejectLabel: 'Cerrar',
+      acceptVisible: false,
+    });
   }
 }

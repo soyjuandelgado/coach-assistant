@@ -1,10 +1,10 @@
 import { inject, Injectable, signal } from '@angular/core';
 import { SessionsApiService } from './sessions-api-service';
 import { ISession } from '../../models/session.interface';
-import { tap } from 'rxjs';
+import { Observable, tap } from 'rxjs';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class SessionsService {
   private api = inject(SessionsApiService);
@@ -79,6 +79,10 @@ export class SessionsService {
         })
       )
       .subscribe();
+  }
+  
+  createSession$(processId: string, session: ISession): Observable<ISession> {
+    return this.api.createSession$(processId, session);
   }
 
   updateSession(sessionId: string, session: ISession): void {
@@ -174,5 +178,4 @@ export class SessionsService {
   clearSession(): void {
     this._session.set(undefined);
   }
-
 }
