@@ -1,4 +1,4 @@
-import { Component, effect, inject, input, output } from '@angular/core';
+import { Component, effect, inject, input, output, signal } from '@angular/core';
 import { DatePipe } from '@angular/common';
 import { ButtonModule } from 'primeng/button';
 import { DialogModule } from 'primeng/dialog';
@@ -35,6 +35,7 @@ export class NewSessionDialog {
   private processesService = inject(ProcessesService);
   private sessionsService = inject(SessionsService);
   protected process = this.processesService.process;
+  protected previousSession = signal(this.process()?.sessions[1]);
   private fb = inject(FormBuilder);
   visible = input(false);
   visibleChange = output<boolean>();
@@ -60,6 +61,9 @@ export class NewSessionDialog {
           duration_minutes: process.duration_minutes,
           is_grow: process.is_grow ?? false,
         });
+        if (process.sessions) {
+          this.previousSession.set(process.sessions[0]);
+        }
       }
     });
   }

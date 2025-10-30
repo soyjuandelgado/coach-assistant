@@ -24,7 +24,7 @@
 
         <div class="py-1 flex flex-col">
             <span class="font-medium">Objetivo Anterior:</span>
-            <span>Buscar mejoras en el diseño</span>
+            <span>{{ previousSession() ? (previousSession()?.goal ?? '- No definido -') : '- No exite -'}}</span>
         </div>
         <div class="py-1 flex flex-col">
             <span class="font-medium">Resumen Anterior:</span>

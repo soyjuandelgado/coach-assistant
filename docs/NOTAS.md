@@ -117,6 +117,11 @@
   - [ ] Modificarlo dependiendo de la pantalla visible
   - [ ] ¿Pasar funciones como parámetro para realizar las acciones del menu?
 
+- [ ] Desacoplar la navegación de guardar datos
+  - [ ] pasar un parametro opcional con la funcion a ejecutar en el caso de ok?
+  - [ ] se puede cambiar el nombre del boton guardar a guardar y salir.
+  - [ ] mirar información de Resolvers
+  
 ## Pantallas
 
 ### Sesión
