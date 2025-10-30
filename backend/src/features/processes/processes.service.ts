@@ -18,10 +18,17 @@ export class ProcessesService {
   }
 
   async find(processId: string): Promise<Process> {
-    const process = await this.processesRepository.findOne({
-      where: { id: Equal(processId) },
-      relations: ['sessions'],
-    });
+    // const process = await this.processesRepository.findOne({
+    //   where: { id: Equal(processId) },
+    //   relations: ['sessions', 'coachee'],
+    // });
+    const process = await this.processesRepository
+      .createQueryBuilder('process')
+      .leftJoinAndSelect('process.sessions', 'session')
+      .leftJoinAndSelect('process.coachee', 'coachee')
+      .where('process.id = :id', { id: processId })
+      .orderBy('session.created_at', 'DESC') // Ordena sessions por created_at ascendente
+      .getOne();
     if (!process) {
       this.logger.error('find: Process not found.');
       throw new NotFoundException('Process not found.');

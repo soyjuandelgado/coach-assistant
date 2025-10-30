@@ -1,3 +1,4 @@
+import { ICoachee } from "./coachee.interface";
 import { ISession } from "./session.interface";
 
 export interface IProcess {
@@ -17,4 +18,5 @@ export interface IProcess {
   lodp_signed?: boolean;
   rgpd_signed?: boolean;
   sessions: ISession[];
+  coachee?: ICoachee;
 }

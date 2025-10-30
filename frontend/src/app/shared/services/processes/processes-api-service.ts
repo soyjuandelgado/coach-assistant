@@ -36,7 +36,7 @@ export class ProcessesApiService {
     );
   }
 
-  getProcess$(processId: string) {
+  getProcess$(processId: string): Observable<IProcess> {
     return this.http.get<IProcess>(environment.processesUrl + processId).pipe(
       catchError((error: HttpErrorResponse) => {
         return throwError(() => new Error(this.errorText.get(error, 'Process')));

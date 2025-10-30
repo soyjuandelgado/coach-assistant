@@ -95,6 +95,7 @@ En resumen, Coach Asistant permite maximizar la recogida de datos y tratarlos co
   <img src="docs/images/session-notes.png" width="300" style="vertical-align: top;">
   <img src="docs/images/session-menu.png" width="300" style="vertical-align: top;">
   <img src="docs/images/session-emotions.png" width="300" style="vertical-align: top;">
+  <img src="docs/images/session-profile.png" width="300" style="vertical-align: top;">
 </div>
 
 #### Resumen

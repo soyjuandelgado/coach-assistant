@@ -1,4 +1,4 @@
-import { Component, effect, inject, input, output } from '@angular/core';
+import { Component, effect, inject, input, output, signal } from '@angular/core';
 import { DatePipe } from '@angular/common';
 import { ButtonModule } from 'primeng/button';
 import { DialogModule } from 'primeng/dialog';
@@ -27,14 +27,15 @@ import { ConfirmationService } from 'primeng/api';
   ],
   templateUrl: './new-session-dialog.html',
   styleUrl: './new-session-dialog.css',
-  providers:[ConfirmationService]
+  providers: [ConfirmationService],
 })
 export class NewSessionDialog {
   private router = inject(Router);
-   private confirmationService = inject(ConfirmationService);
+  private confirmationService = inject(ConfirmationService);
   private processesService = inject(ProcessesService);
   private sessionsService = inject(SessionsService);
   protected process = this.processesService.process;
+  protected previousSession = signal(this.process()?.sessions[1]);
   private fb = inject(FormBuilder);
   visible = input(false);
   visibleChange = output<boolean>();
@@ -60,6 +61,9 @@ export class NewSessionDialog {
           duration_minutes: process.duration_minutes,
           is_grow: process.is_grow ?? false,
         });
+        if (process.sessions) {
+          this.previousSession.set(process.sessions[0]);
+        }
       }
     });
   }
@@ -86,12 +90,12 @@ export class NewSessionDialog {
   createSession(processId: string, session: ISession) {
     this.sessionsService.createSession$(processId, session).subscribe({
       next: (response: ISession) => {
-        console.log('Navegar a session')
+        console.log('Navegar a session');
         this.router.navigate(['session', response.id]);
         // this.close();
       },
       error: (err) => {
-        this.showErrorDialog(err)
+        this.showErrorDialog(err);
         console.error('Error creating session:', err);
       },
     });
