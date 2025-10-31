@@ -24,28 +24,28 @@
         </div> -->
         <ng-template #icons>
             <div class="flex flex-row gap-4">
-                <p-button label="Objetivo" [text]="this.selected !== 'O'" severity="help" [size]="'small'"
-                    (mousedown)="$event.preventDefault()" (onClick)="this.selected='O'" />
+                <p-button label="Objetivo" [text]="this.selected() !== 'O'" severity="help" [size]="'small'"
+                    (mousedown)="$event.preventDefault()" (onClick)="this.selected.set('O')" />
 
                 @if(this.is_grow()){
                 <div class="flex flex-row">
-                    <p-button label="I" [text]="this.selected !== 'GI'" severity="secondary" [size]="'small'"
-                        (mousedown)="$event.preventDefault()" (onClick)="this.selected='GI'" />
-                    <p-button label="G" [text]="this.selected !== 'GG'" severity="info" [size]="'small'"
-                        (mousedown)="$event.preventDefault()" (onClick)="this.selected='GG'" />
-                    <p-button label="R" [text]="this.selected !== 'GR'" severity="warn" [size]="'small'"
-                        (mousedown)="$event.preventDefault()" (onClick)="this.selected='GR'" />
-                    <p-button label="O" [text]="this.selected !== 'GO'" severity="danger" [size]="'small'"
-                        (mousedown)="$event.preventDefault()" (onClick)="this.selected='GO'" />
-                    <p-button label="W" [text]="this.selected !== 'GW'" severity="contrast" [size]="'small'"
-                        (mousedown)="$event.preventDefault()" (onClick)="this.selected='GW'" />
+                    <p-button label="I" [text]="this.selected() !== 'GI'" severity="secondary" [size]="'small'"
+                        (mousedown)="$event.preventDefault()" (onClick)="this.selected.set('GI')" />
+                    <p-button label="G" [text]="this.selected() !== 'GG'" severity="info" [size]="'small'"
+                        (mousedown)="$event.preventDefault()" (onClick)="this.selected.set('GG')" />
+                    <p-button label="R" [text]="this.selected() !== 'GR'" severity="warn" [size]="'small'"
+                        (mousedown)="$event.preventDefault()" (onClick)="this.selected.set('GR')" />
+                    <p-button label="O" [text]="this.selected() !== 'GO'" severity="danger" [size]="'small'"
+                        (mousedown)="$event.preventDefault()" (onClick)="this.selected.set('GO')" />
+                    <p-button label="W" [text]="this.selected() !== 'GW'" severity="contrast" [size]="'small'"
+                        (mousedown)="$event.preventDefault()" (onClick)="this.selected.set('GW')" />
                 </div>
                 }@else{
-                <p-button label="Nota" [text]="this.selected !== 'N'" severity="info" [size]="'small'"
-                    (mousedown)="$event.preventDefault()" (onClick)="this.selected='N'" />
+                <p-button label="Nota" [text]="this.selected() !== 'N'" severity="info" [size]="'small'"
+                    (mousedown)="$event.preventDefault()" (onClick)="this.selected.set('N')" />
                 }
-                <p-button label="PdA" [text]="this.selected !== 'P'" severity="success" [size]="'small'"
-                    (mousedown)="$event.preventDefault()" (onClick)="this.selected='P'" />
+                <p-button label="PdA" [text]="this.selected() !== 'P'" severity="success" [size]="'small'"
+                    (mousedown)="$event.preventDefault()" (onClick)="this.selected.set('P')" />
                 <p-button icon="pi pi-info-circle" text severity="info" [size]="'small'"
                     (mousedown)="$event.preventDefault()" />
             </div>

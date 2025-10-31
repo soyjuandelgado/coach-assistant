@@ -123,6 +123,8 @@
   - [ ] mirar información de Resolvers
   
 - [ ] Modificar carpeta interfaces?
+
+- [ ] Usar localstorage para guardar los datos de la sesión mientras no se guardan definitivamente en BD ó si la conexión con BD falla.
   
 ## Pantallas
 

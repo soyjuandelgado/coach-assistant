@@ -98,7 +98,10 @@ export class Session {
   visibleNotes = false;
   visibleEmotions = false;
   visibleProfile = false;
-  hidden = false;
+
+  goal = signal('');
+  notes = signal<string[]>([]);
+  tasks = signal<string[]>([]);
 
   constructor() {
     effect(() => {
@@ -110,7 +113,6 @@ export class Session {
       const session = this.session();
       if (session) {
         if (session.process) {
-          console.log(session.process);
           this.getProcess(session!.process!.id!);
         }
       }
@@ -125,59 +127,14 @@ export class Session {
       },
       error: (err) => {
         this.showErrorDialog(err);
-        console.error('Error creating session:', err);
       },
     });
   }
 
-  showProfile() {
-    //TODO: show dialog with coachee data
-    console.log(this.coachee());
-    this.visible = false;
-    this.visibleProfile = true;
-  }
-
-  goal = signal('');
-  notes = signal<string[]>([]);
-  tasks = signal<string[]>([]);
-  // message = signal('');
-  // selected = "N";
-  // onMessageChange(event: Event): void {
-  //   const value = (event.target as HTMLTextAreaElement).value;
-  //   this.message.set(value);
-  // }
-  // sendMessage(inputElement: HTMLTextAreaElement) {
-  //   const content = this.message().trim();
-  //   if (content) {
-  //     switch(this.selected){
-  //       case 'O':
-  //         this.goal.set(content);
-  //         break;
-  //       case 'N':
-  //         this.notes().push(content);
-  //         break;
-  //       case 'P':
-  //         this.tasks().push(content);
-  //         break;
-  //       default:
-  //         this.notes().push( this.selected.slice(1) + ' - ' + content);
-  //         break;
-  //     }
-  //   }
-  //   this.message.set('');
-  //   inputElement.focus();
-  // }
-
-  // handleEnter(event: Event, inputElement: HTMLTextAreaElement): void {
-  //   if (!(event instanceof KeyboardEvent)) return;
-  //   if (event.key === 'Enter' && !event.shiftKey) {
-  //     event.preventDefault(); // Evita que se cree una nueva línea
-  //     this.sendMessage(inputElement);
-  //   }
-  // }
 
   setGoal(newGoal: string) {
     this.goal.set(newGoal);
+    console.log(this.session()?.goal)
   }
   addNote(newNote: {type: string, text: string}) {
     if(newNote.type == 'N')
@@ -188,6 +145,7 @@ export class Session {
   addTask(newTask: string) {
     this.tasks().push(newTask);
   }
+
 
   showErrorDialog(error: string) {
     this.confirmationService.confirm({
@@ -208,9 +166,11 @@ export class Session {
     this.visibleEmotions = true;
   }
 
-  changeHidden() {
-    this.hidden = !this.hidden;
+  showProfile() {
+    this.visible = false;
+    this.visibleProfile = true;
   }
+
 
   goCoachees() {
     this.router.navigate(['/coachees']);
