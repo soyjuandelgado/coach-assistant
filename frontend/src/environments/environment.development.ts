@@ -7,4 +7,5 @@ export const environment = {
   coacheesUrl: `${API_URL}coachees/`,
   processesUrl: `${API_URL}processes/`,
   sessionsUrl: `${API_URL}sessions/`,
+  notesUrl: `${API_URL}notes/`,
 };

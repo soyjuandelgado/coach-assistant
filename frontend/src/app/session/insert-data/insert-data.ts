@@ -8,7 +8,6 @@ import {
   signal,
   ViewChild,
 } from '@angular/core';
-import { InputText } from 'primeng/inputtext';
 import { InputNumberModule } from 'primeng/inputnumber';
 import { TextareaModule } from 'primeng/textarea';
 import { InputIconModule } from 'primeng/inputicon';
@@ -18,7 +17,6 @@ import { PanelModule } from 'primeng/panel';
 @Component({
   selector: 'app-insert-data',
   imports: [
-    InputText,
     InputNumberModule,
     TextareaModule,
     InputIconModule,

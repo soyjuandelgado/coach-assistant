@@ -1,3 +1,4 @@
+import { INote } from "./notes.interface";
 import { IProcess } from "./process.interface";
 
 export interface ISession {
@@ -9,4 +10,5 @@ export interface ISession {
   location: string;
   goal?: string;
   process?: IProcess;
+  notes: INote[];
 }

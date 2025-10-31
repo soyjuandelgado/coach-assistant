@@ -1,7 +1,6 @@
 import { ChangeDetectionStrategy, Component, effect, inject, input, signal } from '@angular/core';
 import { DatePipe } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { InputText } from 'primeng/inputtext';
 import { InputNumberModule } from 'primeng/inputnumber';
 import { TableModule } from 'primeng/table';
 import { TextareaModule } from 'primeng/textarea';
@@ -50,7 +49,6 @@ interface TaskOption {
 @Component({
   selector: 'app-session',
   imports: [
-    InputText,
     InputNumberModule,
     FormsModule,
     TextareaModule,
