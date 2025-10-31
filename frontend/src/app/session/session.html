@@ -12,7 +12,7 @@
         </ng-template>
         <ng-template #end>
             <p-button icon="pi pi-window-maximize" text severity="info" (onClick)="toggleFullScreen()" />
-            <p-button icon="pi pi-sign-out" text severity="danger" (onClick)="goCoachees()" />
+            <p-button icon="pi pi-sign-out" text severity="danger" (onClick)="leaveSession($event)" />
         </ng-template>
     </p-toolbar>
     <p-confirmdialog />
@@ -123,7 +123,7 @@
         </h4>
         <ng-template #footer>
             <div class="flex items-center gap-2">
-                <button pButton label="Terminar Sesión" icon="pi pi-sign-out" class="w-full" severity="danger" outlined>
+                <button pButton label="Terminar Sesión" icon="pi pi-sign-out" class="w-full" severity="danger" outlined (click)="leaveSession($event)">
                 </button>
             </div>
         </ng-template>

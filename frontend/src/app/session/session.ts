@@ -181,6 +181,33 @@ export class Session {
     });
   }
 
+  leaveSession(event: Event){
+    this.showExitDialog(event)
+  }
+
+  showExitDialog(event: Event) {
+    this.confirmationService.confirm({
+      target: event.target as EventTarget,
+      message: '¿Seguro que quiere salir de la sesión?',
+      header: '¡Atención!',
+      icon: 'pi pi-exclamation-triangle',
+      rejectLabel: 'Cancelar',
+      acceptVisible: true,
+      rejectButtonProps: {
+        label: 'Cancelar',
+        severity: 'secondary',
+        outlined: true,
+      },
+      acceptButtonProps: {
+        label: 'Salir',
+        severity: 'danger',
+      },
+
+      accept: () => {
+        this.goCoachees();
+      },
+    });
+  }
   showDialogNotes() {
     this.visibleNotes = true;
   }
