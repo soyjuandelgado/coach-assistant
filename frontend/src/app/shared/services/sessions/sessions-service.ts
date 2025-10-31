@@ -80,7 +80,7 @@ export class SessionsService {
       )
       .subscribe();
   }
-  
+
   createSession$(processId: string, session: ISession): Observable<ISession> {
     return this.api.createSession$(processId, session);
   }
@@ -108,6 +108,15 @@ export class SessionsService {
       )
       .subscribe();
   }
+  updateSession$(sessionId: string, session: ISession): Observable<ISession> {
+    return this.api.updateSession$(sessionId, session);
+  }
+
+  updateSessionGoal$(sessionId: string, newGoal: string): Observable<ISession> {
+    return this.api.updateSessionGoal$(sessionId, newGoal);
+  }
+
+
   deleteSession(sessionId: string): void {
     this._loading.set(true);
     this._error.set(null);

@@ -26,6 +26,9 @@ import { IProcess } from '../shared/models/process.interface';
 import { ProcessesService } from '../shared/services/processes/processes-service';
 import { ConfirmationService } from 'primeng/api';
 import { ICoachee } from '../shared/models/coachee.interface';
+import { NotesService } from '../shared/services/notes/notes-service';
+import { INote } from '../shared/models/notes.interface';
+import { ISession } from '../shared/models/session.interface';
 
 interface Emotion {
   name: string;
@@ -88,6 +91,7 @@ export class Session {
   private confirmationService = inject(ConfirmationService);
   private sessionsService = inject(SessionsService);
   private processesService = inject(ProcessesService);
+  private notesService = inject(NotesService);
   protected session = this.sessionsService.session;
   protected process = signal<IProcess | undefined>(undefined);
   protected coachee = signal<ICoachee | undefined>(undefined);
@@ -129,21 +133,42 @@ export class Session {
     });
   }
 
+  createNote(newNote: INote) {
+    const sessionId = this.id();
+    this.notesService.createNote$(sessionId, newNote).subscribe({
+      error: (err) => {
+        this.showErrorDialog(err);
+        //TODO: eliminar la nota de la pantalla. Hacer guardado temporal en localStorage
+      },
+    });
+  }
+
+  updateGoal(goal: string) {
+    this.session()!.goal = goal;
+    this.updateSessionGoal(this.id(), goal);
+  }
+
+  updateSessionGoal(sessionId: string, newGoal: string){
+    this.sessionsService.updateSessionGoal$(sessionId, newGoal).subscribe({
+      error: (err) => {
+          this.showErrorDialog(err);
+      },
+    });
+  }
+
 
   setGoal(newGoal: string) {
     this.goal.set(newGoal);
-    console.log(this.session()?.goal)
+    this.updateGoal(newGoal);
   }
-  addNote(newNote: {type: string, text: string}) {
-    if(newNote.type == 'N')
-      this.notes().push(newNote.text);
-    else
-      this.notes().push(newNote.type + ' ' + newNote.text);
+  addNote(newNote: { type: string; text: string }) {
+    this.createNote(newNote as INote);
+    if (newNote.type == 'N') this.notes().push(newNote.text);
+    else this.notes().push(newNote.type + ' ' + newNote.text);
   }
   addTask(newTask: string) {
     this.tasks().push(newTask);
   }
-
 
   showErrorDialog(error: string) {
     this.confirmationService.confirm({
@@ -168,7 +193,6 @@ export class Session {
     this.visible = false;
     this.visibleProfile = true;
   }
-
 
   goCoachees() {
     this.router.navigate(['/coachees']);

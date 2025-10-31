@@ -13,6 +13,7 @@ import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { SessionsService } from './sessions.service';
 import { Session } from './session.entity';
 import { SessionDto } from './session.dto';
+import { SessionGoalDto } from './session-goal.dto';
 
 @ApiTags('Session')
 @Controller('sessions')
@@ -106,6 +107,26 @@ export class SessionsController {
     @Body() newSession: SessionDto,
   ): Promise<Session> {
     return this.sessionsService.update(sessionId, newSession);
+  }
+
+  /**
+   *
+   * @param {sessionId} id of the session to update
+   * @param {newGoal} new session goal
+   * @returns {Session} updated session
+   */
+  @Patch(':sessionId/goal')
+  @ApiOperation({ summary: 'Update session goal' })
+  @ApiResponse({
+    status: 200,
+    description: 'Session data',
+    type: Session,
+  })
+  updateGoal(
+    @Param('sessionId', new ParseUUIDPipe()) sessionId: string,
+    @Body() newGoal: SessionGoalDto,
+  ): Promise<Session> {
+    return this.sessionsService.updateGoal(sessionId, newGoal);
   }
 
   /**

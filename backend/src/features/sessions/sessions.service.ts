@@ -4,6 +4,7 @@ import { Session } from './session.entity';
 import { Equal, Repository } from 'typeorm';
 import { SessionDto } from './session.dto';
 import { Process } from '../processes/process.entity';
+import { SessionGoalDto } from './session-goal.dto';
 
 @Injectable()
 export class SessionsService {
@@ -93,6 +94,21 @@ export class SessionsService {
       throw new NotFoundException('Session not found.');
     }
     const updated = Object.assign(toUpdate, newSession);
+    return this.sessionsRepository.save(updated);
+  }
+
+  async updateGoal(
+    sessionId: string,
+    newGoal: SessionGoalDto,
+  ): Promise<Session> {
+    const toUpdate = await this.sessionsRepository.findOneBy({
+      id: Equal(sessionId),
+    });
+    if (!toUpdate) {
+      this.logger.error('update: Session not found.');
+      throw new NotFoundException('Session not found.');
+    }
+    const updated = Object.assign(toUpdate, newGoal);
     return this.sessionsRepository.save(updated);
   }
 }
