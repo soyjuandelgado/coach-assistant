@@ -87,6 +87,7 @@ export class NewSessionDialog {
     this.createSession(this.processId()!, sessionData);
   }
 
+  //TODO: change to initSession?
   createSession(processId: string, session: ISession) {
     this.sessionsService.createSession$(processId, session).subscribe({
       next: (response: ISession) => {

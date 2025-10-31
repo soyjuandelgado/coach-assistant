@@ -1,7 +1,8 @@
-import { Component, effect, inject, input, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, effect, inject, input, signal } from '@angular/core';
 import { DatePipe } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { InputText } from 'primeng/inputtext';
+import { InputNumberModule } from 'primeng/inputnumber';
 import { TableModule } from 'primeng/table';
 import { TextareaModule } from 'primeng/textarea';
 import { SelectButtonModule } from 'primeng/selectbutton';
@@ -49,6 +50,7 @@ interface TaskOption {
   selector: 'app-session',
   imports: [
     InputText,
+    InputNumberModule,
     FormsModule,
     TextareaModule,
     SelectButtonModule,
@@ -66,6 +68,7 @@ interface TaskOption {
     DialogModule,
     CoacheeProfile,
   ],
+  changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './session.html',
   styleUrl: './session.css',
   providers: [ConfirmationService],
@@ -125,11 +128,50 @@ export class Session {
     });
   }
 
-  showProfile(){
+  showProfile() {
     //TODO: show dialog with coachee data
     console.log(this.coachee());
     this.visible = false;
     this.visibleProfile = true;
+  }
+
+  message = signal('');
+  goal = signal('');
+  notes = signal<string[]>([]);
+  tasks = signal<string[]>([]);
+  selected = "N";
+  onMessageChange(event: Event): void {
+    const value = (event.target as HTMLTextAreaElement).value;
+    this.message.set(value);
+  }
+  sendMessage(inputElement: HTMLTextAreaElement) {
+    const content = this.message().trim();
+    if (content) {
+      switch(this.selected){
+        case 'O':
+          this.goal.set(content);
+          break;
+        case 'N':
+          this.notes().push(content);
+          break;
+        case 'P':
+          this.tasks().push(content);
+          break;
+        default:
+          this.notes().push( this.selected.slice(1) + ' - ' + content);
+          break;
+      }
+    }
+    this.message.set('');
+    inputElement.focus();
+  }
+
+  handleEnter(event: Event, inputElement: HTMLTextAreaElement): void {
+    if (!(event instanceof KeyboardEvent)) return;
+    if (event.key === 'Enter' && !event.shiftKey) {
+      event.preventDefault(); // Evita que se cree una nueva línea
+      this.sendMessage(inputElement);
+    }
   }
 
   showErrorDialog(error: string) {
