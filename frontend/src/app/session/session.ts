@@ -18,6 +18,7 @@ import { TabsModule } from 'primeng/tabs';
 import { DialogModule } from 'primeng/dialog';
 
 import { CoacheeProfile } from './coachee-profile/coachee-profile';
+import { InsertData } from './insert-data/insert-data';
 
 import { Router } from '@angular/router';
 import { FullScreen } from '../shared/services/full-screen/full-screen';
@@ -67,6 +68,7 @@ interface TaskOption {
     TabsModule,
     DialogModule,
     CoacheeProfile,
+    InsertData,
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './session.html',
@@ -135,43 +137,56 @@ export class Session {
     this.visibleProfile = true;
   }
 
-  message = signal('');
   goal = signal('');
   notes = signal<string[]>([]);
   tasks = signal<string[]>([]);
-  selected = "N";
-  onMessageChange(event: Event): void {
-    const value = (event.target as HTMLTextAreaElement).value;
-    this.message.set(value);
-  }
-  sendMessage(inputElement: HTMLTextAreaElement) {
-    const content = this.message().trim();
-    if (content) {
-      switch(this.selected){
-        case 'O':
-          this.goal.set(content);
-          break;
-        case 'N':
-          this.notes().push(content);
-          break;
-        case 'P':
-          this.tasks().push(content);
-          break;
-        default:
-          this.notes().push( this.selected.slice(1) + ' - ' + content);
-          break;
-      }
-    }
-    this.message.set('');
-    inputElement.focus();
-  }
+  // message = signal('');
+  // selected = "N";
+  // onMessageChange(event: Event): void {
+  //   const value = (event.target as HTMLTextAreaElement).value;
+  //   this.message.set(value);
+  // }
+  // sendMessage(inputElement: HTMLTextAreaElement) {
+  //   const content = this.message().trim();
+  //   if (content) {
+  //     switch(this.selected){
+  //       case 'O':
+  //         this.goal.set(content);
+  //         break;
+  //       case 'N':
+  //         this.notes().push(content);
+  //         break;
+  //       case 'P':
+  //         this.tasks().push(content);
+  //         break;
+  //       default:
+  //         this.notes().push( this.selected.slice(1) + ' - ' + content);
+  //         break;
+  //     }
+  //   }
+  //   this.message.set('');
+  //   inputElement.focus();
+  // }
 
-  handleEnter(event: Event, inputElement: HTMLTextAreaElement): void {
-    if (!(event instanceof KeyboardEvent)) return;
-    if (event.key === 'Enter' && !event.shiftKey) {
-      event.preventDefault(); // Evita que se cree una nueva línea
-      this.sendMessage(inputElement);
-    }
+  // handleEnter(event: Event, inputElement: HTMLTextAreaElement): void {
+  //   if (!(event instanceof KeyboardEvent)) return;
+  //   if (event.key === 'Enter' && !event.shiftKey) {
+  //     event.preventDefault(); // Evita que se cree una nueva línea
+  //     this.sendMessage(inputElement);
+  //   }
+  // }
+
+  setGoal(newGoal: string) {
+    this.goal.set(newGoal);
+  }
+  addNote(newNote: {type: string, text: string}) {
+    if(newNote.type == 'N')
+      this.notes().push(newNote.text);
+    else
+      this.notes().push(newNote.type + ' ' + newNote.text);
+  }
+  addTask(newTask: string) {
+    this.tasks().push(newTask);
   }
 
   showErrorDialog(error: string) {
