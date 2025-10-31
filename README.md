@@ -27,6 +27,8 @@
       - [Roles](#roles)
       - [Coachees](#coachees-1)
       - [Procesos](#procesos)
+      - [Sesiones](#sesiones)
+      - [Notas](#notas)
   - [💻Tecnologías Utilizadas](#tecnologías-utilizadas)
     - [Frontend](#frontend)
     - [Backend](#backend-1)
@@ -203,6 +205,42 @@ erDiagram
   }
 
   COACHEE ||--o{ PROCESS : has
+```
+
+#### Sesiones
+
+```mermaid
+erDiagram
+    SESSION {
+        CHAR(36) id PK "UUID"
+        DATE date
+        INT session_number
+        BOOLEAN is_grow
+        INT duration_minutes
+        VARCHAR(50) location
+        VARCHAR(200) goal "NULL"
+        DATETIME created_at
+        DATETIME updated_at
+        DATETIME deleted_at
+        CHAR(36) process_id FK "UUID"
+    }
+    PROCESS ||--o{ SESSION : has
+```
+
+#### Notas
+
+```mermaid
+erDiagram
+    NOTE {
+        CHAR(36) id PK "UUID"
+        CHAR(2) type
+        VARCHAR text
+        DATETIME created_at
+        DATETIME updated_at
+        DATETIME deleted_at
+        CHAR(36) id_sesion FK "UUID"
+    }
+    SESSION ||--o{ NOTE : has
 ```
 
 ## 💻Tecnologías Utilizadas

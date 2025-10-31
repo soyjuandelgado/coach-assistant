@@ -19,16 +19,16 @@ services:
     networks:
       - coach-net
 
-  frontend:
-    build:
-      context: ./frontend
-      dockerfile: Dockerfile
-    ports:
-      - "80:80"
-    depends_on:
-      - backend
-    networks:
-      - coach-net
+  # frontend:
+  #   build:
+  #     context: ./frontend
+  #     dockerfile: Dockerfile
+  #   ports:
+  #     - "80:80"
+  #   depends_on:
+  #     - backend
+  #   networks:
+  #     - coach-net
 
   db:
     image: mysql:5.7

@@ -5,6 +5,7 @@ import { ISession } from '../../models/session.interface';
 import { ISessionDto } from '../../models/session.dto';
 import { environment } from '../../../../environments/environment';
 import { catchError, Observable, throwError } from 'rxjs';
+import { ISessionGoalDto } from '../../models/session-goal.dto';
 
 @Injectable({
   providedIn: 'root',
@@ -48,9 +49,20 @@ export class SessionsApiService {
     );
   }
 
-  updateSession$(sessionId: string, newSession: ISession) {
+  updateSession$(sessionId: string, newSession: ISession): Observable<ISession> {
     const dto = this.toDto(newSession);
-    return this.http.put(environment.sessionsUrl + sessionId, dto).pipe(
+    return (this.http.put(environment.sessionsUrl + sessionId, dto) as Observable<ISession>).pipe(
+      catchError((error: HttpErrorResponse) => {
+        return throwError(() => new Error(this.errorText.get(error, 'Session')));
+      })
+    );
+  }
+
+  updateSessionGoal$(sessionId: string, newGoal: string): Observable<ISession> {
+    const dto:ISessionGoalDto = { goal: newGoal };
+    return (
+      this.http.patch(environment.sessionsUrl + sessionId + '/goal', dto) as Observable<ISession>
+    ).pipe(
       catchError((error: HttpErrorResponse) => {
         return throwError(() => new Error(this.errorText.get(error, 'Session')));
       })

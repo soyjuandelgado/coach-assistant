@@ -54,11 +54,13 @@ erDiagram
     }
 
     NOTA_SESION {
-        CHAR(36) id_sesion PK
-        INT id_nota PK
-        DATETIME fecha_hora
-        TEXT texto
-        INT tipo FK
+        CHAR(36) id_nota PK
+        CHAR(2) type
+        VARCHAR text
+        DATETIME created_at
+        DATETIME updated_at
+        DATETIME deleted_at
+        CHAR(36) id_sesion FK
     }
 
     EMOCION_SESION {

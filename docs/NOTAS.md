@@ -117,10 +117,14 @@
   - [ ] Modificarlo dependiendo de la pantalla visible
   - [ ] ¿Pasar funciones como parámetro para realizar las acciones del menu?
 
-- [ ] Desacoplar la navegación de guardar datos
+- [ ] Desacoplar la navegación de guardar datos (tambien en PROCESS, NEW-SESSION-DIALOG)
   - [ ] pasar un parametro opcional con la funcion a ejecutar en el caso de ok?
   - [ ] se puede cambiar el nombre del boton guardar a guardar y salir.
   - [ ] mirar información de Resolvers
+  
+- [ ] Modificar carpeta interfaces?
+
+- [ ] Usar localstorage para guardar los datos de la sesión mientras no se guardan definitivamente en BD ó si la conexión con BD falla.
   
 ## Pantallas
 

@@ -1,7 +1,7 @@
-import { Component, effect, inject, input, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, effect, inject, input, signal } from '@angular/core';
 import { DatePipe } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { InputText } from 'primeng/inputtext';
+import { InputNumberModule } from 'primeng/inputnumber';
 import { TableModule } from 'primeng/table';
 import { TextareaModule } from 'primeng/textarea';
 import { SelectButtonModule } from 'primeng/selectbutton';
@@ -17,6 +17,7 @@ import { TabsModule } from 'primeng/tabs';
 import { DialogModule } from 'primeng/dialog';
 
 import { CoacheeProfile } from './coachee-profile/coachee-profile';
+import { InsertData } from './insert-data/insert-data';
 
 import { Router } from '@angular/router';
 import { FullScreen } from '../shared/services/full-screen/full-screen';
@@ -25,6 +26,9 @@ import { IProcess } from '../shared/models/process.interface';
 import { ProcessesService } from '../shared/services/processes/processes-service';
 import { ConfirmationService } from 'primeng/api';
 import { ICoachee } from '../shared/models/coachee.interface';
+import { NotesService } from '../shared/services/notes/notes-service';
+import { INote } from '../shared/models/notes.interface';
+import { ISession } from '../shared/models/session.interface';
 
 interface Emotion {
   name: string;
@@ -48,7 +52,7 @@ interface TaskOption {
 @Component({
   selector: 'app-session',
   imports: [
-    InputText,
+    InputNumberModule,
     FormsModule,
     TextareaModule,
     SelectButtonModule,
@@ -65,7 +69,9 @@ interface TaskOption {
     TabsModule,
     DialogModule,
     CoacheeProfile,
+    InsertData,
   ],
+  changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './session.html',
   styleUrl: './session.css',
   providers: [ConfirmationService],
@@ -85,6 +91,7 @@ export class Session {
   private confirmationService = inject(ConfirmationService);
   private sessionsService = inject(SessionsService);
   private processesService = inject(ProcessesService);
+  private notesService = inject(NotesService);
   protected session = this.sessionsService.session;
   protected process = signal<IProcess | undefined>(undefined);
   protected coachee = signal<ICoachee | undefined>(undefined);
@@ -93,7 +100,10 @@ export class Session {
   visibleNotes = false;
   visibleEmotions = false;
   visibleProfile = false;
-  hidden = false;
+
+  goal = signal('');
+  notes = signal<string[]>([]);
+  tasks = signal<string[]>([]);
 
   constructor() {
     effect(() => {
@@ -105,7 +115,6 @@ export class Session {
       const session = this.session();
       if (session) {
         if (session.process) {
-          console.log(session.process);
           this.getProcess(session!.process!.id!);
         }
       }
@@ -120,16 +129,45 @@ export class Session {
       },
       error: (err) => {
         this.showErrorDialog(err);
-        console.error('Error creating session:', err);
       },
     });
   }
 
-  showProfile(){
-    //TODO: show dialog with coachee data
-    console.log(this.coachee());
-    this.visible = false;
-    this.visibleProfile = true;
+  createNote(newNote: INote) {
+    const sessionId = this.id();
+    this.notesService.createNote$(sessionId, newNote).subscribe({
+      error: (err) => {
+        this.showErrorDialog(err);
+        //TODO: eliminar la nota de la pantalla. Hacer guardado temporal en localStorage
+      },
+    });
+  }
+
+  updateGoal(goal: string) {
+    this.session()!.goal = goal;
+    this.updateSessionGoal(this.id(), goal);
+  }
+
+  updateSessionGoal(sessionId: string, newGoal: string){
+    this.sessionsService.updateSessionGoal$(sessionId, newGoal).subscribe({
+      error: (err) => {
+          this.showErrorDialog(err);
+      },
+    });
+  }
+
+
+  setGoal(newGoal: string) {
+    this.goal.set(newGoal);
+    this.updateGoal(newGoal);
+  }
+  addNote(newNote: { type: string; text: string }) {
+    this.createNote(newNote as INote);
+    if (newNote.type == 'N') this.notes().push(newNote.text);
+    else this.notes().push(newNote.type + ' ' + newNote.text);
+  }
+  addTask(newTask: string) {
+    this.tasks().push(newTask);
   }
 
   showErrorDialog(error: string) {
@@ -151,8 +189,9 @@ export class Session {
     this.visibleEmotions = true;
   }
 
-  changeHidden() {
-    this.hidden = !this.hidden;
+  showProfile() {
+    this.visible = false;
+    this.visibleProfile = true;
   }
 
   goCoachees() {

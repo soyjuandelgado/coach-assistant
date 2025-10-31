@@ -1,18 +1,18 @@
 import { inject, Injectable, signal } from '@angular/core';
-import { SessionsApiService } from './sessions-api-service';
-import { ISession } from '../../models/session.interface';
+import { NotesApiService } from './notes-api-service';
+import { INote } from '../../models/notes.interface';
 import { Observable, tap } from 'rxjs';
 
 @Injectable({
-  providedIn: 'root',
+  providedIn: 'root'
 })
-export class SessionsService {
-  private api = inject(SessionsApiService);
-  private _sessions = signal<ISession[]>([]);
-  private _session = signal<ISession | undefined>(undefined);
+export class NotesService {
+  private api = inject(NotesApiService);
+  private _notes = signal<INote[]>([]);
+  private _note = signal<INote | undefined>(undefined);
 
-  public readonly sessions = this._sessions.asReadonly();
-  public readonly session = this._session.asReadonly();
+  public readonly notes = this._notes.asReadonly();
+  public readonly note = this._note.asReadonly();
 
   private _error = signal<string | null>(null);
   public readonly error = this._error.asReadonly();
@@ -20,59 +20,59 @@ export class SessionsService {
   private _loading = signal<boolean>(false);
   public readonly loading = this._loading.asReadonly();
 
-  getSessions(): void {
+  getNotes(): void {
     this._loading.set(true);
     this._error.set(null);
-    this.api.getSessions$().subscribe({
+    this.api.getNotes$().subscribe({
       next: (response) => {
-        this._sessions.set(response);
+        this._notes.set(response);
         this._loading.set(false);
       },
       error: (err) => {
-        console.log('Error getting sessions.', err);
+        console.log('Error getting notes.', err);
         this._error.set(err.message);
         this._loading.set(false);
       },
     });
   }
 
-  getSession(sessionId: string): void {
-    if (this._session()?.id === sessionId) {
+  getNote(noteId: string): void {
+    if (this._note()?.id === noteId) {
       return;
     }
     this._loading.set(true);
     this._error.set(null);
-    if (sessionId.length == 0) {
-      this._session.set(undefined);
+    if (noteId.length == 0) {
+      this._note.set(undefined);
       return;
     }
-    this.api.getSession$(sessionId).subscribe({
+    this.api.getNote$(noteId).subscribe({
       next: (response) => {
-        this._session.set(response);
+        this._note.set(response);
         this._loading.set(false);
       },
       error: (err) => {
-        console.log('Error getting session.', err);
+        console.log('Error getting note.', err);
         this._error.set(err.message);
         this._loading.set(false);
       },
     });
   }
 
-  createSession(processId: string, session: ISession): void {
+  createNote(sessionId: string, note: INote): void {
     this._loading.set(true);
     this._error.set(null);
     this.api
-      .createSession$(processId, session)
+      .createNote$(sessionId, note)
       .pipe(
         tap({
           next: (response) => {
-            const sessionResponse = response as ISession;
-            this._sessions.update((currentSessions) => [...currentSessions, sessionResponse]);
+            const noteResponse = response as INote;
+            this._notes.update((currentNotes) => [...currentNotes, noteResponse]);
             this._loading.set(false);
           },
           error: (err) => {
-            console.error('Session creating error', err);
+            console.error('Note creating error', err);
             this._error.set(err.message);
             this._loading.set(false);
           },
@@ -80,27 +80,27 @@ export class SessionsService {
       )
       .subscribe();
   }
-
-  createSession$(processId: string, session: ISession): Observable<ISession> {
-    return this.api.createSession$(processId, session);
+  
+  createNote$(sessionId: string, note: INote): Observable<INote> {
+    return this.api.createNote$(sessionId, note);
   }
 
-  updateSession(sessionId: string, session: ISession): void {
+  updateNote(noteId: string, note: INote): void {
     this._loading.set(true);
     this._error.set(null);
     this.api
-      .updateSession$(sessionId, session)
+      .updateNote$(noteId, note)
       .pipe(
         tap({
           next: (response) => {
-            const sessionResponse = response as ISession;
-            this._sessions.update((currentSessions) =>
-              currentSessions.map((c) => (c.id === sessionId ? sessionResponse : c))
+            const noteResponse = response as INote;
+            this._notes.update((currentNotes) =>
+              currentNotes.map((c) => (c.id === noteId ? noteResponse : c))
             );
             this._loading.set(false);
           },
           error: (err) => {
-            console.error('Session updating error', err);
+            console.error('Note updating error', err);
             this._error.set(err.message);
             this._loading.set(false);
           },
@@ -108,30 +108,21 @@ export class SessionsService {
       )
       .subscribe();
   }
-  updateSession$(sessionId: string, session: ISession): Observable<ISession> {
-    return this.api.updateSession$(sessionId, session);
-  }
-
-  updateSessionGoal$(sessionId: string, newGoal: string): Observable<ISession> {
-    return this.api.updateSessionGoal$(sessionId, newGoal);
-  }
-
-
-  deleteSession(sessionId: string): void {
+  deleteNote(noteId: string): void {
     this._loading.set(true);
     this._error.set(null);
     this.api
-      .deleteSession$(sessionId)
+      .deleteNote$(noteId)
       .pipe(
         tap({
           next: () => {
-            this._sessions.update((currentSessions) =>
-              currentSessions.filter((c) => c.id !== sessionId)
+            this._notes.update((currentNotes) =>
+              currentNotes.filter((c) => c.id !== noteId)
             );
             this._loading.set(false);
           },
           error: (err) => {
-            console.error('Session deleting error', err);
+            console.error('Note deleting error', err);
             this._error.set(err.message);
             this._loading.set(false);
           },
@@ -140,21 +131,21 @@ export class SessionsService {
       .subscribe();
   }
 
-  removeSession(sessionId: string): void {
+  removeNote(noteId: string): void {
     this._loading.set(true);
     this._error.set(null);
     this.api
-      .removeSession$(sessionId)
+      .removeNote$(noteId)
       .pipe(
         tap({
           next: () => {
-            this._sessions.update((currentSessions) =>
-              currentSessions.filter((c) => c.id !== sessionId)
+            this._notes.update((currentNotes) =>
+              currentNotes.filter((c) => c.id !== noteId)
             );
             this._loading.set(false);
           },
           error: (err) => {
-            console.error('Session removing error', err);
+            console.error('Note removing error', err);
             this._error.set(err.message);
             this._loading.set(false);
           },
@@ -163,11 +154,11 @@ export class SessionsService {
       .subscribe();
   }
 
-  restoreSession(sessionId: string): void {
+  restoreNote(noteId: string): void {
     this._loading.set(true);
     this._error.set(null);
     this.api
-      .restoreSession$(sessionId)
+      .restoreNote$(noteId)
       .pipe(
         tap({
           next: (response) => {
@@ -175,7 +166,7 @@ export class SessionsService {
             this._loading.set(false);
           },
           error: (err) => {
-            console.error('Session restoring error', err);
+            console.error('Note restoring error', err);
             this._error.set(err.message);
             this._loading.set(false);
           },
@@ -184,7 +175,7 @@ export class SessionsService {
       .subscribe();
   }
 
-  clearSession(): void {
-    this._session.set(undefined);
+  clearNote(): void {
+    this._note.set(undefined);
   }
 }
