@@ -15,6 +15,7 @@
             <p-button icon="pi pi-sign-out" text severity="danger" (onClick)="goCoachees()" />
         </ng-template>
     </p-toolbar>
+    <p-confirmdialog />
     <app-coachee-profile [coachee]="this.coachee()" [(visible)]="this.visibleProfile"></app-coachee-profile>
     <p-dialog header="Notas Previas" [(visible)]="visibleNotes" position="top" draggable="false"
         [style]="{ width: '45rem' }">

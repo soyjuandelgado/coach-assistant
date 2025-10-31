@@ -15,6 +15,7 @@ import { DividerModule } from 'primeng/divider';
 import { PanelModule } from 'primeng/panel';
 import { TabsModule } from 'primeng/tabs';
 import { DialogModule } from 'primeng/dialog';
+import { ConfirmDialogModule } from 'primeng/confirmdialog';
 
 import { CoacheeProfile } from './coachee-profile/coachee-profile';
 import { InsertData } from './insert-data/insert-data';
@@ -68,6 +69,7 @@ interface TaskOption {
     PanelModule,
     TabsModule,
     DialogModule,
+    ConfirmDialogModule,
     CoacheeProfile,
     InsertData,
   ],
@@ -148,14 +150,13 @@ export class Session {
     this.updateSessionGoal(this.id(), goal);
   }
 
-  updateSessionGoal(sessionId: string, newGoal: string){
+  updateSessionGoal(sessionId: string, newGoal: string) {
     this.sessionsService.updateSessionGoal$(sessionId, newGoal).subscribe({
       error: (err) => {
-          this.showErrorDialog(err);
+        this.showErrorDialog(err);
       },
     });
   }
-
 
   setGoal(newGoal: string) {
     this.goal.set(newGoal);

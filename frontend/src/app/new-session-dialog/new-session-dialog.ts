@@ -2,6 +2,7 @@ import { Component, effect, inject, input, output, signal } from '@angular/core'
 import { DatePipe } from '@angular/common';
 import { ButtonModule } from 'primeng/button';
 import { DialogModule } from 'primeng/dialog';
+import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { ProcessesService } from '../shared/services/processes/processes-service';
 import { InputNumberModule } from 'primeng/inputnumber';
 import { InputTextModule } from 'primeng/inputtext';
@@ -20,6 +21,7 @@ import { ConfirmationService } from 'primeng/api';
     ReactiveFormsModule,
     ButtonModule,
     DialogModule,
+    ConfirmDialogModule,
     InputNumberModule,
     InputTextModule,
     ToggleSwitchModule,
