@@ -19,10 +19,19 @@ export class SessionsService {
   }
 
   async find(sessionId: string): Promise<Session> {
-    const session = await this.sessionsRepository.findOne({
-      where: { id: Equal(sessionId) },
-      relations: ['process', 'notes'],
-    });
+    // const session = await this.sessionsRepository.findOne({
+    //   where: { id: Equal(sessionId) },
+    //   relations: ['process', 'notes', 'tasks'],
+    // });
+    const session = await this.sessionsRepository
+      .createQueryBuilder('session')
+      .leftJoinAndSelect('session.notes', 'note')
+      .leftJoinAndSelect('session.tasks', 'task')
+      .leftJoinAndSelect('session.process', 'process')
+      .where('session.id = :id', { id: sessionId })
+      .orderBy('note.created_at', 'ASC')
+      .addOrderBy('task.created_at', 'ASC')
+      .getOne();
     if (!session) {
       this.logger.error('Session not found');
       throw new NotFoundException('Session not found');

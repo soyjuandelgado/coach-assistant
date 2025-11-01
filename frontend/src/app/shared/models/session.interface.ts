@@ -1,5 +1,6 @@
-import { INote } from "./notes.interface";
-import { IProcess } from "./process.interface";
+import { INote } from './note.interface';
+import { IProcess } from './process.interface';
+import { ITask } from './task.interface';
 
 export interface ISession {
   id: string;
@@ -11,4 +12,5 @@ export interface ISession {
   goal?: string;
   process?: IProcess;
   notes: INote[];
+  tasks: ITask[];
 }

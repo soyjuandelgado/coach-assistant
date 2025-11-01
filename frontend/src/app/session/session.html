@@ -1,3 +1,71 @@
+<p-confirmdialog />
+<app-coachee-profile [coachee]="this.coachee()" [(visible)]="this.visibleProfile"></app-coachee-profile>
+<app-previous-info-dialog [process]="this.process()" [(visible)]="this.visibleNotes"></app-previous-info-dialog>
+<p-dialog id="emotions-dialog" header="Cuadro Emociones" [(visible)]="visibleEmotions" [modal]="true"
+    [style]="{ width: '45rem' }">
+    <p-table [value]="detailEmotions()" selectionMode="single" dataKey="id" scrollHeight="flex" id="emotions"
+        [size]="'small'">
+        <ng-template pTemplate="body" let-row let-rowIndex="rowIndex">
+            <tr [pSelectableRow]="row">
+                <td [attr.bgcolor]="colorsByZone(rowIndex, 0)">{{ row.col1 }}</td>
+                <td [attr.bgcolor]="colorsByZone(rowIndex, 1)">{{ row.col2 }}</td>
+                <td [attr.bgcolor]="colorsByZone(rowIndex, 2)">{{ row.col3 }}</td>
+                <td [attr.bgcolor]="colorsByZone(rowIndex, 3)">{{ row.col4 }}</td>
+                <td [attr.bgcolor]="colorsByZone(rowIndex, 4)">{{ row.col5 }}</td>
+                <td [attr.bgcolor]="colorsByZone(rowIndex, 5)">{{ row.col6 }}</td>
+                <td [attr.bgcolor]="colorsByZone(rowIndex, 6)">{{ row.col7 }}</td>
+                <td [attr.bgcolor]="colorsByZone(rowIndex, 7)">{{ row.col8 }}</td>
+                <td [attr.bgcolor]="colorsByZone(rowIndex, 8)">{{ row.col9 }}</td>
+                <td [attr.bgcolor]="colorsByZone(rowIndex, 9)">{{ row.col10 }}</td>
+        </ng-template>
+    </p-table>
+
+    <div class="flex justify-end gap-2">
+        <p-button label="Cerrar" (click)="visibleEmotions = false" />
+    </div>
+</p-dialog>
+<p-drawer [(visible)]="visible" header="Info & Herramientas">
+    <p-button class="w-full" icon="pi pi-face-smile" text label="Cuadro Emociones" severity="help"
+        (onClick)="showDialogEmotions()" />
+    <p-button class="w-full" icon="pi pi-id-card" text label="Perfil Coachee" (onClick)="showProfile()" />
+    <p-divider />
+    <p-button class="w-full" icon="pi pi-history" text label="Historial" severity="warn" />
+    <ul class="list-none p-0 m-0">
+        @for (session of process()?.sessions?.slice(1); track session.id) {
+        <li class="ml-2 py-1">
+            <a class="no-underline text-primary-700 hover:text-primary-500">S{{session.session_number}}:
+                {{session.goal || 'Sin objetivo definido'}}</a>
+        </li>
+        }
+    </ul>
+    <p-divider />
+    <p-button class="w-full" icon="pi pi-wrench" text label="Herramientas" severity="secondary" />
+    <ul>
+        <li class="ml-2">Rueda de la Vida</li>
+        <li class="ml-2">Valores</li>
+        <li class="ml-2">Semana Ideal</li>
+        <li class="ml-2">Test de Colores</li>
+        <li class="ml-2">Ficha Objetivo</li>
+    </ul>
+    <p-divider />
+    <p-button class="w-full" icon="pi pi-graduation-cap" text label="Píldoras Formativas" severity="success" />
+    <ul>
+        <li class="ml-2">Emociones Básicas</li>
+        <li class="ml-2">Camino Autoestima</li>
+        <li class="ml-2">REA</li>
+    </ul>
+    <p-divider />
+    <h4 class="text-primary-700 font-semibold">
+        <span class="pi pi-pencil mr-2"></span>Pizarra
+    </h4>
+    <ng-template #footer>
+        <div class="flex items-center gap-2">
+            <button pButton label="Terminar Sesión" icon="pi pi-sign-out" class="w-full" severity="danger" outlined
+                (click)="leaveSession($event)">
+            </button>
+        </div>
+    </ng-template>
+</p-drawer>
 <div class="w-full h-full flex flex-col gap-2 bg-primary-50">
     <p-toolbar [style]="{ 'padding': '0' }">
         <ng-template #start>
@@ -12,121 +80,9 @@
         </ng-template>
         <ng-template #end>
             <p-button icon="pi pi-window-maximize" text severity="info" (onClick)="toggleFullScreen()" />
-            <p-button icon="pi pi-sign-out" text severity="danger" (onClick)="goCoachees()" />
+            <p-button icon="pi pi-sign-out" text severity="danger" (onClick)="leaveSession($event)" />
         </ng-template>
     </p-toolbar>
-    <app-coachee-profile [coachee]="this.coachee()" [(visible)]="this.visibleProfile"></app-coachee-profile>
-    <p-dialog header="Notas Previas" [(visible)]="visibleNotes" position="top" draggable="false"
-        [style]="{ width: '45rem' }">
-        <div class="flex flex-col">
-            <div class="py-1 flex flex-col">
-                <span class="font-medium">Objetivo Proceso:</span>
-                <span>{{this.process() ? this.process()!.goal : "- No definido -"}}</span>
-            </div>
-            <div class="py-1 flex flex-col">
-                <span class="font-medium">Objetivo Anterior:</span>
-                <span>{{this.process() ? (this.process()!.sessions && this.process()!.sessions[1] ?
-                    this.process()!.sessions[1].goal : "- No existe-") : "- No existe -"}}</span>
-            </div>
-            <div class="py-1 flex flex-col">
-                <span class="font-medium">Resumen Anterior:</span>
-                <p>
-                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aperiam optio est necessitatibus
-                    perspiciatis ex quod odit rem qui incidunt, voluptas id fugiat corporis quo, sapiente, hic eos harum
-                    illum voluptatibus!
-                </p>
-            </div>
-            <div class="py-1 flex flex-col">
-                <span class="font-medium">Planes de acción pendientes:</span>
-                <ul class="list-inside list-disc">
-                    <li>10/10 07/10 15:00 Reunión nuevo diseño</li>
-                    <li>10/10 08/10 23:59 Decidir qué diseño nuevo se hace</li>
-                </ul>
-            </div>
-            <div class="py-1 flex flex-col">
-                <span class="font-medium">Etiquetas:</span>
-                <ul class="list-inside list-disc">
-                    <li>Ansioso, agotado, nervioso</li>
-                    <li>Dinero, compromiso</li>
-                </ul>
-            </div>
-            <div class="py-1 flex flex-col">
-                <span class="font-medium">Ideas:</span>
-                <ul class="list-inside list-disc">
-                    <li>Idea 1</li>
-                    <li>Idea 2</li>
-                </ul>
-            </div>
-        </div>
-
-        <div class="flex justify-end gap-2">
-            <p-button label="Cerrar" (click)="visibleNotes = false" />
-        </div>
-    </p-dialog>
-    <p-dialog id="emotions-dialog" header="Cuadro Emociones" [(visible)]="visibleEmotions" [modal]="true"
-        [style]="{ width: '45rem' }">
-        <p-table [value]="detailEmotions()" selectionMode="single" dataKey="id" scrollHeight="flex" id="emotions"
-            [size]="'small'">
-            <ng-template pTemplate="body" let-row let-rowIndex="rowIndex">
-                <tr [pSelectableRow]="row">
-                    <td [attr.bgcolor]="colorsByZone(rowIndex, 0)">{{ row.col1 }}</td>
-                    <td [attr.bgcolor]="colorsByZone(rowIndex, 1)">{{ row.col2 }}</td>
-                    <td [attr.bgcolor]="colorsByZone(rowIndex, 2)">{{ row.col3 }}</td>
-                    <td [attr.bgcolor]="colorsByZone(rowIndex, 3)">{{ row.col4 }}</td>
-                    <td [attr.bgcolor]="colorsByZone(rowIndex, 4)">{{ row.col5 }}</td>
-                    <td [attr.bgcolor]="colorsByZone(rowIndex, 5)">{{ row.col6 }}</td>
-                    <td [attr.bgcolor]="colorsByZone(rowIndex, 6)">{{ row.col7 }}</td>
-                    <td [attr.bgcolor]="colorsByZone(rowIndex, 7)">{{ row.col8 }}</td>
-                    <td [attr.bgcolor]="colorsByZone(rowIndex, 8)">{{ row.col9 }}</td>
-                    <td [attr.bgcolor]="colorsByZone(rowIndex, 9)">{{ row.col10 }}</td>
-            </ng-template>
-        </p-table>
-
-        <div class="flex justify-end gap-2">
-            <p-button label="Cerrar" (click)="visibleEmotions = false" />
-        </div>
-    </p-dialog>
-    <p-drawer [(visible)]="visible" header="Info & Herramientas">
-        <p-button class="w-full" icon="pi pi-face-smile" text label="Cuadro Emociones" severity="help"
-            (onClick)="showDialogEmotions()" />
-        <p-button class="w-full" icon="pi pi-id-card" text label="Perfil Coachee" (onClick)="showProfile()" />
-        <p-divider />
-        <p-button class="w-full" icon="pi pi-history" text label="Historial" severity="warn" />
-        <ul class="list-none p-0 m-0">
-            @for (session of process()?.sessions?.slice(1); track session.id) {
-            <li class="ml-2 py-1">
-                <a class="no-underline text-primary-700 hover:text-primary-500">S{{session.session_number}}:
-                    {{session.goal || 'Sin objetivo definido'}}</a>
-            </li>
-            }
-        </ul>
-        <p-divider />
-        <p-button class="w-full" icon="pi pi-wrench" text label="Herramientas" severity="secondary" />
-        <ul>
-            <li class="ml-2">Rueda de la Vida</li>
-            <li class="ml-2">Valores</li>
-            <li class="ml-2">Semana Ideal</li>
-            <li class="ml-2">Test de Colores</li>
-            <li class="ml-2">Ficha Objetivo</li>
-        </ul>
-        <p-divider />
-        <p-button class="w-full" icon="pi pi-graduation-cap" text label="Píldoras Formativas" severity="success" />
-        <ul>
-            <li class="ml-2">Emociones Básicas</li>
-            <li class="ml-2">Camino Autoestima</li>
-            <li class="ml-2">REA</li>
-        </ul>
-        <p-divider />
-        <h4 class="text-primary-700 font-semibold">
-            <span class="pi pi-pencil mr-2"></span>Pizarra
-        </h4>
-        <ng-template #footer>
-            <div class="flex items-center gap-2">
-                <button pButton label="Terminar Sesión" icon="pi pi-sign-out" class="w-full" severity="danger" outlined>
-                </button>
-            </div>
-        </ng-template>
-    </p-drawer>
     <div class="w-full">
         <p-popover #op>
             <ng-template #content>

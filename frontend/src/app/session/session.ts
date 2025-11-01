@@ -15,9 +15,11 @@ import { DividerModule } from 'primeng/divider';
 import { PanelModule } from 'primeng/panel';
 import { TabsModule } from 'primeng/tabs';
 import { DialogModule } from 'primeng/dialog';
+import { ConfirmDialogModule } from 'primeng/confirmdialog';
 
 import { CoacheeProfile } from './coachee-profile/coachee-profile';
 import { InsertData } from './insert-data/insert-data';
+import { PreviousInfoDialog } from './previous-info-dialog/previous-info-dialog';
 
 import { Router } from '@angular/router';
 import { FullScreen } from '../shared/services/full-screen/full-screen';
@@ -27,26 +29,16 @@ import { ProcessesService } from '../shared/services/processes/processes-service
 import { ConfirmationService } from 'primeng/api';
 import { ICoachee } from '../shared/models/coachee.interface';
 import { NotesService } from '../shared/services/notes/notes-service';
-import { INote } from '../shared/models/notes.interface';
-import { ISession } from '../shared/models/session.interface';
+import { INote } from '../shared/models/note.interface';
+import { TasksService } from '../shared/services/tasks/tasks-service';
+import { ITask } from '../shared/models/task.interface';
+import { ITaskDto } from '../shared/models/task.dto';
+import { INoteDto } from '../shared/models/note.dto';
 
 interface Emotion {
   name: string;
   energy: number;
   pleasant: number;
-}
-interface DetailOption {
-  id: number;
-  date: Date;
-  text: string;
-  type: string;
-}
-interface TaskOption {
-  id: number;
-  date: Date;
-  text: string;
-  scheduled: Date;
-  score: number;
 }
 
 @Component({
@@ -68,8 +60,10 @@ interface TaskOption {
     PanelModule,
     TabsModule,
     DialogModule,
+    ConfirmDialogModule,
     CoacheeProfile,
     InsertData,
+    PreviousInfoDialog,
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './session.html',
@@ -92,6 +86,7 @@ export class Session {
   private sessionsService = inject(SessionsService);
   private processesService = inject(ProcessesService);
   private notesService = inject(NotesService);
+  private tasksService = inject(TasksService);
   protected session = this.sessionsService.session;
   protected process = signal<IProcess | undefined>(undefined);
   protected coachee = signal<ICoachee | undefined>(undefined);
@@ -148,26 +143,36 @@ export class Session {
     this.updateSessionGoal(this.id(), goal);
   }
 
-  updateSessionGoal(sessionId: string, newGoal: string){
+  updateSessionGoal(sessionId: string, newGoal: string) {
     this.sessionsService.updateSessionGoal$(sessionId, newGoal).subscribe({
       error: (err) => {
-          this.showErrorDialog(err);
+        this.showErrorDialog(err);
       },
     });
   }
 
+  createTask(newTask: ITask) {
+    const sessionId = this.id();
+    this.tasksService.createTask$(sessionId, newTask).subscribe({
+      error: (err) => {
+        this.showErrorDialog(err);
+        //TODO: eliminar la nota de la pantalla. Hacer guardado temporal en localStorage
+      },
+    });
+  }
 
   setGoal(newGoal: string) {
     this.goal.set(newGoal);
     this.updateGoal(newGoal);
   }
-  addNote(newNote: { type: string; text: string }) {
+  addNote(newNote: INoteDto) {
     this.createNote(newNote as INote);
     if (newNote.type == 'N') this.notes().push(newNote.text);
     else this.notes().push(newNote.type + ' ' + newNote.text);
   }
-  addTask(newTask: string) {
-    this.tasks().push(newTask);
+  addTask(newTask: ITaskDto) {
+    this.createTask(newTask as ITask);
+    this.tasks().push(newTask.text);
   }
 
   showErrorDialog(error: string) {
@@ -180,6 +185,33 @@ export class Session {
     });
   }
 
+  leaveSession(event: Event) {
+    this.showExitDialog(event);
+  }
+
+  showExitDialog(event: Event) {
+    this.confirmationService.confirm({
+      target: event.target as EventTarget,
+      message: '¿Seguro que quiere salir de la sesión?',
+      header: '¡Atención!',
+      icon: 'pi pi-exclamation-triangle',
+      rejectLabel: 'Cancelar',
+      acceptVisible: true,
+      rejectButtonProps: {
+        label: 'Cancelar',
+        severity: 'secondary',
+        outlined: true,
+      },
+      acceptButtonProps: {
+        label: 'Salir',
+        severity: 'danger',
+      },
+
+      accept: () => {
+        this.goCoachees();
+      },
+    });
+  }
   showDialogNotes() {
     this.visibleNotes = true;
   }
@@ -350,75 +382,4 @@ export class Session {
     if (rowIndex >= 5 && colIndex >= 5) return '#86efac'; // verde claro
     return '';
   }
-
-  detailOptions = signal<DetailOption[]>([
-    { id: 1, date: new Date('2025-10-15 15:04'), type: 'I', text: 'La semana bien' },
-    { id: 2, date: new Date('2025-10-15 15:10'), type: 'E', text: 'Feliz' },
-    { id: 3, date: new Date('2025-10-15 15:12'), type: 'G', text: 'Duda entre entregar o no' },
-    { id: 4, date: new Date('2025-10-15 15:17'), type: 'G', text: 'Decide diseñar el producto' },
-    { id: 5, date: new Date('2025-10-15 15:24'), type: 'R', text: 'No tiene diseñador' },
-    {
-      id: 6,
-      date: new Date('2025-10-15 15:25'),
-      type: 'R',
-      text: 'No sabe donde encontrarlo ni precio',
-    },
-    { id: 7, date: new Date('2025-10-15 15:29'), type: 'O', text: 'Buscar diseñador por internet' },
-    { id: 8, date: new Date('2025-10-15 15:33'), type: 'O', text: 'Diseño propio, sin contratar' },
-    {
-      id: 9,
-      date: new Date('2025-10-15 15:33'),
-      type: 'W',
-      text: 'Calcular cual es el presupuesto',
-    },
-    { id: 10, date: new Date('2025-10-15 15:33'), type: 'W', text: 'Buscar diseñador esta semana' },
-  ]);
-
-  selectedDetail = signal<DetailOption | undefined>(undefined);
-
-  taskOptions = signal<TaskOption[]>([
-    {
-      id: 1,
-      date: new Date('2025-10-15 15:58'),
-      text: 'Buscar diseñadores',
-      scheduled: new Date('2025-10-17 23:59'),
-      score: 10,
-    },
-    {
-      id: 2,
-      date: new Date('2025-10-15 16:05'),
-      text: 'Pedir 3 presupuestos',
-      scheduled: new Date('2025-10-18 23:59'),
-      score: 10,
-    },
-    {
-      id: 3,
-      date: new Date('2025-10-15 16:10'),
-      text: 'Contratar diseñador y enviarme mensaje',
-      scheduled: new Date('2025-10-20 19:00'),
-      score: 9,
-    },
-  ]);
-
-  selectedTask = signal<TaskOption | undefined>(undefined);
-
-  stateOptions: any[] = [
-    { label: 'Objetivo', value: 'objetivo' },
-    { label: 'Issues', value: 'issues' },
-    { label: 'Goal', value: 'goal' },
-    { label: 'Reality', value: 'reality' },
-    { label: 'Options', value: 'options' },
-    { label: 'Will', value: 'will' },
-    { label: 'Tareas', value: 'tasks' },
-  ];
-
-  stateOptionsTab: any[] = [
-    { label: 'Issues', value: 'issues' },
-    { label: 'Goal', value: 'goal' },
-    { label: 'Reality', value: 'reality' },
-    { label: 'Options', value: 'options' },
-    { label: 'Will', value: 'will' },
-  ];
-
-  value = 'issues';
 }

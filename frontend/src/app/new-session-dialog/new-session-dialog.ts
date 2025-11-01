@@ -2,6 +2,7 @@ import { Component, effect, inject, input, output, signal } from '@angular/core'
 import { DatePipe } from '@angular/common';
 import { ButtonModule } from 'primeng/button';
 import { DialogModule } from 'primeng/dialog';
+import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { ProcessesService } from '../shared/services/processes/processes-service';
 import { InputNumberModule } from 'primeng/inputnumber';
 import { InputTextModule } from 'primeng/inputtext';
@@ -20,6 +21,7 @@ import { ConfirmationService } from 'primeng/api';
     ReactiveFormsModule,
     ButtonModule,
     DialogModule,
+    ConfirmDialogModule,
     InputNumberModule,
     InputTextModule,
     ToggleSwitchModule,
@@ -35,7 +37,8 @@ export class NewSessionDialog {
   private processesService = inject(ProcessesService);
   private sessionsService = inject(SessionsService);
   protected process = this.processesService.process;
-  protected previousSession = signal(this.process()?.sessions[1]);
+  protected previousSession = signal<ISession | undefined>(undefined);
+  //protected previousSession = signal(this.process()?.sessions[1]);
   private fb = inject(FormBuilder);
   visible = input(false);
   visibleChange = output<boolean>();
@@ -62,7 +65,8 @@ export class NewSessionDialog {
           is_grow: process.is_grow ?? false,
         });
         if (process.sessions) {
-          this.previousSession.set(process.sessions[0]);
+          this.getPreviousSession(process.sessions[0].id)
+          //this.previousSession.set(process.sessions[0]);
         }
       }
     });
@@ -98,6 +102,17 @@ export class NewSessionDialog {
       error: (err) => {
         this.showErrorDialog(err);
         console.error('Error creating session:', err);
+      },
+    });
+  }
+
+  getPreviousSession(sessionId: string) {
+    this.sessionsService.getSession$(sessionId).subscribe({
+      next: (response) => {
+        this.previousSession.set(response);
+      },
+      error: (err) => {
+        this.showErrorDialog(err);
       },
     });
   }

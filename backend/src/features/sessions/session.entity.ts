@@ -12,6 +12,7 @@ import {
 } from 'typeorm';
 import { Process } from '../processes/process.entity';
 import { Note } from './notes/note.entity';
+import { Task } from './tasks/task.entity';
 
 @Entity()
 export class Session {
@@ -62,4 +63,7 @@ export class Session {
 
   @OneToMany(() => Note, (note) => note.session, { cascade: true })
   notes: Note[];
+
+  @OneToMany(() => Task, (task) => task.session, { cascade: true })
+  tasks: Task[];
 }

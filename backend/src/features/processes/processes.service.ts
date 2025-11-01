@@ -27,7 +27,7 @@ export class ProcessesService {
       .leftJoinAndSelect('process.sessions', 'session')
       .leftJoinAndSelect('process.coachee', 'coachee')
       .where('process.id = :id', { id: processId })
-      .orderBy('session.created_at', 'DESC') // Ordena sessions por created_at ascendente
+      .orderBy('session.created_at', 'DESC')
       .getOne();
     if (!process) {
       this.logger.error('find: Process not found.');

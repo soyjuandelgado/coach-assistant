@@ -1,4 +1,5 @@
 @if(process()){
+<p-confirmdialog />
 <p-dialog header="Nueva Sesión" [visible]="visible()" [style]="{ width: '45rem' }" [modal]="true" [closable]="false">
     <p-panel header="Datos de Proceso" class="flex flex-col mb-3">
         <div class="py-1 flex flex-col">
@@ -37,8 +38,9 @@
         <div class="py-1 flex flex-col">
             <span class="font-medium">Planes de acción pendientes:</span>
             <ul class="list-inside list-disc">
-                <li>10/10 07/10 15:00 Reunión nuevo diseño</li>
-                <li>10/10 08/10 23:59 Decidir qué diseño nuevo se hace</li>
+                @for (task of previousSession()?.tasks; track task.id) {
+                <li>{{task.text}}</li>
+                }
             </ul>
         </div>
         <div class="py-1 flex flex-col">

@@ -7,6 +7,7 @@ import { CoacheesModule } from './features/coachees/coachees.module';
 import { ProcessesModule } from './features/processes/processes.module';
 import { SessionsModule } from './features/sessions/sessions.module';
 import { NotesModule } from './features/sessions/notes/notes.module';
+import { TasksModule } from './features/sessions/tasks/tasks.module';
 
 @Module({
   imports: [
@@ -16,6 +17,7 @@ import { NotesModule } from './features/sessions/notes/notes.module';
     ProcessesModule,
     SessionsModule,
     NotesModule,
+    TasksModule,
     TypeOrmModule.forRoot(configService.getTypeOrmConfig()),
   ],
   controllers: [],

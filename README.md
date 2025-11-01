@@ -29,6 +29,7 @@
       - [Procesos](#procesos)
       - [Sesiones](#sesiones)
       - [Notas](#notas)
+      - [Planes de Acción](#planes-de-acción)
   - [💻Tecnologías Utilizadas](#tecnologías-utilizadas)
     - [Frontend](#frontend)
     - [Backend](#backend-1)
@@ -241,6 +242,24 @@ erDiagram
         CHAR(36) id_sesion FK "UUID"
     }
     SESSION ||--o{ NOTE : has
+```
+
+#### Planes de Acción
+
+```mermaid
+erDiagram
+    TASK {
+        CHAR(36) id PK "UUID"
+        TEXT text
+        DATETIME scheduled_at "NULL"
+        INT commitment "NULL"
+        BOOLEAN done
+        DATETIME created_at
+        DATETIME updated_at
+        DATETIME deleted_at
+        CHAR(36) id_sesion FK "UUID"
+    }
+    SESSION ||--o{ TASK : has
 ```
 
 ## 💻Tecnologías Utilizadas
