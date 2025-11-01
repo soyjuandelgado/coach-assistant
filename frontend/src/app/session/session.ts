@@ -29,7 +29,7 @@ import { ConfirmationService } from 'primeng/api';
 import { ICoachee } from '../shared/models/coachee.interface';
 import { NotesService } from '../shared/services/notes/notes-service';
 import { INote } from '../shared/models/notes.interface';
-import { ISession } from '../shared/models/session.interface';
+
 
 interface Emotion {
   name: string;

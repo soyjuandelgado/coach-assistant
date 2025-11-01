@@ -53,7 +53,7 @@ erDiagram
         CHAR(36) process_id "UUID"
     }
 
-    NOTA_SESION {
+    NOTE {
         CHAR(36) id_nota PK
         CHAR(2) type
         VARCHAR text
@@ -71,13 +71,12 @@ erDiagram
     }
 
     PLAN_ACCION_SESION {
-        CHAR(36) id_sesion PK
-        INT id_pda PK
-        DATETIME fecha_hora
-        TEXT texto
-        DATETIME fecha_realizacion
-        BOOLEAN hecho
-        INT compromiso
+        CHAR(36) id PK
+        TEXT text
+        DATETIME scheduled_at
+        INT commitment
+        BOOLEAN done
+        CHAR(36) id_sesion FK
     }
 
     HERRAMIENTA_SESION {
