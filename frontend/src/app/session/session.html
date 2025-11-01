@@ -17,53 +17,7 @@
     </p-toolbar>
     <p-confirmdialog />
     <app-coachee-profile [coachee]="this.coachee()" [(visible)]="this.visibleProfile"></app-coachee-profile>
-    <p-dialog header="Notas Previas" [(visible)]="visibleNotes" position="top" draggable="false"
-        [style]="{ width: '45rem' }">
-        <div class="flex flex-col">
-            <div class="py-1 flex flex-col">
-                <span class="font-medium">Objetivo Proceso:</span>
-                <span>{{this.process() ? this.process()!.goal : "- No definido -"}}</span>
-            </div>
-            <div class="py-1 flex flex-col">
-                <span class="font-medium">Objetivo Anterior:</span>
-                <span>{{this.process() ? (this.process()!.sessions && this.process()!.sessions[1] ?
-                    this.process()!.sessions[1].goal : "- No existe-") : "- No existe -"}}</span>
-            </div>
-            <div class="py-1 flex flex-col">
-                <span class="font-medium">Resumen Anterior:</span>
-                <p>
-                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aperiam optio est necessitatibus
-                    perspiciatis ex quod odit rem qui incidunt, voluptas id fugiat corporis quo, sapiente, hic eos harum
-                    illum voluptatibus!
-                </p>
-            </div>
-            <div class="py-1 flex flex-col">
-                <span class="font-medium">Planes de acción pendientes:</span>
-                <ul class="list-inside list-disc">
-                    <li>10/10 07/10 15:00 Reunión nuevo diseño</li>
-                    <li>10/10 08/10 23:59 Decidir qué diseño nuevo se hace</li>
-                </ul>
-            </div>
-            <div class="py-1 flex flex-col">
-                <span class="font-medium">Etiquetas:</span>
-                <ul class="list-inside list-disc">
-                    <li>Ansioso, agotado, nervioso</li>
-                    <li>Dinero, compromiso</li>
-                </ul>
-            </div>
-            <div class="py-1 flex flex-col">
-                <span class="font-medium">Ideas:</span>
-                <ul class="list-inside list-disc">
-                    <li>Idea 1</li>
-                    <li>Idea 2</li>
-                </ul>
-            </div>
-        </div>
-
-        <div class="flex justify-end gap-2">
-            <p-button label="Cerrar" (click)="visibleNotes = false" />
-        </div>
-    </p-dialog>
+    <app-previous-info-dialog  [process]="this.process()" [(visible)]="this.visibleNotes"></app-previous-info-dialog>
     <p-dialog id="emotions-dialog" header="Cuadro Emociones" [(visible)]="visibleEmotions" [modal]="true"
         [style]="{ width: '45rem' }">
         <p-table [value]="detailEmotions()" selectionMode="single" dataKey="id" scrollHeight="flex" id="emotions"

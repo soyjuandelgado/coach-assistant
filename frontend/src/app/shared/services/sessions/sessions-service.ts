@@ -59,6 +59,10 @@ export class SessionsService {
     });
   }
 
+  getSession$(sessionId: string): Observable<ISession> {
+    return this.api.getSession$(sessionId);
+  }
+
   createSession(processId: string, session: ISession): void {
     this._loading.set(true);
     this._error.set(null);

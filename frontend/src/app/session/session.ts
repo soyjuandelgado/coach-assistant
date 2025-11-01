@@ -19,6 +19,7 @@ import { ConfirmDialogModule } from 'primeng/confirmdialog';
 
 import { CoacheeProfile } from './coachee-profile/coachee-profile';
 import { InsertData } from './insert-data/insert-data';
+import { PreviousInfoDialog } from './previous-info-dialog/previous-info-dialog';
 
 import { Router } from '@angular/router';
 import { FullScreen } from '../shared/services/full-screen/full-screen';
@@ -63,6 +64,7 @@ interface Emotion {
     ConfirmDialogModule,
     CoacheeProfile,
     InsertData,
+    PreviousInfoDialog,
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './session.html',
