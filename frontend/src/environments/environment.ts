@@ -9,4 +9,5 @@ export const environment = {
   sessionsUrl: `${API_URL}sessions/`,
   notesUrl: `${API_URL}notes/`,
   tasksUrl: `${API_URL}tasks/`,
+  authUrl: `${API_URL}auth/`,
 };

@@ -8,6 +8,7 @@ import { ProcessesModule } from './features/processes/processes.module';
 import { SessionsModule } from './features/sessions/sessions.module';
 import { NotesModule } from './features/sessions/notes/notes.module';
 import { TasksModule } from './features/sessions/tasks/tasks.module';
+import { AuthModule } from './auth/auth.module';
 
 @Module({
   imports: [
@@ -18,6 +19,7 @@ import { TasksModule } from './features/sessions/tasks/tasks.module';
     SessionsModule,
     NotesModule,
     TasksModule,
+    AuthModule,
     TypeOrmModule.forRoot(configService.getTypeOrmConfig()),
   ],
   controllers: [],
