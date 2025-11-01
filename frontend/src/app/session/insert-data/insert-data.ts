@@ -13,16 +13,12 @@ import { TextareaModule } from 'primeng/textarea';
 import { InputIconModule } from 'primeng/inputicon';
 import { ButtonModule } from 'primeng/button';
 import { PanelModule } from 'primeng/panel';
+import { INoteDto } from '../../shared/models/note.dto';
+import { ITaskDto } from '../../shared/models/task.dto';
 
 @Component({
   selector: 'app-insert-data',
-  imports: [
-    InputNumberModule,
-    TextareaModule,
-    InputIconModule,
-    ButtonModule,
-    PanelModule,
-  ],
+  imports: [InputNumberModule, TextareaModule, InputIconModule, ButtonModule, PanelModule],
   templateUrl: './insert-data.html',
   styleUrl: './insert-data.css',
 })
@@ -33,8 +29,8 @@ export class InsertData implements AfterViewInit {
   is_grow = input(false);
   selected = signal('');
   newGoal = output<string>();
-  newNote = output<{ type: string; text: string }>();
-  newTask = output<string>();
+  newNote = output<INoteDto>();
+  newTask = output<ITaskDto>();
 
   constructor() {
     effect(() => {
@@ -62,13 +58,13 @@ export class InsertData implements AfterViewInit {
           this.newGoal.emit(content);
           break;
         case 'N':
-          this.newNote.emit({ type: this.selected(), text: content });
+          this.newNote.emit({ type: this.selected(), text: content } as INoteDto);
           break;
         case 'P':
-          this.newTask.emit(content);
+          this.newTask.emit({ text: content } as ITaskDto);
           break;
         default:
-          this.newNote.emit({ type: this.selected().slice(1), text: content });
+          this.newNote.emit({ type: this.selected().slice(1), text: content } as INoteDto);
           break;
       }
     }
