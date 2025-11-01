@@ -1,4 +1,4 @@
 export interface INoteDto {
-    type: string;
-    text: string;
+  type: string;
+  text: string;
 }

@@ -8,4 +8,5 @@ export const environment = {
   processesUrl: `${API_URL}processes/`,
   sessionsUrl: `${API_URL}sessions/`,
   notesUrl: `${API_URL}notes/`,
+  tasksUrl: `${API_URL}tasks/`,
 };

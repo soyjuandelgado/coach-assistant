@@ -1,18 +1,18 @@
 import { inject, Injectable, signal } from '@angular/core';
-import { NotesApiService } from './notes-api-service';
-import { INote } from '../../models/note.interface';
+import { TasksApiService } from './tasks-api-service';
+import { ITask } from '../../models/task.interface';
 import { Observable, tap } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
-export class NotesService {
-  private api = inject(NotesApiService);
-  private _notes = signal<INote[]>([]);
-  private _note = signal<INote | undefined>(undefined);
+export class TasksService {
+  private api = inject(TasksApiService);
+  private _tasks = signal<ITask[]>([]);
+  private _task = signal<ITask | undefined>(undefined);
 
-  public readonly notes = this._notes.asReadonly();
-  public readonly note = this._note.asReadonly();
+  public readonly tasks = this._tasks.asReadonly();
+  public readonly task = this._task.asReadonly();
 
   private _error = signal<string | null>(null);
   public readonly error = this._error.asReadonly();
@@ -20,59 +20,59 @@ export class NotesService {
   private _loading = signal<boolean>(false);
   public readonly loading = this._loading.asReadonly();
 
-  getNotes(): void {
+  getTasks(): void {
     this._loading.set(true);
     this._error.set(null);
-    this.api.getNotes$().subscribe({
+    this.api.getTasks$().subscribe({
       next: (response) => {
-        this._notes.set(response);
+        this._tasks.set(response);
         this._loading.set(false);
       },
       error: (err) => {
-        console.log('Error getting notes.', err);
+        console.log('Error getting tasks.', err);
         this._error.set(err.message);
         this._loading.set(false);
       },
     });
   }
 
-  getNote(noteId: string): void {
-    if (this._note()?.id === noteId) {
+  getTask(taskId: string): void {
+    if (this._task()?.id === taskId) {
       return;
     }
     this._loading.set(true);
     this._error.set(null);
-    if (noteId.length == 0) {
-      this._note.set(undefined);
+    if (taskId.length == 0) {
+      this._task.set(undefined);
       return;
     }
-    this.api.getNote$(noteId).subscribe({
+    this.api.getTask$(taskId).subscribe({
       next: (response) => {
-        this._note.set(response);
+        this._task.set(response);
         this._loading.set(false);
       },
       error: (err) => {
-        console.log('Error getting note.', err);
+        console.log('Error getting task.', err);
         this._error.set(err.message);
         this._loading.set(false);
       },
     });
   }
 
-  createNote(sessionId: string, note: INote): void {
+  createTask(sessionId: string, task: ITask): void {
     this._loading.set(true);
     this._error.set(null);
     this.api
-      .createNote$(sessionId, note)
+      .createTask$(sessionId, task)
       .pipe(
         tap({
           next: (response) => {
-            const noteResponse = response as INote;
-            this._notes.update((currentNotes) => [...currentNotes, noteResponse]);
+            const taskResponse = response as ITask;
+            this._tasks.update((currentTasks) => [...currentTasks, taskResponse]);
             this._loading.set(false);
           },
           error: (err) => {
-            console.error('Note creating error', err);
+            console.error('Task creating error', err);
             this._error.set(err.message);
             this._loading.set(false);
           },
@@ -81,26 +81,26 @@ export class NotesService {
       .subscribe();
   }
   
-  createNote$(sessionId: string, note: INote): Observable<INote> {
-    return this.api.createNote$(sessionId, note);
+  createTask$(sessionId: string, task: ITask): Observable<ITask> {
+    return this.api.createTask$(sessionId, task);
   }
 
-  updateNote(noteId: string, note: INote): void {
+  updateTask(taskId: string, task: ITask): void {
     this._loading.set(true);
     this._error.set(null);
     this.api
-      .updateNote$(noteId, note)
+      .updateTask$(taskId, task)
       .pipe(
         tap({
           next: (response) => {
-            const noteResponse = response as INote;
-            this._notes.update((currentNotes) =>
-              currentNotes.map((c) => (c.id === noteId ? noteResponse : c))
+            const taskResponse = response as ITask;
+            this._tasks.update((currentTasks) =>
+              currentTasks.map((c) => (c.id === taskId ? taskResponse : c))
             );
             this._loading.set(false);
           },
           error: (err) => {
-            console.error('Note updating error', err);
+            console.error('Task updating error', err);
             this._error.set(err.message);
             this._loading.set(false);
           },
@@ -108,21 +108,21 @@ export class NotesService {
       )
       .subscribe();
   }
-  deleteNote(noteId: string): void {
+  deleteTask(taskId: string): void {
     this._loading.set(true);
     this._error.set(null);
     this.api
-      .deleteNote$(noteId)
+      .deleteTask$(taskId)
       .pipe(
         tap({
           next: () => {
-            this._notes.update((currentNotes) =>
-              currentNotes.filter((c) => c.id !== noteId)
+            this._tasks.update((currentTasks) =>
+              currentTasks.filter((c) => c.id !== taskId)
             );
             this._loading.set(false);
           },
           error: (err) => {
-            console.error('Note deleting error', err);
+            console.error('Task deleting error', err);
             this._error.set(err.message);
             this._loading.set(false);
           },
@@ -131,21 +131,21 @@ export class NotesService {
       .subscribe();
   }
 
-  removeNote(noteId: string): void {
+  removeTask(taskId: string): void {
     this._loading.set(true);
     this._error.set(null);
     this.api
-      .removeNote$(noteId)
+      .removeTask$(taskId)
       .pipe(
         tap({
           next: () => {
-            this._notes.update((currentNotes) =>
-              currentNotes.filter((c) => c.id !== noteId)
+            this._tasks.update((currentTasks) =>
+              currentTasks.filter((c) => c.id !== taskId)
             );
             this._loading.set(false);
           },
           error: (err) => {
-            console.error('Note removing error', err);
+            console.error('Task removing error', err);
             this._error.set(err.message);
             this._loading.set(false);
           },
@@ -154,11 +154,11 @@ export class NotesService {
       .subscribe();
   }
 
-  restoreNote(noteId: string): void {
+  restoreTask(taskId: string): void {
     this._loading.set(true);
     this._error.set(null);
     this.api
-      .restoreNote$(noteId)
+      .restoreTask$(taskId)
       .pipe(
         tap({
           next: (response) => {
@@ -166,7 +166,7 @@ export class NotesService {
             this._loading.set(false);
           },
           error: (err) => {
-            console.error('Note restoring error', err);
+            console.error('Task restoring error', err);
             this._error.set(err.message);
             this._loading.set(false);
           },
@@ -175,7 +175,7 @@ export class NotesService {
       .subscribe();
   }
 
-  clearNote(): void {
-    this._note.set(undefined);
+  clearTask(): void {
+    this._task.set(undefined);
   }
 }

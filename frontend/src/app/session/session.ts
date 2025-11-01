@@ -28,7 +28,7 @@ import { ProcessesService } from '../shared/services/processes/processes-service
 import { ConfirmationService } from 'primeng/api';
 import { ICoachee } from '../shared/models/coachee.interface';
 import { NotesService } from '../shared/services/notes/notes-service';
-import { INote } from '../shared/models/notes.interface';
+import { INote } from '../shared/models/note.interface';
 
 
 interface Emotion {
