@@ -35,7 +35,6 @@ import { ITask } from '../shared/models/task.interface';
 import { ITaskDto } from '../shared/models/task.dto';
 import { INoteDto } from '../shared/models/note.dto';
 
-
 interface Emotion {
   name: string;
   energy: number;
@@ -172,7 +171,7 @@ export class Session {
     else this.notes().push(newNote.type + ' ' + newNote.text);
   }
   addTask(newTask: ITaskDto) {
-    this.createTask(newTask as ITask)
+    this.createTask(newTask as ITask);
     this.tasks().push(newTask.text);
   }
 
@@ -186,8 +185,8 @@ export class Session {
     });
   }
 
-  leaveSession(event: Event){
-    this.showExitDialog(event)
+  leaveSession(event: Event) {
+    this.showExitDialog(event);
   }
 
   showExitDialog(event: Event) {
@@ -383,5 +382,4 @@ export class Session {
     if (rowIndex >= 5 && colIndex >= 5) return '#86efac'; // verde claro
     return '';
   }
-
 }
