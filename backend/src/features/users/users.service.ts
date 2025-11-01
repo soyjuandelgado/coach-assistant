@@ -1,9 +1,15 @@
-import { Injectable, Logger, NotFoundException } from '@nestjs/common';
+import {
+  Injectable,
+  Logger,
+  NotFoundException,
+  UnauthorizedException,
+} from '@nestjs/common';
 import { UserDto } from './user.dto';
 import { User } from './user.entity';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Equal, Repository } from 'typeorm';
 import { Role } from 'src/features/roles/role.entity';
+import bcrypt from 'bcrypt';
 
 @Injectable()
 export class UsersService {
@@ -41,8 +47,19 @@ export class UsersService {
     return user;
   }
 
-  create(newUser: UserDto): Promise<User> {
-    return this.usersRepository.save(newUser);
+  async create(newUser: UserDto): Promise<User> {
+    const user = await this.usersRepository.findOne({
+      where: { email: Equal(newUser.email) },
+    });
+    if (user) {
+      throw new UnauthorizedException('Email already registered');
+    }
+    const hashedPassword = await bcrypt.hash(newUser.password, 10);
+    const userToCreate = this.usersRepository.create({
+      ...newUser,
+      password: hashedPassword,
+    });
+    return this.usersRepository.save(userToCreate);
   }
 
   async delete(userId: string): Promise<any> {
@@ -87,8 +104,20 @@ export class UsersService {
       this.logger.error('update: User not found');
       throw new NotFoundException('User not found');
     }
-    const updated = Object.assign(toUpdate, newUser);
-    return this.usersRepository.save(updated);
+    if (toUpdate.email !== newUser.email) {
+      const duplicated = await this.usersRepository.findOneBy({
+        email: Equal(newUser.email),
+      });
+      if (duplicated) {
+        throw new UnauthorizedException('Email registered yet.');
+      }
+    }
+
+    this.usersRepository.merge(toUpdate, newUser);
+    if (newUser.password) {
+      toUpdate.password = await bcrypt.hash(newUser.password, 10);
+    }
+    return this.usersRepository.save(toUpdate);
   }
 
   async addRole(userId: string, roleId: string): Promise<User> {
