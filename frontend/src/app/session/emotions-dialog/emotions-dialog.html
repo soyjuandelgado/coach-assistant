@@ -1,0 +1,18 @@
+<p-dialog id="emotions-dialog" header="Cuadro Emociones" [visible]="visible()" closable="false" [modal]="true"
+    [style]="{ width: '45rem' }">
+    <p-table [value]="detailEmotions()" dataKey="id" scrollHeight="flex" id="emotions" [size]="'small'">
+        <ng-template pTemplate="body" let-row let-rowIndex="rowIndex">
+            <tr>
+                <td [attr.bgcolor]="colorsByZone(rowIndex)" (click)="selectEmotion(row.col1)">{{ row.col1?.name }}</td>
+                <td [attr.bgcolor]="colorsByZone(rowIndex)" (click)="selectEmotion(row.col2)">{{ row.col2?.name }}</td>
+                <td [attr.bgcolor]="colorsByZone(rowIndex)" (click)="selectEmotion(row.col3)">{{ row.col3?.name }}</td>
+                <td [attr.bgcolor]="colorsByZone(rowIndex)" (click)="selectEmotion(row.col4)">{{ row.col4?.name }}</td>
+                <td [attr.bgcolor]="colorsByZone(rowIndex)" (click)="selectEmotion(row.col5)">{{ row.col5?.name }}</td>
+        </ng-template>
+    </p-table>
+
+    <div class="flex justify-end gap-2 mt-4">
+        <p-button [label]="emotionSelected?.name" severity="info" (click)="sendEmotion()" [hidden]="!emotionSelected" />
+        <p-button label="Cerrar" severity="secondary" (click)="close()" />
+    </div>
+</p-dialog>

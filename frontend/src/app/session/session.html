@@ -1,29 +1,7 @@
 <p-confirmdialog />
 <app-coachee-profile [coachee]="this.coachee()" [(visible)]="this.visibleProfile"></app-coachee-profile>
 <app-previous-info-dialog [process]="this.process()" [(visible)]="this.visibleNotes"></app-previous-info-dialog>
-<p-dialog id="emotions-dialog" header="Cuadro Emociones" [(visible)]="visibleEmotions" [modal]="true"
-    [style]="{ width: '45rem' }">
-    <p-table [value]="detailEmotions()" selectionMode="single" dataKey="id" scrollHeight="flex" id="emotions"
-        [size]="'small'">
-        <ng-template pTemplate="body" let-row let-rowIndex="rowIndex">
-            <tr [pSelectableRow]="row">
-                <td [attr.bgcolor]="colorsByZone(rowIndex, 0)">{{ row.col1 }}</td>
-                <td [attr.bgcolor]="colorsByZone(rowIndex, 1)">{{ row.col2 }}</td>
-                <td [attr.bgcolor]="colorsByZone(rowIndex, 2)">{{ row.col3 }}</td>
-                <td [attr.bgcolor]="colorsByZone(rowIndex, 3)">{{ row.col4 }}</td>
-                <td [attr.bgcolor]="colorsByZone(rowIndex, 4)">{{ row.col5 }}</td>
-                <td [attr.bgcolor]="colorsByZone(rowIndex, 5)">{{ row.col6 }}</td>
-                <td [attr.bgcolor]="colorsByZone(rowIndex, 6)">{{ row.col7 }}</td>
-                <td [attr.bgcolor]="colorsByZone(rowIndex, 7)">{{ row.col8 }}</td>
-                <td [attr.bgcolor]="colorsByZone(rowIndex, 8)">{{ row.col9 }}</td>
-                <td [attr.bgcolor]="colorsByZone(rowIndex, 9)">{{ row.col10 }}</td>
-        </ng-template>
-    </p-table>
-
-    <div class="flex justify-end gap-2">
-        <p-button label="Cerrar" (click)="visibleEmotions = false" />
-    </div>
-</p-dialog>
+<app-emotions-dialog [(visible)]="this.visibleEmotions" (emotionClicked)="addEmotion($event)"></app-emotions-dialog>
 <p-drawer [(visible)]="visible" header="Info & Herramientas">
     <p-button class="w-full" icon="pi pi-face-smile" text label="Cuadro Emociones" severity="help"
         (onClick)="showDialogEmotions()" />
