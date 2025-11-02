@@ -21,6 +21,7 @@ import { CoacheeProfile } from './coachee-profile/coachee-profile';
 import { InsertData } from './insert-data/insert-data';
 import { PreviousInfoDialog } from './previous-info-dialog/previous-info-dialog';
 import { EmotionsDialog } from './emotions-dialog/emotions-dialog';
+import { LessonDialog } from './lesson-dialog/lesson-dialog';
 
 import { Router } from '@angular/router';
 import { FullScreen } from '../shared/services/full-screen/full-screen';
@@ -60,6 +61,7 @@ import { INoteDto } from '../shared/models/note.dto';
     InsertData,
     PreviousInfoDialog,
     EmotionsDialog,
+    LessonDialog,
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './session.html',
@@ -91,6 +93,8 @@ export class Session {
   visibleNotes = false;
   visibleEmotions = false;
   visibleProfile = false;
+  visibleLesson = false;
+  lessonImage = signal('');
 
   goal = signal('');
   notes = signal<string[]>([]);
@@ -219,6 +223,13 @@ export class Session {
   showDialogEmotions() {
     this.visible = false;
     this.visibleEmotions = true;
+  }
+
+  showDialogLesson(imageSrc: string) {
+    console.log(imageSrc)
+    this.lessonImage.set(imageSrc);
+    this.visible = false;
+    this.visibleLesson = true;
   }
 
   showProfile() {
