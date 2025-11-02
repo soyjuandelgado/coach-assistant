@@ -8,14 +8,17 @@ import {
   Patch,
   Post,
   Put,
+  UseGuards,
 } from '@nestjs/common';
 import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { SessionsService } from './sessions.service';
 import { Session } from './session.entity';
 import { SessionDto } from './session.dto';
 import { SessionGoalDto } from './session-goal.dto';
+import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
 
 @ApiTags('Session')
+@UseGuards(JwtAuthGuard)
 @Controller('sessions')
 export class SessionsController {
   constructor(private sessionsService: SessionsService) {}

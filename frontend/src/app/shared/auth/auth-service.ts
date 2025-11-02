@@ -1,6 +1,6 @@
 import { inject, Injectable, signal } from '@angular/core';
 import { IUser } from '../models/user.interface';
-import { BehaviorSubject, catchError, Observable, tap, throwError } from 'rxjs';
+import { catchError, Observable, tap, throwError } from 'rxjs';
 import { IUserDto } from '../models/user.dto';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { ErrorText } from '../services/error-text/error-text';
@@ -65,4 +65,10 @@ export class AuthService {
     localStorage.removeItem('access_token');
     this.currentUserSource.set(null);
   }
+
+  isAuthenticated(): boolean {
+  const token = localStorage.getItem('access_token');
+  return !!token;
+}
+
 }

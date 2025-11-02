@@ -7,13 +7,16 @@ import {
   ParseUUIDPipe,
   Post,
   Put,
+  UseGuards,
 } from '@nestjs/common';
 import { RolesService } from './roles.service';
 import { Role } from './role.entity';
 import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { RoleDto } from './role.dto';
+import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
 
 @ApiTags('Role')
+@UseGuards(JwtAuthGuard)
 @Controller('roles')
 export class RolesController {
   constructor(private rolesService: RolesService) {}

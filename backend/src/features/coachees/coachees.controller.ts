@@ -9,15 +9,17 @@ import {
   Post,
   Put,
   Query,
+  UseGuards,
 } from '@nestjs/common';
-import type { Request } from 'express';
 import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { CoacheesService } from './coachees.service';
 import { Coachee } from './coachee.entity';
 import { CoacheeDto } from './coachee.dto';
 import { CoacheesGetQueryDto } from './coachees-get-query.dto';
+import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
 
 @ApiTags('Coachee')
+@UseGuards(JwtAuthGuard)
 @Controller('coachees')
 export class CoacheesController {
   constructor(private coacheesService: CoacheesService) {}
