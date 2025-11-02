@@ -3,9 +3,10 @@ import { AuthController } from './auth.controller';
 import { AuthService } from './auth.service';
 import { UsersModule } from 'src/features/users/users.module';
 import { LocalStrategy } from './local.strategy';
+import { JwtStrategy } from './jwt.strategy';
 import * as dotenv from 'dotenv';
 import { PassportModule } from '@nestjs/passport';
-// import { JwtModule } from '@nestjs/jwt';
+import { JwtModule } from '@nestjs/jwt';
 
 dotenv.config();
 
@@ -13,13 +14,14 @@ dotenv.config();
   imports: [
     UsersModule,
     PassportModule,
-    // JwtModule.register({
-    //   global: true,
-    //   secret: process.env.JWT_SECRET,
-    //   signOptions: { expiresIn: '1d' },
-    // }),
+    JwtModule.register({
+      global: true,
+      secret: process.env.JWT_SECRET,
+      signOptions: { expiresIn: '1d' },
+    }),
   ],
   controllers: [AuthController],
-  providers: [AuthService, LocalStrategy],
+  providers: [AuthService, LocalStrategy, JwtStrategy],
+  // exports: [AuthService],
 })
 export class AuthModule {}

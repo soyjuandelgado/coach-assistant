@@ -8,7 +8,6 @@ dotenv.config();
 export class JwtStrategy extends PassportStrategy(Strategy) {
   constructor() {
     super({
-      usernameField: 'email',
       jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
       secretOrKey: process.env.JWT_SECRET,
     });
@@ -18,6 +17,6 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
     if (!payload) {
       throw new HttpException('Invalid token', HttpStatus.UNAUTHORIZED);
     }
-    return payload;
+    return { id: payload.sub, ...payload };
   }
 }
