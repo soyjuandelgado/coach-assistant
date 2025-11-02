@@ -10,5 +10,6 @@ import { Coachee } from 'src/features/coachees/coachee.entity';
   imports: [TypeOrmModule.forFeature([User, Role, Coachee])],
   providers: [UsersService],
   controllers: [UsersController],
+  exports: [UsersService],
 })
 export class UsersModule {}

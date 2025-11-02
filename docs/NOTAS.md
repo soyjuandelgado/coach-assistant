@@ -373,3 +373,86 @@ ngOnDestroy se ejecuta y llama a toolbarService.resetConfig().
 El AppComponent vuelve a mostrar el título por defecto ("Mi Aplicación").
 
 El nuevo componente (CoacheeComponent) se carga y puede establecer su propio título (ej. "Editar Coachee").
+
+### Poner reloj
+
+Para hacer una cuenta atrás en minutos que se vea dentro de un botón en pantalla usando Angular 20 junto con Tailwind CSS y PrimeNG puedes hacer lo siguiente:
+
+Crear un componente Angular para la cuenta atrás que use RxJS para emitir cada segundo el tiempo restante hasta llegar a cero.
+
+Mostrar el tiempo restante en minutos y segundos dentro del texto del botón PrimeNG.
+
+Usar Tailwind para darle estilo al botón y al temporizador.
+
+Aquí un ejemplo básico de cómo implementarlo:
+
+typescript
+// countdown-button.component.ts
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { interval, Subscription } from 'rxjs';
+
+@Component({
+  selector: 'app-countdown-button',
+  template: `
+    <button pButton type="button" class="bg-blue-600 text-white px-4 py-2 rounded">
+      {{ displayTime }}
+    </button>
+  `,
+  styles: []
+})
+export class CountdownButtonComponent implements OnInit, OnDestroy {
+  countdownMinutes = 5; // o cualquier número de minutos que necesites
+  remainingSeconds!: number;
+  displayTime = '';
+  private subscription!: Subscription;
+
+  ngOnInit() {
+    this.remainingSeconds = this.countdownMinutes * 60;
+    this.updateDisplayTime();
+
+    this.subscription = interval(1000).subscribe(() => {
+      if (this.remainingSeconds > 0) {
+        this.remainingSeconds--;
+        this.updateDisplayTime();
+      } else {
+        this.subscription.unsubscribe();
+      }
+    });
+  }
+
+  ngOnDestroy() {
+    this.subscription.unsubscribe();
+  }
+
+  private updateDisplayTime() {
+    const m = Math.floor(this.remainingSeconds / 60);
+    const s = this.remainingSeconds % 60;
+    this.displayTime = `${m.toString().padStart(2, '0')}:${s.toString().padStart(2, '0')}`;
+  }
+}
+Luego usas este componente donde quieras mostrar el botón con la cuenta atrás.
+
+El botón de PrimeNG con la directiva pButton.
+
+La clase Tailwind para estilos visuales.
+
+El tiempo se actualiza cada segundo con RxJS interval.
+
+Se muestra el tiempo con formato MM:SS dentro del botón.
+
+Este método funciona de forma reactiva y elegante para Angular 20, aprovechando RxJS, PrimeNG y Tailwind para estilo y funcionalidad.
+
+¿Quieres también un ejemplo con reinicio automático o control desde el botón? Puedo ayudarte a ampliarlo si quieres.
+
+Esta implementación es simple, eficiente y alineada con buenas prácticas recomendadas para Angular 20 y las tecnologías mencionadas.​
+
+quiero que solo se vean minutos, sin segundos
+
+Para mostrar solo los minutos en la cuenta atrás sin los segundos, simplemente ajusta la función updateDisplayTime() para que solo muestre los minutos restantes y elimine la parte de los segundos. Aquí está la modificación en el componente:
+
+typescript
+private updateDisplayTime() {
+  const m = Math.floor(this.remainingSeconds / 60);
+  this.displayTime = `${m} min`;
+}
+Este cambio hará que en el botón solo se vea el número de minutos restantes, sin mostrar los segundos. La cuenta será en minutos completos, sin desglosar segundos, y se actualizará cada segundo para reflejar solo esa cantidad.

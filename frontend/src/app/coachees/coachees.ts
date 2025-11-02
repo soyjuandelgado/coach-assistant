@@ -10,6 +10,7 @@ import { CoacheesService } from '../shared/services/coachees/coachees-service';
 import { ConfirmationService } from 'primeng/api';
 import { NewSessionDialog } from '../new-session-dialog/new-session-dialog';
 import { IProcess } from '../shared/models/process.interface';
+import { AuthService } from '../shared/auth/auth-service';
 
 @Component({
   selector: 'app-coachees',
@@ -39,6 +40,7 @@ export class Coachees {
   private router = inject(Router);
   private confirmationService = inject(ConfirmationService);
   private service = inject(CoacheesService);
+  private authService = inject(AuthService)
   protected coachees = this.service.coachees;
   protected loading = this.service.loading;
   protected error = this.service.error;
@@ -63,6 +65,9 @@ export class Coachees {
   }
   goSession() {
     this.router.navigate(['/session']);
+  }
+  goLogin() {
+    this.router.navigate(['/login']);
   }
 
   showRemoveDialog(event: Event, coacheeId: string) {
@@ -110,4 +115,11 @@ export class Coachees {
     this.selectedProcessId.set(processes[0].id);
     this.visibleNewSession.set(true);
   }
+
+  closeSession(){
+    this.authService.handleLogout()
+    this.goLogin()
+  }
+
+
 }
