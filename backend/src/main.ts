@@ -21,6 +21,10 @@ async function bootstrap() {
     .setTitle('Coach Assistant REST API')
     .setDescription('API REST of Coach Assistant')
     .setVersion('1.0')
+    .addBearerAuth(
+      { type: 'http', scheme: 'bearer', bearerFormat: 'JWT', in: 'header' },
+      'access-token',
+    )
     .build();
   const document = SwaggerModule.createDocument(app, options);
   SwaggerModule.setup('docs', app, document);
