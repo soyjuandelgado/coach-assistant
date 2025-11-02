@@ -13,13 +13,19 @@ import {
 import { UsersService } from './users.service';
 import { UserDto } from './user.dto';
 import { User } from './user.entity';
-import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
+import {
+  ApiBearerAuth,
+  ApiOperation,
+  ApiResponse,
+  ApiTags,
+} from '@nestjs/swagger';
 import { AddRoleDto } from 'src/features/roles/role.dto';
 import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
 
 @ApiTags('User')
-@UseGuards(JwtAuthGuard)
 @Controller('users')
+@UseGuards(JwtAuthGuard)
+@ApiBearerAuth('access-token')
 export class UsersController {
   constructor(private usersService: UsersService) {}
 

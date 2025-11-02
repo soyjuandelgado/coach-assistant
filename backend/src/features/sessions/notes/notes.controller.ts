@@ -10,15 +10,21 @@ import {
   Put,
   UseGuards,
 } from '@nestjs/common';
-import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
+import {
+  ApiBearerAuth,
+  ApiOperation,
+  ApiResponse,
+  ApiTags,
+} from '@nestjs/swagger';
 import { NotesService } from './notes.service';
 import { Note } from './note.entity';
 import { NoteDto } from './note.dto';
 import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
 
 @ApiTags('Note')
-@UseGuards(JwtAuthGuard)
 @Controller('notes')
+@UseGuards(JwtAuthGuard)
+@ApiBearerAuth('access-token')
 export class NotesController {
   constructor(private notesService: NotesService) {}
 

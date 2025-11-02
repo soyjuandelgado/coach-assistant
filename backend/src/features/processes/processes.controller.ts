@@ -10,15 +10,21 @@ import {
   Put,
   UseGuards,
 } from '@nestjs/common';
-import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
+import {
+  ApiBearerAuth,
+  ApiOperation,
+  ApiResponse,
+  ApiTags,
+} from '@nestjs/swagger';
 import { ProcessesService } from './processes.service';
 import { Process } from './process.entity';
 import { ProcessDto } from './process.dto';
 import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
 
 @ApiTags('Process')
-@UseGuards(JwtAuthGuard)
 @Controller('processes')
+@UseGuards(JwtAuthGuard)
+@ApiBearerAuth('access-token')
 export class ProcessesController {
   constructor(private processesService: ProcessesService) {}
 
