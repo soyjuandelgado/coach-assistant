@@ -3,7 +3,7 @@ import { InputTextModule } from 'primeng/inputtext';
 import { ButtonModule } from 'primeng/button';
 import { PasswordModule } from 'primeng/password';
 import { Router } from '@angular/router';
-import { Auth } from '../shared/auth/auth';
+import { AuthService } from '../shared/auth/auth-service';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { IUser } from '../shared/models/user.interface';
 import { ConfirmationService } from 'primeng/api';
@@ -25,7 +25,7 @@ import { ConfirmDialogModule } from 'primeng/confirmdialog';
 export class Login {
   private router = inject(Router);
   private confirmationService = inject(ConfirmationService);
-  private auth = inject(Auth);
+  private authService = inject(AuthService);
   private fb = inject(FormBuilder);
 
   loginForm = this.fb.group({
@@ -44,10 +44,9 @@ export class Login {
   }
 
   singIn(user: IUser) {
-    this.auth.signIn$(user).subscribe({
-      next: (response) => {
-        console.log(response);
-        this.router.navigate(['/coachees']);
+    this.authService.signIn$(user).subscribe({
+      next: () => {
+        this.goCoachees();
       },
       error: () => {
         this.showErrorDialog('Datos de acceso no válidos.');
@@ -75,5 +74,9 @@ export class Login {
       rejectVisible: true,
       acceptVisible: false,
     });
+  }
+
+  goCoachees() {
+    this.router.navigate(['/coachees']);
   }
 }

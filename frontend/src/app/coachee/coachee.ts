@@ -16,6 +16,7 @@ import { Router, RouterLink } from '@angular/router';
 import { FullScreen } from '../shared/services/full-screen/full-screen';
 import { ConfirmationService } from 'primeng/api';
 import { IProcess } from '../shared/models/process.interface';
+import { AuthService } from '../shared/auth/auth-service';
 
 @Component({
   selector: 'app-coachee',
@@ -47,14 +48,13 @@ export class Coachee implements OnDestroy {
     this.fullScreenService.toggle();
   }
 
-  //TODO: use real userId
-  private userId = '0241cf11-82ba-4804-abe8-f1d958f30183';
-  //TODO: use real processId
-  protected process = signal<IProcess | undefined>(undefined); //'4b8f31f5-1258-4da9-8824-2c4357340593';
+  private authService = inject(AuthService);
   private service = inject(CoacheesService);
   private router = inject(Router);
   private confirmationService = inject(ConfirmationService);
   private fb = inject(FormBuilder);
+  protected process = signal<IProcess | undefined>(undefined); //'4b8f31f5-1258-4da9-8824-2c4357340593';
+  private user = this.authService.currentUser; //'0241cf11-82ba-4804-abe8-f1d958f30183'
   protected loading = this.service.loading;
   protected error = this.service.error;
 
@@ -104,9 +104,6 @@ export class Coachee implements OnDestroy {
         if (currentError) {
           this.showErrorDialog(currentError);
         }
-        // else {
-        //   this.showAceptDialog('Cambios guardados correctamente.');
-        // }
       }
     });
   }
@@ -158,19 +155,21 @@ export class Coachee implements OnDestroy {
     if (coacheeData.id) {
       this.updateCoachee(coacheeData.id, coacheeData);
     } else {
-      this.createCoachee(this.userId, coacheeData);
+      if(this.user()){
+        this.createCoachee(this.user()!.id, coacheeData);
+      }else{
+        this.showErrorDialog('¡Usuario inexistente!')   
+      }
     }
   }
 
   createCoachee(userId: string, coachee: ICoachee) {
     this.service.createCoachee$(userId, coachee).subscribe({
       next: () => {
-        console.log('Navegar a coachees');
-        this.router.navigate(['/coachees']);
+        this.goCoachees();
       },
       error: (err) => {
         this.showErrorDialog(err);
-        console.error('Error creating coachee:', err);
       },
     });
   }
@@ -178,12 +177,10 @@ export class Coachee implements OnDestroy {
   updateCoachee(coacheeId: string, coachee: ICoachee) {
     this.service.updateCoachee$(coacheeId, coachee).subscribe({
       next: () => {
-        console.log('Navegar a coachees');
-        this.router.navigate(['coachees']);
+        this.goCoachees();
       },
       error: (err) => {
         this.showErrorDialog(err);
-        console.error('Error updating coachee:', err);
       },
     });
   }
