@@ -1,5 +1,4 @@
-<p-dialog id="emotions-dialog" header="Cuadro Emociones" [visible]="visible()" closable="false" [modal]="true"
-    [style]="{ width: '45rem' }">
+<p-dialog id="emotions-dialog" header="Cuadro Emociones" [visible]="visible()" closable="false" [modal]="true">
     <p-table [value]="detailEmotions()" dataKey="id" scrollHeight="flex" id="emotions" [size]="'small'">
         <ng-template pTemplate="body" let-row let-rowIndex="rowIndex">
             <tr>
