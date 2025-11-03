@@ -22,6 +22,7 @@ import { InsertData } from './insert-data/insert-data';
 import { PreviousInfoDialog } from './previous-info-dialog/previous-info-dialog';
 import { EmotionsDialog } from './emotions-dialog/emotions-dialog';
 import { LessonDialog } from './lesson-dialog/lesson-dialog';
+import { SessionDrawer } from './session-drawer/session-drawer';
 
 import { Router } from '@angular/router';
 import { FullScreen } from '../shared/services/full-screen/full-screen';
@@ -62,6 +63,7 @@ import { INoteDto } from '../shared/models/note.dto';
     PreviousInfoDialog,
     EmotionsDialog,
     LessonDialog,
+    SessionDrawer,
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './session.html',
