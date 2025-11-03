@@ -226,7 +226,6 @@ export class Session {
   }
 
   showDialogLesson(imageSrc: string) {
-    console.log(imageSrc)
     this.lessonImage.set(imageSrc);
     this.visible = false;
     this.visibleLesson = true;
