@@ -72,8 +72,6 @@ import { INoteDto } from '../shared/models/note.dto';
   providers: [ConfirmationService],
 })
 export class Session {
-
-
   protected id = input.required<string>();
   private router = inject(Router);
   private confirmationService = inject(ConfirmationService);

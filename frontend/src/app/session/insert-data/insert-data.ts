@@ -15,10 +15,20 @@ import { ButtonModule } from 'primeng/button';
 import { PanelModule } from 'primeng/panel';
 import { INoteDto } from '../../shared/models/note.dto';
 import { ITaskDto } from '../../shared/models/task.dto';
+import { PopoverModule } from 'primeng/popover';
+import { DividerModule } from 'primeng/divider';
 
 @Component({
   selector: 'app-insert-data',
-  imports: [InputNumberModule, TextareaModule, InputIconModule, ButtonModule, PanelModule],
+  imports: [
+    InputNumberModule,
+    TextareaModule,
+    InputIconModule,
+    ButtonModule,
+    PanelModule,
+    PopoverModule,
+    DividerModule,
+  ],
   templateUrl: './insert-data.html',
   styleUrl: './insert-data.css',
 })
