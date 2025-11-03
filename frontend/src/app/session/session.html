@@ -14,6 +14,8 @@
         <section class="w-full lg:col-start-2">
             <p-popover #op>
                 <ng-template #content>
+                    <p>Para modificar el objetivo, seleccionar <b>Objetivo</b> en Introducir datos</p>
+                    <p-divider/>
                     <h4 class="font-medium pb-1">Definición de Objetivo</h4>
                     <ul class="list-inside list-disc">
                         <li>M - Medible</li>
@@ -37,6 +39,20 @@
             </p-panel>
         </section>
         <section class="w-full flex flex-col lg:col-start-1 lg:row-span-full lg:mb-auto min-h-0">
+            <p-popover #dp>
+                <ng-template #content>
+                    <p>Añadir notas seleccionando <b>Notas / IGROW</b> en Introducir datos</p>
+                    <p-divider/>
+                    <h4 class="font-medium pb-1">GROW</h4>
+                    <ul class="list-inside list-disc">
+                        <li>I - Issues (Vómito emocional)</li>
+                        <li>G - Goal (Objetivo)</li>
+                        <li>R - Reality (Realidad)</li>
+                        <li>O - Options (Opciones)</li>
+                        <li>W - Will (Próximos pasos)</li>
+                    </ul>
+                </ng-template>
+            </p-popover>
             <p-panel class="flex flex-col h-full overflow-hidden">
                 <ng-template #header>
                     <span class="font-medium">Desarrollo de la sesión</span>
@@ -49,11 +65,23 @@
                     }
                 </ul>
                 <ng-template #icons>
-                    <p-button icon="pi pi-info-circle" text severity="info" [size]="'small'" />
+                    <p-button icon="pi pi-info-circle" text severity="info" [size]="'small'" (click)="dp.toggle($event)"/>
                 </ng-template>
             </p-panel>
         </section>
         <section class="w-full mb-auto lg:col-start-2">
+            <p-popover #pp>
+                <ng-template #content>
+                    <p>Añadir notas seleccionando <b>PdA</b> en Introducir datos</p>
+                    <p-divider/>
+                    <h4 class="font-medium pb-1">Planes de acción</h4>
+                    <ul class="list-inside list-disc">
+                        <li>Descripción</li>
+                        <li>Fecha y hora de realización</li>
+                        <li>Nivel de compromiso</li>
+                    </ul>
+                </ng-template>
+            </p-popover>
             <p-panel>
                 <ng-template #header>
                     <span class="font-medium">Planes de Acción</span>
@@ -66,7 +94,7 @@
                     }
                 </ul>
                 <ng-template #icons>
-                    <p-button icon="pi pi-info-circle" text severity="info" [size]="'small'" />
+                    <p-button icon="pi pi-info-circle" text severity="info" [size]="'small'" (click)="pp.toggle($event)"/>
                 </ng-template>
             </p-panel>
         </section>
