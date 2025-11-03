@@ -1,6 +1,6 @@
 <p-dialog id="lesson-dialog" [visible]="visible()" closable="false" [modal]="true"
      [contentStyleClass]="'flex flex-col justify-center h-[90vh] w-[90vw]'">
-    <p-image class="flex-1 overflow-hidden self-center" imageClass="h-full object-contain" [src]="imageSrc()"
+    <p-image class="flex-1 overflow-hidden self-center" imageClass="h-full object-contain" [src]="fullImagePath()"
         alt="Lesson image" [hidden]="imageSrc() ===''" />
     <div class="flex justify-end gap-2 mt-4">
         <p-button label="Cerrar" severity="info" (click)="close()" />
