@@ -3,24 +3,12 @@
 <app-previous-info-dialog [process]="this.process()" [(visible)]="this.visibleNotes"></app-previous-info-dialog>
 <app-emotions-dialog [(visible)]="this.visibleEmotions" (emotionClicked)="addEmotion($event)"></app-emotions-dialog>
 <app-lesson-dialog [(visible)]="this.visibleLesson" [imageSrc]="this.lessonImage()"></app-lesson-dialog>
-<app-session-drawer [(visible)]="visible" (leaveSession)="leaveSession($event)" (showDialogEmotions)="showDialogEmotions()" (showDialogLesson)="showDialogLesson($event)" (showProfile)="showProfile()"></app-session-drawer>
+<app-session-drawer [(visible)]="visible" (leaveSession)="leaveSession($event)"
+    (showDialogEmotions)="showDialogEmotions()" (showDialogLesson)="showDialogLesson($event)"
+    (showProfile)="showProfile()"></app-session-drawer>
 <div class="w-full h-full flex flex-col gap-2 bg-primary-50">
-    <p-toolbar [style]="{ 'padding': '0' }">
-        <ng-template #start>
-            <p-button icon="pi pi-bars" text severity="contrast" (click)="visible = true" />
-        </ng-template>
-        <ng-template #center>
-            <p-button id="title" icon="pi pi-folder-open" text severity="warn"
-                label="{{this.process() ? (this.coachee() ? this.coachee()!.name + ' ' + this.coachee()!.surname  : '' ) : ''}} - Sesión {{this.session()?.session_number}}"
-                (click)="showDialogNotes()" />
-            <p-button icon="pi pi-stopwatch" label="{{this.session()?.duration_minutes}}'" severity="success"
-                variant="text" />
-        </ng-template>
-        <ng-template #end>
-            <p-button icon="pi pi-window-maximize" text severity="info" (onClick)="toggleFullScreen()" />
-            <p-button icon="pi pi-sign-out" text severity="danger" (onClick)="leaveSession($event)" />
-        </ng-template>
-    </p-toolbar>
+    <app-session-toolbar [process]="this.process()" [coachee]="this.coachee()"
+        [session]="this.session()" (leaveSession)="leaveSession($event)" (showDialogNotes)="showDialogNotes()" (showDrawer)="showDrawer()"></app-session-toolbar>
     <section class="w-full">
         <p-popover #op>
             <ng-template #content>

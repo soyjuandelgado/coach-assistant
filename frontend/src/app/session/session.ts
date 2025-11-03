@@ -23,9 +23,9 @@ import { PreviousInfoDialog } from './previous-info-dialog/previous-info-dialog'
 import { EmotionsDialog } from './emotions-dialog/emotions-dialog';
 import { LessonDialog } from './lesson-dialog/lesson-dialog';
 import { SessionDrawer } from './session-drawer/session-drawer';
+import { SessionToolbar } from './session-toolbar/session-toolbar';
 
 import { Router } from '@angular/router';
-import { FullScreen } from '../shared/services/full-screen/full-screen';
 import { SessionsService } from '../shared/services/sessions/sessions-service';
 import { IProcess } from '../shared/models/process.interface';
 import { ProcessesService } from '../shared/services/processes/processes-service';
@@ -64,6 +64,7 @@ import { INoteDto } from '../shared/models/note.dto';
     EmotionsDialog,
     LessonDialog,
     SessionDrawer,
+    SessionToolbar,
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './session.html',
@@ -71,14 +72,7 @@ import { INoteDto } from '../shared/models/note.dto';
   providers: [ConfirmationService],
 })
 export class Session {
-  private fullScreenService = inject(FullScreen);
-  // Exponemos la señal del servicio a la plantilla
-  public isFullScreen = this.fullScreenService.isFullScreen;
 
-  // Método para llamar al servicio
-  public toggleFullScreen(): void {
-    this.fullScreenService.toggle();
-  }
 
   protected id = input.required<string>();
   private router = inject(Router);
@@ -198,7 +192,7 @@ export class Session {
   showExitDialog(event: Event) {
     this.confirmationService.confirm({
       target: event.target as EventTarget,
-      message: '¿Seguro que quiere salir de la sesión?',
+      message: '¿Terminar y salir de la sesión?',
       header: '¡Atención!',
       icon: 'pi pi-exclamation-triangle',
       rejectLabel: 'Cancelar',
@@ -220,6 +214,10 @@ export class Session {
   }
   showDialogNotes() {
     this.visibleNotes = true;
+  }
+
+  showDrawer() {
+    this.visible = true;
   }
 
   showDialogEmotions() {
