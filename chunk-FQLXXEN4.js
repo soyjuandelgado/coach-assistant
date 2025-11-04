@@ -1,0 +1,81 @@
+import{I as ce,L as de,O as he,P as ue,Qa as O,Ra as Ie,S as F,Sa as c,W as fe,X as me,c as re,d as ne,da as ge,e as ae,ea as be,g as le,h as I,ja as ve,ka as ye,l as pe,la as x,oa as _e,wa as Se,za as Ce}from"./chunk-ZOTFAVLD.js";import{Eb as V,Ja as v,K as h,Ka as W,N as u,Na as y,O as U,Ob as ie,Pa as _,Qb as oe,Ra as E,Rb as M,S as p,Sa as Y,X as f,Y as m,Ya as q,Z as G,a as B,b as j,c as N,cb as S,db as H,ea as g,eb as K,ib as X,ja as b,mb as J,o as a,oc as w,pc as se,qb as C,rb as d,sb as ee,tb as te,tc as we,ub as P,uc as z,wa as Q,wb as R,wc as T,xa as L,xb as $,xc as k,y as l,yc as A}from"./chunk-J75BIECF.js";var D=class o{http=p(pe);errorText=p(Ie);toDto(i){let r=i,{id:e}=r,t=N(r,["id"]);return j(B({},t),{date:new Date(i.date).toISOString()})}getSessions$(){return this.http.get(c.sessionsUrl).pipe(l(i=>a(()=>new Error(this.errorText.get(i,"Session")))))}getSession$(i){return this.http.get(c.sessionsUrl+i).pipe(l(e=>a(()=>new Error(this.errorText.get(e,"Session")))))}createSession$(i,e){let t=this.toDto(e);return this.http.post(c.sessionsUrl+i,t).pipe(l(s=>a(()=>new Error(this.errorText.get(s,"Session")))))}updateSession$(i,e){let t=this.toDto(e);return this.http.put(c.sessionsUrl+i,t).pipe(l(s=>a(()=>new Error(this.errorText.get(s,"Session")))))}updateSessionGoal$(i,e){let t={goal:e};return this.http.patch(c.sessionsUrl+i+"/goal",t).pipe(l(s=>a(()=>new Error(this.errorText.get(s,"Session")))))}deleteSession$(i){return this.http.delete(c.sessionsUrl+i).pipe(l(e=>a(()=>new Error(this.errorText.get(e,"Session")))))}removeSession$(i){return this.http.patch(c.sessionsUrl+i+"/remove","").pipe(l(e=>a(()=>new Error(this.errorText.get(e,"Session")))))}restoreSession$(i){return this.http.patch(c.sessionsUrl+i+"/restore","").pipe(l(e=>a(()=>new Error(this.errorText.get(e,"Session")))))}static \u0275fac=function(e){return new(e||o)};static \u0275prov=u({token:o,factory:o.\u0275fac,providedIn:"root"})};var xe=class o{api=p(D);_sessions=g([]);_session=g(void 0);sessions=this._sessions.asReadonly();session=this._session.asReadonly();_error=g(null);error=this._error.asReadonly();_loading=g(!1);loading=this._loading.asReadonly();getSessions(){this._loading.set(!0),this._error.set(null),this.api.getSessions$().subscribe({next:i=>{this._sessions.set(i),this._loading.set(!1)},error:i=>{this._error.set(i.message),this._loading.set(!1)}})}getSession(i){if(this._session()?.id!==i){if(this._loading.set(!0),this._error.set(null),i.length==0){this._session.set(void 0);return}this.api.getSession$(i).subscribe({next:e=>{this._session.set(e),this._loading.set(!1)},error:e=>{this._error.set(e.message),this._loading.set(!1)}})}}getSession$(i){return this.api.getSession$(i)}createSession(i,e){this._loading.set(!0),this._error.set(null),this.api.createSession$(i,e).pipe(h({next:t=>{let s=t;this._sessions.update(r=>[...r,s]),this._loading.set(!1)},error:t=>{this._error.set(t.message),this._loading.set(!1)}})).subscribe()}createSession$(i,e){return this.api.createSession$(i,e)}updateSession(i,e){this._loading.set(!0),this._error.set(null),this.api.updateSession$(i,e).pipe(h({next:t=>{let s=t;this._sessions.update(r=>r.map(n=>n.id===i?s:n)),this._loading.set(!1)},error:t=>{this._error.set(t.message),this._loading.set(!1)}})).subscribe()}updateSession$(i,e){return this.api.updateSession$(i,e)}updateSessionGoal$(i,e){return this.api.updateSessionGoal$(i,e)}deleteSession(i){this._loading.set(!0),this._error.set(null),this.api.deleteSession$(i).pipe(h({next:()=>{this._sessions.update(e=>e.filter(t=>t.id!==i)),this._loading.set(!1)},error:e=>{this._error.set(e.message),this._loading.set(!1)}})).subscribe()}removeSession(i){this._loading.set(!0),this._error.set(null),this.api.removeSession$(i).pipe(h({next:()=>{this._sessions.update(e=>e.filter(t=>t.id!==i)),this._loading.set(!1)},error:e=>{this._error.set(e.message),this._loading.set(!1)}})).subscribe()}restoreSession(i){this._loading.set(!0),this._error.set(null),this.api.restoreSession$(i).pipe(h({next:e=>{this._loading.set(!1)},error:e=>{this._error.set(e.message),this._loading.set(!1)}})).subscribe()}clearSession(){this._session.set(void 0)}static \u0275fac=function(e){return new(e||o)};static \u0275prov=u({token:o,factory:o.\u0275fac,providedIn:"root"})};var ke=["content"],Oe=["*"],De=(o,i)=>({showTransitionParams:o,hideTransitionParams:i}),Le=(o,i)=>({value:o,params:i}),Ee=o=>({closeCallback:o});function He(o,i){}function Pe(o,i){o&1&&_(0,He,0,0,"ng-template")}function Re(o,i){if(o&1){let e=J();H(0,"div",1),C("click",function(s){f(e);let r=d();return m(r.onOverlayClick(s))})("@animation.start",function(s){f(e);let r=d();return m(r.onAnimationStart(s))})("@animation.done",function(s){f(e);let r=d();return m(r.onAnimationEnd(s))}),H(1,"div",2),C("click",function(s){f(e);let r=d();return m(r.onContentClick(s))})("mousedown",function(s){f(e);let r=d();return m(r.onContentClick(s))}),te(2),_(3,Pe,1,0,null,3),K()()}if(o&2){let e=d();V(e.cn(e.cx("root"),e.styleClass)),S("ngStyle",e.style)("@animation",M(14,Le,e.overlayVisible?"open":"close",M(11,De,e.showTransitionOptions,e.hideTransitionOptions))),q("aria-modal",e.overlayVisible)("aria-label",e.ariaLabel)("aria-labelledBy",e.ariaLabelledBy),L(),V(e.cx("content")),L(2),S("ngTemplateOutlet",e.contentTemplate||e._contentTemplate)("ngTemplateOutletContext",oe(17,Ee,e.onCloseClick.bind(e)))}}var $e=`
+.p-popover {
+    margin-top: dt('popover.gutter');
+    background: dt('popover.background');
+    color: dt('popover.color');
+    border: 1px solid dt('popover.border.color');
+    border-radius: dt('popover.border.radius');
+    box-shadow: dt('popover.shadow');
+    position: absolute
+}
+
+.p-popover-content {
+    padding: dt('popover.content.padding');
+}
+
+.p-popover-flipped {
+    margin-top: calc(dt('popover.gutter') * -1);
+    margin-bottom: dt('popover.gutter');
+}
+
+.p-popover-enter-from {
+    opacity: 0;
+    transform: scaleY(0.8);
+}
+
+.p-popover-leave-to {
+    opacity: 0;
+}
+
+.p-popover-enter-active {
+    transition: transform 0.12s cubic-bezier(0, 0, 0.2, 1), opacity 0.12s cubic-bezier(0, 0, 0.2, 1);
+}
+
+.p-popover-leave-active {
+    transition: opacity 0.1s linear;
+}
+
+.p-popover:after,
+.p-popover:before {
+    bottom: 100%;
+    left: calc(dt('popover.arrow.offset') + dt('popover.arrow.left'));
+    content: " ";
+    height: 0;
+    width: 0;
+    position: absolute;
+    pointer-events: none;
+}
+
+.p-popover:after {
+    border-width: calc(dt('popover.gutter') - 2px);
+    margin-left: calc(-1 * (dt('popover.gutter') - 2px));
+    border-style: solid;
+    border-color: transparent;
+    border-bottom-color: dt('popover.background');
+}
+
+.p-popover:before {
+    border-width: dt('popover.gutter');
+    margin-left: calc(-1 * dt('popover.gutter'));
+    border-style: solid;
+    border-color: transparent;
+    border-bottom-color: dt('popover.border.color');
+}
+
+.p-popover-flipped:after,
+.p-popover-flipped:before {
+    bottom: auto;
+    top: 100%;
+}
+
+.p-popover.p-popover-flipped:after {
+    border-bottom-color: transparent;
+    border-top-color: dt('popover.background');
+}
+
+.p-popover.p-popover-flipped:before {
+    border-bottom-color: transparent;
+    border-top-color: dt('popover.border.color');
+}
+
+`,Ve={root:"p-popover p-component",content:"p-popover-content"},Te=(()=>{class o extends be{name="popover";theme=$e;classes=Ve;static \u0275fac=(()=>{let e;return function(s){return(e||(e=b(o)))(s||o)}})();static \u0275prov=u({token:o,factory:o.\u0275fac})}return o})(),Me=(()=>{class o extends _e{ariaLabel;ariaLabelledBy;dismissable=!0;style;styleClass;appendTo="body";autoZIndex=!0;ariaCloseLabel;baseZIndex=0;focusOnShow=!0;showTransitionOptions=".12s cubic-bezier(0, 0, 0.2, 1)";hideTransitionOptions=".1s linear";onShow=new E;onHide=new E;container;overlayVisible=!1;render=!1;isOverlayAnimationInProgress=!1;selfClick=!1;documentClickListener;target;willHide;scrollHandler;documentResizeListener;contentTemplate;templates;_contentTemplate;destroyCallback;overlayEventListener;overlaySubscription;_componentStyle=p(Te);zone=p(Y);overlayService=p(ve);ngAfterContentInit(){this.templates.forEach(e=>{switch(e.getType()){case"content":this._contentTemplate=e.template;break}})}bindDocumentClickListener(){if(I(this.platformId)&&!this.documentClickListener){let e=fe()?"touchstart":"click",t=this.el?this.el.nativeElement.ownerDocument:this.document;this.documentClickListener=this.renderer.listen(t,e,s=>{this.dismissable&&(!this.container?.contains(s.target)&&this.target!==s.target&&!this.target.contains(s.target)&&!this.selfClick&&this.hide(),this.selfClick=!1,this.cd.markForCheck())})}}unbindDocumentClickListener(){this.documentClickListener&&(this.documentClickListener(),this.documentClickListener=null,this.selfClick=!1)}toggle(e,t){this.isOverlayAnimationInProgress||(this.overlayVisible?(this.hasTargetChanged(e,t)&&(this.destroyCallback=()=>{this.show(null,t||e.currentTarget||e.target)}),this.hide()):this.show(e,t))}show(e,t){t&&e&&e.stopPropagation(),!this.isOverlayAnimationInProgress&&(this.target=t||e.currentTarget||e.target,this.overlayVisible=!0,this.render=!0,this.cd.markForCheck())}onOverlayClick(e){this.overlayService.add({originalEvent:e,target:this.el.nativeElement}),this.selfClick=!0}onContentClick(e){let t=e.target;this.selfClick=e.offsetX<t.clientWidth&&e.offsetY<t.clientHeight}hasTargetChanged(e,t){return this.target!=null&&this.target!==(t||e.currentTarget||e.target)}appendContainer(){this.appendTo&&(this.appendTo==="body"?this.renderer.appendChild(this.document.body,this.container):he(this.appendTo,this.container))}restoreAppend(){this.container&&this.appendTo&&this.renderer.appendChild(this.el.nativeElement,this.container)}align(){this.autoZIndex&&O.set("overlay",this.container,this.baseZIndex+this.config.zIndex.overlay),de(this.container,this.target,!1);let e=F(this.container),t=F(this.target),s=this.document.defaultView?.getComputedStyle(this.container).getPropertyValue("border-radius"),r=0;e.left<t.left&&(r=t.left-e.left-parseFloat(s)*2),this.container?.style.setProperty(ge("popover.arrow.left").name,`${r}px`),e.top<t.top&&(this.container?.setAttribute("data-p-popover-flipped","true"),ce(this.container,"p-popover-flipped"))}onAnimationStart(e){e.toState==="open"&&(this.container=e.element,this.container?.setAttribute(this.attrSelector,""),this.appendContainer(),this.align(),this.bindDocumentClickListener(),this.bindDocumentResizeListener(),this.bindScrollListener(),this.focusOnShow&&this.focus(),this.overlayEventListener=t=>{this.container&&this.container.contains(t.target)&&(this.selfClick=!0)},this.overlaySubscription=this.overlayService.clickObservable.subscribe(this.overlayEventListener),this.onShow.emit(null)),this.isOverlayAnimationInProgress=!0}onAnimationEnd(e){switch(e.toState){case"void":this.destroyCallback&&(this.destroyCallback(),this.destroyCallback=null),this.overlaySubscription&&this.overlaySubscription.unsubscribe();break;case"close":this.autoZIndex&&O.clear(this.container),this.overlaySubscription&&this.overlaySubscription.unsubscribe(),this.onContainerDestroy(),this.onHide.emit({}),this.render=!1;break}this.isOverlayAnimationInProgress=!1}focus(){let e=ue(this.container,"[autofocus]");e&&this.zone.runOutsideAngular(()=>{setTimeout(()=>e.focus(),5)})}hide(){this.overlayVisible=!1,this.cd.markForCheck()}onCloseClick(e){this.hide(),e.preventDefault()}onEscapeKeydown(e){this.hide()}onWindowResize(){this.overlayVisible&&!me()&&this.hide()}bindDocumentResizeListener(){if(I(this.platformId)&&!this.documentResizeListener){let e=this.document.defaultView;this.documentResizeListener=this.renderer.listen(e,"resize",this.onWindowResize.bind(this))}}unbindDocumentResizeListener(){this.documentResizeListener&&(this.documentResizeListener(),this.documentResizeListener=null)}bindScrollListener(){I(this.platformId)&&(this.scrollHandler||(this.scrollHandler=new Se(this.target,()=>{this.overlayVisible&&this.hide()})),this.scrollHandler.bindScrollListener())}unbindScrollListener(){this.scrollHandler&&this.scrollHandler.unbindScrollListener()}onContainerDestroy(){this.cd.destroyed||(this.target=null),this.unbindDocumentClickListener(),this.unbindDocumentResizeListener(),this.unbindScrollListener()}ngOnDestroy(){this.scrollHandler&&(this.scrollHandler.destroy(),this.scrollHandler=null),this.container&&this.autoZIndex&&O.clear(this.container),this.cd.destroyed||(this.target=null),this.destroyCallback=null,this.container&&(this.restoreAppend(),this.onContainerDestroy()),this.overlaySubscription&&this.overlaySubscription.unsubscribe(),super.ngOnDestroy()}static \u0275fac=(()=>{let e;return function(s){return(e||(e=b(o)))(s||o)}})();static \u0275cmp=v({type:o,selectors:[["p-popover"]],contentQueries:function(t,s,r){if(t&1&&(P(r,ke,4),P(r,ye,4)),t&2){let n;R(n=$())&&(s.contentTemplate=n.first),R(n=$())&&(s.templates=n)}},hostBindings:function(t,s){t&1&&C("keydown.escape",function(n){return s.onEscapeKeydown(n)},Q)},inputs:{ariaLabel:"ariaLabel",ariaLabelledBy:"ariaLabelledBy",dismissable:[2,"dismissable","dismissable",w],style:"style",styleClass:"styleClass",appendTo:"appendTo",autoZIndex:[2,"autoZIndex","autoZIndex",w],ariaCloseLabel:"ariaCloseLabel",baseZIndex:[2,"baseZIndex","baseZIndex",se],focusOnShow:[2,"focusOnShow","focusOnShow",w],showTransitionOptions:"showTransitionOptions",hideTransitionOptions:"hideTransitionOptions"},outputs:{onShow:"onShow",onHide:"onHide"},features:[ie([Te]),y],ngContentSelectors:Oe,decls:1,vars:1,consts:[["role","dialog",3,"class","ngStyle","click",4,"ngIf"],["role","dialog",3,"click","ngStyle"],[3,"click","mousedown"],[4,"ngTemplateOutlet","ngTemplateOutletContext"]],template:function(t,s){t&1&&(ee(),_(0,Re,4,19,"div",0)),t&2&&S("ngIf",s.render)},dependencies:[le,re,ae,ne,x],encapsulation:2,data:{animation:[we("animation",[k("void",T({transform:"scaleY(0.8)",opacity:0})),k("close",T({opacity:0})),k("open",T({transform:"translateY(0)",opacity:1})),A("void => open",z("{{showTransitionParams}}")),A("open => close",z("{{hideTransitionParams}}"))])]},changeDetection:0})}return o})(),Ct=(()=>{class o{static \u0275fac=function(t){return new(t||o)};static \u0275mod=W({type:o});static \u0275inj=U({imports:[Me,x,x]})}return o})();var Fe=["data-p-icon","eye"],xt=(()=>{class o extends Ce{static \u0275fac=(()=>{let e;return function(s){return(e||(e=b(o)))(s||o)}})();static \u0275cmp=v({type:o,selectors:[["","data-p-icon","eye"]],features:[y],attrs:Fe,decls:1,vars:0,consts:[["fill-rule","evenodd","clip-rule","evenodd","d","M0.0535499 7.25213C0.208567 7.59162 2.40413 12.4 7 12.4C11.5959 12.4 13.7914 7.59162 13.9465 7.25213C13.9487 7.2471 13.9506 7.24304 13.952 7.24001C13.9837 7.16396 14 7.08239 14 7.00001C14 6.91762 13.9837 6.83605 13.952 6.76001C13.9506 6.75697 13.9487 6.75292 13.9465 6.74788C13.7914 6.4084 11.5959 1.60001 7 1.60001C2.40413 1.60001 0.208567 6.40839 0.0535499 6.74788C0.0512519 6.75292 0.0494023 6.75697 0.048 6.76001C0.0163137 6.83605 0 6.91762 0 7.00001C0 7.08239 0.0163137 7.16396 0.048 7.24001C0.0494023 7.24304 0.0512519 7.2471 0.0535499 7.25213ZM7 11.2C3.664 11.2 1.736 7.92001 1.264 7.00001C1.736 6.08001 3.664 2.80001 7 2.80001C10.336 2.80001 12.264 6.08001 12.736 7.00001C12.264 7.92001 10.336 11.2 7 11.2ZM5.55551 9.16182C5.98308 9.44751 6.48576 9.6 7 9.6C7.68891 9.59789 8.349 9.32328 8.83614 8.83614C9.32328 8.349 9.59789 7.68891 9.59999 7C9.59999 6.48576 9.44751 5.98308 9.16182 5.55551C8.87612 5.12794 8.47006 4.7947 7.99497 4.59791C7.51988 4.40112 6.99711 4.34963 6.49276 4.44995C5.98841 4.55027 5.52513 4.7979 5.16152 5.16152C4.7979 5.52513 4.55027 5.98841 4.44995 6.49276C4.34963 6.99711 4.40112 7.51988 4.59791 7.99497C4.7947 8.47006 5.12794 8.87612 5.55551 9.16182ZM6.2222 5.83594C6.45243 5.6821 6.7231 5.6 7 5.6C7.37065 5.6021 7.72553 5.75027 7.98762 6.01237C8.24972 6.27446 8.39789 6.62934 8.4 7C8.4 7.27689 8.31789 7.54756 8.16405 7.77779C8.01022 8.00802 7.79157 8.18746 7.53575 8.29343C7.27994 8.39939 6.99844 8.42711 6.72687 8.37309C6.4553 8.31908 6.20584 8.18574 6.01005 7.98994C5.81425 7.79415 5.68091 7.54469 5.6269 7.27312C5.57288 7.00155 5.6006 6.72006 5.70656 6.46424C5.81253 6.20842 5.99197 5.98977 6.2222 5.83594Z","fill","currentColor"]],template:function(t,s){t&1&&(G(),X(0,"path",0))},encapsulation:2})}return o})();export{xt as a,xe as b,Me as c,Ct as d};
