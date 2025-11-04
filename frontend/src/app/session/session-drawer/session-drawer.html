@@ -5,7 +5,7 @@
     <p-divider />
     <p-button class="w-full" icon="pi pi-history" text label="Historial" severity="warn" />
     <ul class="list-none p-0 m-0">
-        @for (session of sessions()?.slice(1); track session.id) {
+        @for (session of sessions()?.slice(1, 6); track session.id) {
         <li class="ml-2 py-1">
             <a class="no-underline text-primary-700 hover:text-primary-500">S{{session.session_number}}:
                 {{session.goal || 'Sin objetivo definido'}}</a>
