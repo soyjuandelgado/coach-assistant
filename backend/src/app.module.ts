@@ -9,6 +9,8 @@ import { SessionsModule } from './features/sessions/sessions.module';
 import { NotesModule } from './features/sessions/notes/notes.module';
 import { TasksModule } from './features/sessions/tasks/tasks.module';
 import { AuthModule } from './auth/auth.module';
+import { SeedService } from './seed/seed.service';
+import { User } from './features/users/user.entity';
 
 @Module({
   imports: [
@@ -21,8 +23,9 @@ import { AuthModule } from './auth/auth.module';
     TasksModule,
     AuthModule,
     TypeOrmModule.forRoot(configService.getTypeOrmConfig()),
+    TypeOrmModule.forFeature([User]),
   ],
   controllers: [],
-  providers: [],
+  providers: [SeedService],
 })
 export class AppModule {}
