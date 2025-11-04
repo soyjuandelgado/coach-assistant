@@ -11,6 +11,8 @@ import { ConfirmationService } from 'primeng/api';
 import { NewSessionDialog } from '../new-session-dialog/new-session-dialog';
 import { IProcess } from '../shared/models/process.interface';
 import { AuthService } from '../shared/auth/auth-service';
+import { PopoverModule } from 'primeng/popover';
+import { DividerModule } from 'primeng/divider';
 
 @Component({
   selector: 'app-coachees',
@@ -18,6 +20,8 @@ import { AuthService } from '../shared/auth/auth-service';
     TableModule,
     ButtonModule,
     ToolbarModule,
+    PopoverModule,
+    DividerModule,
     ConfirmDialogModule,
     DialogModule,
     RouterLink,
@@ -40,7 +44,7 @@ export class Coachees {
   private router = inject(Router);
   private confirmationService = inject(ConfirmationService);
   private service = inject(CoacheesService);
-  private authService = inject(AuthService)
+  private authService = inject(AuthService);
   protected coachees = this.service.coachees;
   protected loading = this.service.loading;
   protected error = this.service.error;
@@ -113,10 +117,8 @@ export class Coachees {
     this.visibleNewSession.set(true);
   }
 
-  closeSession(){
-    this.authService.handleLogout()
-    this.goLogin()
+  closeSession() {
+    this.authService.handleLogout();
+    this.goLogin();
   }
-
-
 }
