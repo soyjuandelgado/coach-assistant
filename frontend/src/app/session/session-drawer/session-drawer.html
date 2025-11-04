@@ -1,4 +1,4 @@
-<p-drawer [visible]="visible()" header="Info & Herramientas" (visibleChange)="this.visibleChange.emit($event)">
+<p-drawer position="right" [visible]="visible()" header="Info & Herramientas" (visibleChange)="this.visibleChange.emit($event)">
     <p-button class="w-full" icon="pi pi-face-smile" text label="Cuadro Emociones" severity="help"
         (onClick)="callShowDialogEmotions()" />
     <p-button class="w-full" icon="pi pi-id-card" text label="Perfil Coachee" (onClick)="callShowProfile()" />
