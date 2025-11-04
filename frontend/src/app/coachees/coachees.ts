@@ -13,6 +13,7 @@ import { IProcess } from '../shared/models/process.interface';
 import { AuthService } from '../shared/auth/auth-service';
 import { PopoverModule } from 'primeng/popover';
 import { DividerModule } from 'primeng/divider';
+import { ICoachee } from '../shared/models/coachee.interface';
 
 @Component({
   selector: 'app-coachees',
@@ -45,7 +46,7 @@ export class Coachees {
   private confirmationService = inject(ConfirmationService);
   private service = inject(CoacheesService);
   private authService = inject(AuthService);
-  protected coachees = this.service.coachees;
+  protected coachees = signal<ICoachee[]>([]);
   protected loading = this.service.loading;
   protected error = this.service.error;
 
@@ -53,7 +54,7 @@ export class Coachees {
   selectedProcessId = signal<string | undefined>(undefined);
 
   constructor() {
-    this.service.getCoachees();
+    this.getCoachees();
 
     effect(() => {
       const currentError = this.error();
@@ -105,6 +106,16 @@ export class Coachees {
     });
   }
 
+  getCoachees(){
+    this.service.getCoachees$().subscribe({
+      next: (result) => {
+        this.coachees.set(result); 
+      },
+      error: (err) => {
+        this.showErrorDialog(err);
+      },
+    });
+  }
   removeCoachee(coacheeId: string) {
     this.service.removeCoachee(coacheeId);
   }
