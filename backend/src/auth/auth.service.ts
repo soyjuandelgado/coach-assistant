@@ -20,13 +20,14 @@ export class AuthService {
     if (!isMatch) {
       throw new UnauthorizedException('Invalid credentials');
     }
-
     const { password, created_at, updated_at, deleted_at, ...result } = user;
     return result;
   }
 
   async login(user: ValidatedUser) {
+    console.log(user)
     const payload = { sub: user.id, ...user };
+    console.log(payload);
     return {
       access_token: await this.jwtService.signAsync(payload),
     };

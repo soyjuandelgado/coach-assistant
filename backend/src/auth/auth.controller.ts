@@ -31,8 +31,10 @@ export class AuthController {
   @ApiOperation({ summary: 'Log in' })
   @HttpCode(HttpStatus.OK)
   @Post('login')
-  login(@Body() userDto: UserDto) {
-    return this.authService.login(userDto as User);
+    // login(@Body() userDto: UserDto) {
+    // return this.authService.login(userDto as User);
+  login(@Request() req) {
+    return this.authService.login(req.user);
   }
 
   /**
