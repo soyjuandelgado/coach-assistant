@@ -13,6 +13,7 @@ import { SessionsService } from '../shared/services/sessions/sessions-service';
 import { ISession } from '../shared/models/session.interface';
 import { Router } from '@angular/router';
 import { ConfirmationService } from 'primeng/api';
+import { IProcess } from '../shared/models/process.interface';
 
 @Component({
   selector: 'app-new-session-dialog',
@@ -36,7 +37,7 @@ export class NewSessionDialog {
   private confirmationService = inject(ConfirmationService);
   private processesService = inject(ProcessesService);
   private sessionsService = inject(SessionsService);
-  protected process = this.processesService.process;
+  protected process = signal<IProcess | undefined>(undefined);
   protected previousSession = signal<ISession | undefined>(undefined);
   //protected previousSession = signal(this.process()?.sessions[1]);
   private fb = inject(FormBuilder);
@@ -53,7 +54,7 @@ export class NewSessionDialog {
   constructor() {
     effect(() => {
       if (this.visible() && this.processId()) {
-        this.processesService.getProcess(this.processId()!);
+        this.getProcess(this.processId()!);
       }
     });
 
@@ -64,9 +65,8 @@ export class NewSessionDialog {
           duration_minutes: process.duration_minutes,
           is_grow: process.is_grow ?? false,
         });
-        if (process.sessions) {
-          this.getPreviousSession(process.sessions[0].id)
-          //this.previousSession.set(process.sessions[0]);
+        if (process.sessions && process.sessions.length > 0) {
+          this.getPreviousSession(process.sessions[0].id);
         }
       }
     });
@@ -76,6 +76,14 @@ export class NewSessionDialog {
     this.visibleChange.emit(false);
   }
 
+  getProcess(processId: string) {
+    this.processesService.getProcess$(processId).subscribe({
+      next: (value) => {
+        this.process.set(value);
+      },
+    });
+  }
+
   onSubmit() {
     this.sessionForm.markAllAsTouched();
 
@@ -83,7 +91,6 @@ export class NewSessionDialog {
     const now = new Date();
     sessionData.date = new Date(now.getFullYear(), now.getMonth(), now.getDate());
     if (this.process() && this.process()!.sessions) {
-      console.log(this.process()?.sessions);
       sessionData.session_number = this.process()!.sessions.length + 1;
     } else {
       sessionData.session_number = 1;
@@ -95,9 +102,7 @@ export class NewSessionDialog {
   createSession(processId: string, session: ISession) {
     this.sessionsService.createSession$(processId, session).subscribe({
       next: (response: ISession) => {
-        console.log('Navegar a session');
-        this.router.navigate(['session', response.id]);
-        // this.close();
+        this.goSession(response.id);
       },
       error: (err) => {
         this.showErrorDialog(err);
@@ -125,5 +130,9 @@ export class NewSessionDialog {
       rejectLabel: 'Cerrar',
       acceptVisible: false,
     });
+  }
+
+  goSession(sessionId: string) {
+    this.router.navigate(['session', sessionId]);
   }
 }

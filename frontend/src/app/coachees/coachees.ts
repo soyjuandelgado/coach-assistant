@@ -63,9 +63,6 @@ export class Coachees {
   goSummary() {
     this.router.navigate(['/summary']);
   }
-  goSession() {
-    this.router.navigate(['/session']);
-  }
   goLogin() {
     this.router.navigate(['/login']);
   }
