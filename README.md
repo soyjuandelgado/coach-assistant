@@ -23,6 +23,7 @@
         - [Elementos](#elementos-1)
     - [Backend](#backend)
     - [Base de Datos](#base-de-datos)
+      - [Esquema de relaciones](#esquema-de-relaciones)
       - [Usuarios](#usuarios)
       - [Roles](#roles)
       - [Coachees](#coachees-1)
@@ -119,11 +120,24 @@ En resumen, Coach Asistant permite maximizar la recogida de datos y tratarlos co
 
 ### Base de Datos
 
+#### Esquema de relaciones
+
+```mermaid
+erDiagram
+  USER ||--o{ USER_ROLES : has
+  ROLE ||--o{ USER_ROLES : assigned_to
+  USER ||--o{ COACHEE : has
+  COACHEE ||--o{ PROCESS : has
+  PROCESS ||--o{ SESSION : has
+  SESSION ||--o{ NOTE : has
+  SESSION ||--o{ TASK : has
+```
+
 #### Usuarios
 
 ```mermaid
 erDiagram
-    USERS {
+    USER {
         CHAR(36) id PK "UUID"
         VARCHAR email
         VARCHAR password "hashed"
@@ -138,7 +152,7 @@ erDiagram
 
 ```mermaid
 erDiagram
-    ROLES {
+    ROLE {
         CHAR(36) id PK "UUID"
         VARCHAR name
         TEXT description
@@ -149,15 +163,15 @@ erDiagram
         CHAR(36) role_id FK
     }
 
-    USERS ||--o{ USER_ROLES : has
-    ROLES ||--o{ USER_ROLES : assigned_to
+    USER ||--o{ USER_ROLES : has
+    ROLE ||--o{ USER_ROLES : assigned_to
 ```
 
 #### Coachees
 
 ```mermaid
 erDiagram
-  COACHEES {
+  COACHEE {
     CHAR(36) id PK "UUID"
     VARCHAR name 
     VARCHAR surname 
@@ -176,7 +190,7 @@ erDiagram
     CHAR(36) coach FK
   }
 
-USERS ||--o{ COACHEES : has
+USER ||--o{ COACHEE : has
 ```
 
 #### Procesos
@@ -291,4 +305,5 @@ erDiagram
 
 ## 📸 Demo
 
-[GitHub Pages](https://soyjuandelgado.github.io/coach-assistant)
+[GitHub Pages - Frontend](https://soyjuandelgado.github.io/coach-assistant)
+[Railway - Backend](https://trustworthy-insight-production.up.railway.app/docs)
