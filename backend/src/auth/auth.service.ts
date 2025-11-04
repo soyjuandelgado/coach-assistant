@@ -20,7 +20,6 @@ export class AuthService {
     if (!isMatch) {
       throw new UnauthorizedException('Invalid credentials');
     }
-
     const { password, created_at, updated_at, deleted_at, ...result } = user;
     return result;
   }

@@ -21,5 +21,6 @@ export class RoleDto {
 //TODO: Export to new file?
 export class AddRoleDto {
   @ApiProperty({ description: 'Id of role to add' })
+  @IsString()
   roleId: string;
 }
