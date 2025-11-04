@@ -1,4 +1,4 @@
-import { Component, input, output } from '@angular/core';
+import { Component, computed, input, output } from '@angular/core';
 import { ButtonModule } from 'primeng/button';
 import { DividerModule } from 'primeng/divider';
 import { DrawerModule } from 'primeng/drawer';
@@ -18,6 +18,14 @@ export class SessionDrawer {
   showProfile = output();
   showDialogLesson = output<string>();
   leaveSession = output<Event>();
+
+  sessions = computed(() => {
+    if (this.process() && this.process()?.sessions) {
+      return this.process()?.sessions;
+    } else {
+      return;
+    }
+  });
 
   callShowDialogEmotions() {
     this.showDialogEmotions.emit();
