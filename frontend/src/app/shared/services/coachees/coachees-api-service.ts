@@ -20,7 +20,6 @@ export class CoacheesApiService {
       ...dtoWithoutId,
       birthdate: coachee.birthdate ? new Date(coachee.birthdate).toISOString() : null,
     };
-    // console.log(dto);
     return dto;
   }
 

@@ -38,7 +38,6 @@ export class EmotionsDialog {
   selectEmotion(emotion: Emotion) {
     if (!emotion) return;
     this.emotionSelected = emotion;
-    // console.log('Emoción seleccionada:', this.emotionSelected.name);
   }
 
   emotions: Emotion[] = [

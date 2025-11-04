@@ -29,7 +29,6 @@ export class NotesService {
         this._loading.set(false);
       },
       error: (err) => {
-        console.log('Error getting notes.', err);
         this._error.set(err.message);
         this._loading.set(false);
       },
@@ -52,7 +51,6 @@ export class NotesService {
         this._loading.set(false);
       },
       error: (err) => {
-        console.log('Error getting note.', err);
         this._error.set(err.message);
         this._loading.set(false);
       },
@@ -72,7 +70,6 @@ export class NotesService {
             this._loading.set(false);
           },
           error: (err) => {
-            console.error('Note creating error', err);
             this._error.set(err.message);
             this._loading.set(false);
           },
@@ -100,7 +97,6 @@ export class NotesService {
             this._loading.set(false);
           },
           error: (err) => {
-            console.error('Note updating error', err);
             this._error.set(err.message);
             this._loading.set(false);
           },
@@ -122,7 +118,6 @@ export class NotesService {
             this._loading.set(false);
           },
           error: (err) => {
-            console.error('Note deleting error', err);
             this._error.set(err.message);
             this._loading.set(false);
           },
@@ -145,7 +140,6 @@ export class NotesService {
             this._loading.set(false);
           },
           error: (err) => {
-            console.error('Note removing error', err);
             this._error.set(err.message);
             this._loading.set(false);
           },
@@ -162,11 +156,9 @@ export class NotesService {
       .pipe(
         tap({
           next: (response) => {
-            console.log(response);
             this._loading.set(false);
           },
           error: (err) => {
-            console.error('Note restoring error', err);
             this._error.set(err.message);
             this._loading.set(false);
           },

@@ -161,7 +161,6 @@ export class Process implements OnDestroy {
   onSubmit() {
     this.processForm.markAllAsTouched();
     if (!this.processForm.valid) {
-      // console.warn('El formulario de proceso contiene errores.');
       this.showWarningDialog('El formulario de proceso contiene errores.');
       return;
     }
@@ -178,12 +177,10 @@ export class Process implements OnDestroy {
   createProcess(coacheeId: string, process: IProcess) {
     this.service.createProcess$(coacheeId, process).subscribe({
       next: () => {
-        console.log('Navegar a coachees');
         this.router.navigate(['/coachees']);
       },
       error: (err) => {
         this.showErrorDialog(err);
-        console.error('Error creating coachee:', err);
       },
     });
   }
@@ -191,12 +188,10 @@ export class Process implements OnDestroy {
   updateProcess(processId: string, process: IProcess) {
     this.service.updateProcess$(processId, process).subscribe({
       next: () => {
-        console.log('Navegar a coachees');
         this.router.navigate(['/coachees']);
       },
       error: (err) => {
         this.showErrorDialog(err);
-        console.error('Error creating coachee:', err);
       },
     });
   }
