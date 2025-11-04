@@ -8,7 +8,8 @@
                 (onClick)="showDialogProfile()" />
         </ng-template>
         <ng-template #end>
-            <p-button icon="pi pi-window-maximize" text severity="info" (onClick)="toggleFullScreen()" />
+            <p-button [icon]="isFullScreen() ? 'pi pi-window-minimize' : 'pi pi-window-maximize'" text severity="info"
+                (onClick)="toggleFullScreen()" />
             <p-button icon="pi pi-sign-out" text severity="danger" (onClick)="goCoachees()" />
         </ng-template>
     </p-toolbar>

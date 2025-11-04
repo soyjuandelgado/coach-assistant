@@ -7,7 +7,8 @@
             <p-button icon="pi pi-users" text severity="help" label="Coachees" />
         </ng-template>
         <ng-template #end>
-            <p-button icon="pi pi-window-maximize" text severity="info" (onClick)="toggleFullScreen()" />
+            <p-button [icon]="isFullScreen() ? 'pi pi-window-minimize' : 'pi pi-window-maximize'" text severity="info"
+                (onClick)="toggleFullScreen()" />
             <p-button icon="pi pi-power-off" text severity="danger" (onClick)="closeSession()" />
         </ng-template>
     </p-toolbar>
