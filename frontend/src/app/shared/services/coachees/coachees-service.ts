@@ -30,7 +30,6 @@ export class CoacheesService {
         this._loading.set(false);
       },
       error: (err) => {
-        console.log('Error getting coachees.', err);
         this._error.set(err.message);
         this._loading.set(false);
       },
@@ -47,7 +46,6 @@ export class CoacheesService {
         this._loading.set(false);
       },
       error: (err) => {
-        console.log('Error getting coachee.', err);
         this._error.set(err.message);
         this._loading.set(false);
       },
@@ -67,7 +65,6 @@ export class CoacheesService {
             this._loading.set(false);
           },
           error: (err) => {
-            console.error('Coachee creating error', err);
             this._error.set(err.message);
             this._loading.set(false);
           },
@@ -95,7 +92,6 @@ export class CoacheesService {
             this._loading.set(false);
           },
           error: (err) => {
-            console.error('Coachee updating error', err);
             this._error.set(err.message);
             this._loading.set(false);
           },
@@ -122,7 +118,6 @@ export class CoacheesService {
             this._loading.set(false);
           },
           error: (err) => {
-            console.error('Coachee deleting error', err);
             this._error.set(err.message);
             this._loading.set(false);
           },
@@ -146,7 +141,6 @@ export class CoacheesService {
             this._loading.set(false);
           },
           error: (err) => {
-            console.error('Coachee removing error', err);
             this._error.set(err.message);
             this._loading.set(false);
           },
@@ -163,13 +157,11 @@ export class CoacheesService {
       .pipe(
         tap({
           next: (response) => {
-            console.log(response);
             // const coacheeResponse = response as ICoachee;
             // this._coachees.update((currentCoachees) => [...currentCoachees, coacheeResponse]);
             this._loading.set(false);
           },
           error: (err) => {
-            console.error('Coachee restoring error', err);
             this._error.set(err.message);
             this._loading.set(false);
           },

@@ -42,12 +42,10 @@ export class AuthService {
   }
 
   public async handleLogin(token: string) {
-    console.log(`login: ${token}`)
     try {
       localStorage.setItem('access_token', token);
       const decodedToken: any = await jwtDecode(token);
       const user: IUser = { id: decodedToken.sub, ...decodedToken };
-      console.log(user)
       this.currentUserSource.set(user);
     } catch (error) {
       console.error('Error al decodificar el token', error);

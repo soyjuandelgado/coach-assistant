@@ -53,8 +53,8 @@ export class Coachee implements OnDestroy {
   private router = inject(Router);
   private confirmationService = inject(ConfirmationService);
   private fb = inject(FormBuilder);
-  protected process = signal<IProcess | undefined>(undefined); //'4b8f31f5-1258-4da9-8824-2c4357340593';
-  private user = this.authService.currentUser; //'0241cf11-82ba-4804-abe8-f1d958f30183'
+  protected process = signal<IProcess | undefined>(undefined);
+  private user = this.authService.currentUser; 
   protected loading = this.service.loading;
   protected error = this.service.error;
 
