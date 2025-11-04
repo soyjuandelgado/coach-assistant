@@ -1,0 +1,16 @@
+<p-toolbar [style]="{ 'padding': '0' }">
+    <ng-template #start>
+        <p-button icon="pi pi-bars" text severity="contrast" (click)="callShowDrawer()" />
+    </ng-template>
+    <ng-template #center>
+        <p-button id="title" icon="pi pi-folder-open" text severity="warn"
+            label="{{this.process() ? (this.coachee() ? this.coachee()!.name + ' ' + this.coachee()!.surname  : '' ) : ''}} - Sesión {{this.session()?.session_number}}"
+            (click)="callShowDialogNotes()" />
+        <p-button icon="pi pi-stopwatch" label="{{this.session()?.duration_minutes}}'" severity="success"
+            variant="text" />
+    </ng-template>
+    <ng-template #end>
+        <p-button icon="pi pi-window-maximize" text severity="info" (onClick)="toggleFullScreen()" />
+        <p-button icon="pi pi-sign-out" text severity="danger" (onClick)="callLeaveSession($event)" />
+    </ng-template>
+</p-toolbar>

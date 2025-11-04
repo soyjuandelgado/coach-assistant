@@ -1,15 +1,32 @@
-    <p-panel>
-        <ng-template #header>
-            <span class="font-medium">Introducir datos</span>
-        </ng-template>
-        <div class="w-full mt-auto flex flex-row gap-2 items-center">
-            <textarea #textInput pTextarea id="input" rows="2" [autoResize]="true" class="w-full"
-                placeholder="Escribe aquí" [value]="message()" (input)="onMessageChange($event)"
-                (keydown.enter)="handleEnter($event, textInput)"></textarea>
-            <p-button icon="pi pi-send" [size]="'large'" (onClick)="sendMessage(textInput)"
-                (mousedown)="$event.preventDefault()"></p-button>
-        </div>
-        <!-- <div class="w-full mt-2 flex flex-row justify-between gap-2 items-center">
+<p-popover #ip>
+    <ng-template #content>
+        <h4 class="font-medium pb-1">Funcionamiento</h4>
+        <ul class="list-inside list-disc">
+            <li>Escribir el texto en el cuadro de texto.</li>
+            <li>Seleccionar sección con el botón correspondiente</li>
+            <li>Al pulsar Enter o el botón de la flecha, se envían los datos a la sección</li>
+        </ul>
+        <p-divider />
+        <h4 class="font-medium pb-1">Secciones</h4>
+        <ul class="list-inside list-disc">
+            <li><b>Objetivo</b> modifica el objetivo actual</li>
+            <li><b>Notas / IGROW</b> añade un nuevo apunte al Desarrollo de la sesión</li>
+            <li><b>PdA</b> añade un nuevo Plan de Acción</li>
+        </ul>
+    </ng-template>
+</p-popover>
+<p-panel>
+    <ng-template #header>
+        <span class="font-medium">Introducir datos</span>
+    </ng-template>
+    <div class="w-full mt-auto flex flex-row gap-2 items-center">
+        <textarea #textInput pTextarea id="input" rows="2" [autoResize]="true" class="w-full" placeholder="Escribe aquí"
+            [value]="message()" (input)="onMessageChange($event)"
+            (keydown.enter)="handleEnter($event, textInput)"></textarea>
+        <p-button icon="pi pi-send" [size]="'large'" (onClick)="sendMessage(textInput)"
+            (mousedown)="$event.preventDefault()"></p-button>
+    </div>
+    <!-- <div class="w-full mt-2 flex flex-row justify-between gap-2 items-center">
             <div class="flex gap-1">
                 <input pInputText id="moment" placeholder="Fecha Hora">
                 <p-inputNumber id="commitment" [min]="1" [max]="10" suffix="/10" placeholder="Compromiso" class="w-full"
@@ -22,32 +39,33 @@
                 <p-button icon="pi pi-face-smile" [rounded]="true" [outlined]="true" severity="help" />
             </div>
         </div> -->
-        <ng-template #icons>
-            <div class="flex flex-row gap-4">
-                <p-button label="Objetivo" [text]="this.selected() !== 'O'" severity="help" [size]="'small'"
-                    (mousedown)="$event.preventDefault()" (onClick)="this.selected.set('O')" />
+    <ng-template #icons>
+        <div class="flex flex-row gap-4">
+            <p-button label="Objetivo" [text]="this.selected() !== 'O'" severity="help" [size]="'small'"
+                (mousedown)="$event.preventDefault()" (onClick)="this.selected.set('O')" />
 
-                @if(this.is_grow()){
-                <div class="flex flex-row">
-                    <p-button label="I" [text]="this.selected() !== 'GI'" severity="secondary" [size]="'small'"
-                        (mousedown)="$event.preventDefault()" (onClick)="this.selected.set('GI')" />
-                    <p-button label="G" [text]="this.selected() !== 'GG'" severity="info" [size]="'small'"
-                        (mousedown)="$event.preventDefault()" (onClick)="this.selected.set('GG')" />
-                    <p-button label="R" [text]="this.selected() !== 'GR'" severity="warn" [size]="'small'"
-                        (mousedown)="$event.preventDefault()" (onClick)="this.selected.set('GR')" />
-                    <p-button label="O" [text]="this.selected() !== 'GO'" severity="danger" [size]="'small'"
-                        (mousedown)="$event.preventDefault()" (onClick)="this.selected.set('GO')" />
-                    <p-button label="W" [text]="this.selected() !== 'GW'" severity="contrast" [size]="'small'"
-                        (mousedown)="$event.preventDefault()" (onClick)="this.selected.set('GW')" />
-                </div>
-                }@else{
-                <p-button label="Nota" [text]="this.selected() !== 'N'" severity="info" [size]="'small'"
-                    (mousedown)="$event.preventDefault()" (onClick)="this.selected.set('N')" />
-                }
-                <p-button label="PdA" [text]="this.selected() !== 'P'" severity="success" [size]="'small'"
-                    (mousedown)="$event.preventDefault()" (onClick)="this.selected.set('P')" />
-                <p-button icon="pi pi-info-circle" text severity="info" [size]="'small'"
-                    (mousedown)="$event.preventDefault()" />
+            @if(this.is_grow()){
+            <div class="flex flex-row">
+                <p-button label="I" [text]="this.selected() !== 'GI'" severity="secondary" [size]="'small'"
+                    (mousedown)="$event.preventDefault()" (onClick)="this.selected.set('GI')" />
+                <p-button label="G" [text]="this.selected() !== 'GG'" severity="info" [size]="'small'"
+                    (mousedown)="$event.preventDefault()" (onClick)="this.selected.set('GG')" />
+                <p-button label="R" [text]="this.selected() !== 'GR'" severity="warn" [size]="'small'"
+                    (mousedown)="$event.preventDefault()" (onClick)="this.selected.set('GR')" />
+                <p-button label="O" [text]="this.selected() !== 'GO'" severity="danger" [size]="'small'"
+                    (mousedown)="$event.preventDefault()" (onClick)="this.selected.set('GO')" />
+                <p-button label="W" [text]="this.selected() !== 'GW'" severity="contrast" [size]="'small'"
+                    (mousedown)="$event.preventDefault()" (onClick)="this.selected.set('GW')" />
             </div>
-        </ng-template>
-    </p-panel>
+            }@else{
+            <p-button label="Nota" [text]="this.selected() !== 'N'" severity="info" [size]="'small'"
+                (mousedown)="$event.preventDefault()" (onClick)="this.selected.set('N')" />
+            }
+            <p-button label="PdA" [text]="this.selected() !== 'P'" severity="success" [size]="'small'"
+                (mousedown)="$event.preventDefault()" (onClick)="this.selected.set('P')" />
+            <p-button icon="pi pi-info-circle" text severity="info" [size]="'small'"
+                (mousedown)="$event.preventDefault()" (click)="
+                ip.toggle($event)"/>
+        </div>
+    </ng-template>
+</p-panel>

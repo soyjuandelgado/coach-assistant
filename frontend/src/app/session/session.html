@@ -1,147 +1,105 @@
 <p-confirmdialog />
 <app-coachee-profile [coachee]="this.coachee()" [(visible)]="this.visibleProfile"></app-coachee-profile>
 <app-previous-info-dialog [process]="this.process()" [(visible)]="this.visibleNotes"></app-previous-info-dialog>
-<p-dialog id="emotions-dialog" header="Cuadro Emociones" [(visible)]="visibleEmotions" [modal]="true"
-    [style]="{ width: '45rem' }">
-    <p-table [value]="detailEmotions()" selectionMode="single" dataKey="id" scrollHeight="flex" id="emotions"
-        [size]="'small'">
-        <ng-template pTemplate="body" let-row let-rowIndex="rowIndex">
-            <tr [pSelectableRow]="row">
-                <td [attr.bgcolor]="colorsByZone(rowIndex, 0)">{{ row.col1 }}</td>
-                <td [attr.bgcolor]="colorsByZone(rowIndex, 1)">{{ row.col2 }}</td>
-                <td [attr.bgcolor]="colorsByZone(rowIndex, 2)">{{ row.col3 }}</td>
-                <td [attr.bgcolor]="colorsByZone(rowIndex, 3)">{{ row.col4 }}</td>
-                <td [attr.bgcolor]="colorsByZone(rowIndex, 4)">{{ row.col5 }}</td>
-                <td [attr.bgcolor]="colorsByZone(rowIndex, 5)">{{ row.col6 }}</td>
-                <td [attr.bgcolor]="colorsByZone(rowIndex, 6)">{{ row.col7 }}</td>
-                <td [attr.bgcolor]="colorsByZone(rowIndex, 7)">{{ row.col8 }}</td>
-                <td [attr.bgcolor]="colorsByZone(rowIndex, 8)">{{ row.col9 }}</td>
-                <td [attr.bgcolor]="colorsByZone(rowIndex, 9)">{{ row.col10 }}</td>
-        </ng-template>
-    </p-table>
-
-    <div class="flex justify-end gap-2">
-        <p-button label="Cerrar" (click)="visibleEmotions = false" />
-    </div>
-</p-dialog>
-<p-drawer [(visible)]="visible" header="Info & Herramientas">
-    <p-button class="w-full" icon="pi pi-face-smile" text label="Cuadro Emociones" severity="help"
-        (onClick)="showDialogEmotions()" />
-    <p-button class="w-full" icon="pi pi-id-card" text label="Perfil Coachee" (onClick)="showProfile()" />
-    <p-divider />
-    <p-button class="w-full" icon="pi pi-history" text label="Historial" severity="warn" />
-    <ul class="list-none p-0 m-0">
-        @for (session of process()?.sessions?.slice(1); track session.id) {
-        <li class="ml-2 py-1">
-            <a class="no-underline text-primary-700 hover:text-primary-500">S{{session.session_number}}:
-                {{session.goal || 'Sin objetivo definido'}}</a>
-        </li>
-        }
-    </ul>
-    <p-divider />
-    <p-button class="w-full" icon="pi pi-wrench" text label="Herramientas" severity="secondary" />
-    <ul>
-        <li class="ml-2">Rueda de la Vida</li>
-        <li class="ml-2">Valores</li>
-        <li class="ml-2">Semana Ideal</li>
-        <li class="ml-2">Test de Colores</li>
-        <li class="ml-2">Ficha Objetivo</li>
-    </ul>
-    <p-divider />
-    <p-button class="w-full" icon="pi pi-graduation-cap" text label="Píldoras Formativas" severity="success" />
-    <ul>
-        <li class="ml-2">Emociones Básicas</li>
-        <li class="ml-2">Camino Autoestima</li>
-        <li class="ml-2">REA</li>
-    </ul>
-    <p-divider />
-    <h4 class="text-primary-700 font-semibold">
-        <span class="pi pi-pencil mr-2"></span>Pizarra
-    </h4>
-    <ng-template #footer>
-        <div class="flex items-center gap-2">
-            <button pButton label="Terminar Sesión" icon="pi pi-sign-out" class="w-full" severity="danger" outlined
-                (click)="leaveSession($event)">
-            </button>
-        </div>
-    </ng-template>
-</p-drawer>
+<app-emotions-dialog [(visible)]="this.visibleEmotions" (emotionClicked)="addEmotion($event)"></app-emotions-dialog>
+<app-lesson-dialog [(visible)]="this.visibleLesson" [imageSrc]="this.lessonImage()"></app-lesson-dialog>
+<app-session-drawer [(visible)]="visible" (leaveSession)="leaveSession($event)"
+    (showDialogEmotions)="showDialogEmotions()" (showDialogLesson)="showDialogLesson($event)"
+    (showProfile)="showProfile()"></app-session-drawer>
 <div class="w-full h-full flex flex-col gap-2 bg-primary-50">
-    <p-toolbar [style]="{ 'padding': '0' }">
-        <ng-template #start>
-            <p-button icon="pi pi-bars" text severity="contrast" (click)="visible = true" />
-        </ng-template>
-        <ng-template #center>
-            <p-button id="title" icon="pi pi-folder-open" text severity="warn"
-                label="{{this.process() ? (this.coachee() ? this.coachee()!.name + ' ' + this.coachee()!.surname  : '' ) : ''}} - Sesión {{this.session()?.session_number}}"
-                (click)="showDialogNotes()" />
-            <p-button icon="pi pi-stopwatch" label="{{this.session()?.duration_minutes}}'" severity="success"
-                variant="text" />
-        </ng-template>
-        <ng-template #end>
-            <p-button icon="pi pi-window-maximize" text severity="info" (onClick)="toggleFullScreen()" />
-            <p-button icon="pi pi-sign-out" text severity="danger" (onClick)="leaveSession($event)" />
-        </ng-template>
-    </p-toolbar>
-    <div class="w-full">
-        <p-popover #op>
-            <ng-template #content>
-                <h4 class="font-medium pb-1">Definición de Objetivo</h4>
-                <ul class="list-inside list-disc">
-                    <li>M - Medible</li>
-                    <li>A - Alcanzable</li>
-                    <li>R - Realista</li>
-                    <li>T - Definido en el Tiempo</li>
-                    <li>E - Específico</li>
-                    <li>S - Satisfactorio</li>
+    <app-session-toolbar [process]="this.process()" [coachee]="this.coachee()" [session]="this.session()"
+        (leaveSession)="leaveSession($event)" (showDialogNotes)="showDialogNotes()"
+        (showDrawer)="showDrawer()"></app-session-toolbar>
+    <div class="w-full h-full grid grid-cols-1 lg:grid-cols-2 content-start grid-rows-[auto_auto_1fr_auto] gap-2 bg-primary-50">
+        <section class="w-full lg:col-start-2">
+            <p-popover #op>
+                <ng-template #content>
+                    <p>Para modificar el objetivo, seleccionar <b>Objetivo</b> en Introducir datos</p>
+                    <p-divider/>
+                    <h4 class="font-medium pb-1">Definición de Objetivo</h4>
+                    <ul class="list-inside list-disc">
+                        <li>M - Medible</li>
+                        <li>A - Alcanzable</li>
+                        <li>R - Realista</li>
+                        <li>T - Definido en el Tiempo</li>
+                        <li>E - Específico</li>
+                        <li>S - Satisfactorio</li>
+                    </ul>
+                </ng-template>
+            </p-popover>
+            <p-panel>
+                <ng-template #header>
+                    <span class="font-medium">Objetivo</span>
+                </ng-template>
+                <span>{{this.goal() ? this.goal() : '- No definido -'}}</span>
+                <ng-template #icons>
+                    <p-button icon="pi pi-info-circle" text severity="info" [size]="'small'"
+                        (click)="op.toggle($event)" />
+                </ng-template>
+            </p-panel>
+        </section>
+        <section class="w-full flex flex-col lg:col-start-1 lg:row-span-full lg:mb-auto min-h-0">
+            <p-popover #dp>
+                <ng-template #content>
+                    <p>Añadir notas seleccionando <b>Notas / IGROW</b> en Introducir datos</p>
+                    <p-divider/>
+                    <h4 class="font-medium pb-1">GROW</h4>
+                    <ul class="list-inside list-disc">
+                        <li>I - Issues (Vómito emocional)</li>
+                        <li>G - Goal (Objetivo)</li>
+                        <li>R - Reality (Realidad)</li>
+                        <li>O - Options (Opciones)</li>
+                        <li>W - Will (Próximos pasos)</li>
+                    </ul>
+                </ng-template>
+            </p-popover>
+            <p-panel class="flex flex-col h-full overflow-hidden">
+                <ng-template #header>
+                    <span class="font-medium">Desarrollo de la sesión</span>
+                </ng-template>
+                <ul class="max-h-130 lg:max-h-215 overflow-y-auto">
+                    @for (note of notes(); track $index) {
+                    <li>
+                        {{note}}
+                    </li>
+                    }
                 </ul>
-            </ng-template>
-        </p-popover>
-        <p-panel>
-            <ng-template #header>
-                <span class="font-medium">Objetivo</span>
-            </ng-template>
-            <span>{{this.goal() ? this.goal() : '- No definido -'}}</span>
-            <ng-template #icons>
-                <p-button icon="pi pi-info-circle" text severity="info" [size]="'small'" (click)="op.toggle($event)" />
-            </ng-template>
-        </p-panel>
+                <ng-template #icons>
+                    <p-button icon="pi pi-info-circle" text severity="info" [size]="'small'" (click)="dp.toggle($event)"/>
+                </ng-template>
+            </p-panel>
+        </section>
+        <section class="w-full mb-auto lg:col-start-2">
+            <p-popover #pp>
+                <ng-template #content>
+                    <p>Añadir notas seleccionando <b>PdA</b> en Introducir datos</p>
+                    <p-divider/>
+                    <h4 class="font-medium pb-1">Planes de acción</h4>
+                    <ul class="list-inside list-disc">
+                        <li>Descripción</li>
+                        <li>Fecha y hora de realización</li>
+                        <li>Nivel de compromiso</li>
+                    </ul>
+                </ng-template>
+            </p-popover>
+            <p-panel>
+                <ng-template #header>
+                    <span class="font-medium">Planes de Acción</span>
+                </ng-template>
+                <ul>
+                    @for (task of tasks(); track $index) {
+                    <li>
+                        {{task}}
+                    </li>
+                    }
+                </ul>
+                <ng-template #icons>
+                    <p-button icon="pi pi-info-circle" text severity="info" [size]="'small'" (click)="pp.toggle($event)"/>
+                </ng-template>
+            </p-panel>
+        </section>
+        <app-insert-data class="self-end lg:col-start-2" [is_grow]="this.session()?.is_grow ?? false" (newGoal)="setGoal($event)"
+            (newNote)="addNote($event)" (newTask)="addTask($event)">
+        </app-insert-data>
     </div>
-    <div class="w-full flex flex-col">
-        <p-panel>
-            <ng-template #header>
-                <span class="font-medium">Desarrollo de la sesión</span>
-            </ng-template>
-            <ul class="max-h-115 overflow-y-auto">
-                @for (note of notes(); track $index) {
-                <li>
-                    {{note}}
-                </li>
-                }
-            </ul>
-            <ng-template #icons>
-                <p-button icon="pi pi-info-circle" text severity="info" [size]="'small'" />
-            </ng-template>
-        </p-panel>
-    </div>
-    <div class="w-full mb-auto">
-        <p-panel>
-            <ng-template #header>
-                <span class="font-medium">Planes de Acción</span>
-            </ng-template>
-            <ul>
-                @for (task of tasks(); track $index) {
-                <li>
-                    {{task}}
-                </li>
-                }
-            </ul>
-            <ng-template #icons>
-                <p-button icon="pi pi-info-circle" text severity="info" [size]="'small'" />
-            </ng-template>
-        </p-panel>
-    </div>
-    <app-insert-data [is_grow]="this.session()?.is_grow ?? false" (newGoal)="setGoal($event)"
-        (newNote)="addNote($event)" (newTask)="addTask($event)">
-    </app-insert-data>
 </div>

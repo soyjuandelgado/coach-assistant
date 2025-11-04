@@ -285,6 +285,8 @@ erDiagram
 - [x] Logger
 - [x] CORS
 - [x] Docker
+- [x] JWT
+- [x] Passport
 - [ ] Jest
 
 ## 📸 Demo
