@@ -1,4 +1,5 @@
 export const API_URL = 'http://localhost:3000/api/';
+// export const API_URL = 'https://trustworthy-insight-production.up.railway.app/api/';
 
 export const environment = {
   apiUrl: API_URL,

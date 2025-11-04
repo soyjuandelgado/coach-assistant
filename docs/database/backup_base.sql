@@ -19,9 +19,9 @@
 -- Current Database: `coachassistant`
 --
 
-CREATE DATABASE /*!32312 IF NOT EXISTS*/ `coachassistant` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci */ /*!80016 DEFAULT ENCRYPTION='N' */;
+-- CREATE DATABASE /*!32312 IF NOT EXISTS*/ `coachassistant` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci */ /*!80016 DEFAULT ENCRYPTION='N' */;
 
-USE `coachassistant`;
+-- USE `coachassistant`;
 
 --
 -- Table structure for table `coachee`
