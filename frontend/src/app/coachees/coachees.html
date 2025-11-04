@@ -1,23 +1,41 @@
 <div class="w-full h-full flex flex-col gap-2 bg-primary-50">
-    <p-toolbar [style]="{ 'padding': '0' }">
+    <p-toolbar>
         <ng-template #start>
-            <p-button icon="pi pi-bars" text severity="contrast" />
+            <span class="pl-3 text-primary font-medium text-l">CoachAssistant</span>
         </ng-template>
         <ng-template #center>
             <p-button icon="pi pi-users" text severity="help" label="Coachees" />
         </ng-template>
         <ng-template #end>
-            <p-button icon="pi pi-window-maximize" text severity="info" (onClick)="toggleFullScreen()" />
+            <p-button [icon]="isFullScreen() ? 'pi pi-window-minimize' : 'pi pi-window-maximize'" text severity="info"
+                (onClick)="toggleFullScreen()" />
             <p-button icon="pi pi-power-off" text severity="danger" (onClick)="closeSession()" />
         </ng-template>
     </p-toolbar>
     <p-confirmdialog />
     <app-new-session-dialog [(visible)]="visibleNewSession" [processId]="selectedProcessId()"></app-new-session-dialog>
     <div class="w-full flex flex-col">
+        <p-popover #cp>
+            <ng-template #content>
+                <h4 class="font-medium">¿Qué hace cada botón?</h4>
+                <p-divider />
+                <ul class="list-inside list-none gap-1">
+                    <li class="p-0.5"><span class="pi pi-window-maximize text-blue-500 pr-3"></span>Pantalla completa</li>
+                    <li class="p-0.5"><span class="pi pi-power-off text-red-500 pr-3"></span>Salir</li>
+                    <p-divider />
+                    <li class="p-0.5"><span class="pi pi-id-card text-blue-500 pr-3"></span>Ver perfil del coachee</li>
+                    <li class="p-0.5"><span class="pi pi-folder-open text-orange-500 pr-3"></span>Ver datos del proceso</li>
+                    <li class="p-0.5"><span class="pi pi-file-plus text-green-500 pr-3"></span>Crear nueva sesión</li>
+                    <li class="p-0.5"><span class="pi pi-folder-plus text-purple-500 pr-3"></span>Crear nuevo resumen</li>
+                    <li class="p-0.5"><span class="pi pi-trash text-red-500 pr-3"></span>Eliminar coachee</li>
+                </ul>
+            </ng-template>
+        </p-popover>
+
         <label for="coachees" class="block mb-1 font-medium">Coachees activos <p-button icon="pi pi-info-circle" text
-                severity="info" [size]="'small'" /></label>
-        <p-table [value]="coachees()" selectionMode="single" dataKey="id" scrollHeight="flex" id="coachee"
-            [size]="'small'" disabled>
+                severity="info" [size]="'small'" (click)="cp.toggle($event)" /></label>
+        <p-table [value]="coachees()" [selectionMode]="null" dataKey="id" scrollHeight="flex" id="coachee"
+            [size]="'small'">
             <ng-template #header>
                 <tr>
                     <th [width]="'60%'">Nombre</th>

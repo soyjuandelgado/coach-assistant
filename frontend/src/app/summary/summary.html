@@ -1,19 +1,20 @@
 <div class="w-full h-full flex flex-col gap-2 bg-primary-50">
-    <p-toolbar [style]="{ 'padding': '0' }">
+    <p-toolbar>
         <ng-template #start>
-            <p-button icon="pi pi-bars" text severity="contrast" />
+            <span class="pl-3 text-primary font-medium text-l">CoachAssistant</span>
         </ng-template>
         <ng-template #center>
             <p-button icon="pi pi-id-card" text severity="help" label="Pedro Pérez - Resumen 4"
                 (onClick)="showDialogProfile()" />
         </ng-template>
         <ng-template #end>
-            <p-button icon="pi pi-window-maximize" text severity="info" (onClick)="toggleFullScreen()" />
+            <p-button [icon]="isFullScreen() ? 'pi pi-window-minimize' : 'pi pi-window-maximize'" text severity="info"
+                (onClick)="toggleFullScreen()" />
             <p-button icon="pi pi-sign-out" text severity="danger" (onClick)="goCoachees()" />
         </ng-template>
     </p-toolbar>
 
-    <p-dialog header="Perfil Coachee" [(visible)]="visibleProfile" [position]="'top'" [style]="{ width: '45rem' }">
+    <p-dialog header="Perfil Coachee" [(visible)]="visibleProfile" [position]="'top'" contentStyleClass="w-[90vw]">
         <div class="flex flex-col">
             <div class="py-1 grid grid-cols-3">
                 <span class="font-medium">Nombre Completo:</span>

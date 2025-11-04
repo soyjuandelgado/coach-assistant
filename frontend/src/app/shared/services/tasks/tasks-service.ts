@@ -29,7 +29,6 @@ export class TasksService {
         this._loading.set(false);
       },
       error: (err) => {
-        console.log('Error getting tasks.', err);
         this._error.set(err.message);
         this._loading.set(false);
       },
@@ -52,7 +51,6 @@ export class TasksService {
         this._loading.set(false);
       },
       error: (err) => {
-        console.log('Error getting task.', err);
         this._error.set(err.message);
         this._loading.set(false);
       },
@@ -72,7 +70,6 @@ export class TasksService {
             this._loading.set(false);
           },
           error: (err) => {
-            console.error('Task creating error', err);
             this._error.set(err.message);
             this._loading.set(false);
           },
@@ -100,7 +97,6 @@ export class TasksService {
             this._loading.set(false);
           },
           error: (err) => {
-            console.error('Task updating error', err);
             this._error.set(err.message);
             this._loading.set(false);
           },
@@ -122,7 +118,6 @@ export class TasksService {
             this._loading.set(false);
           },
           error: (err) => {
-            console.error('Task deleting error', err);
             this._error.set(err.message);
             this._loading.set(false);
           },
@@ -145,7 +140,6 @@ export class TasksService {
             this._loading.set(false);
           },
           error: (err) => {
-            console.error('Task removing error', err);
             this._error.set(err.message);
             this._loading.set(false);
           },
@@ -162,11 +156,9 @@ export class TasksService {
       .pipe(
         tap({
           next: (response) => {
-            console.log(response);
             this._loading.set(false);
           },
           error: (err) => {
-            console.error('Task restoring error', err);
             this._error.set(err.message);
             this._loading.set(false);
           },

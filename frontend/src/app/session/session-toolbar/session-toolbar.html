@@ -1,6 +1,6 @@
-<p-toolbar [style]="{ 'padding': '0' }">
+<p-toolbar>
     <ng-template #start>
-        <p-button icon="pi pi-bars" text severity="contrast" (click)="callShowDrawer()" />
+        <span class="pl-3 text-primary font-medium text-l">CoachAssistant</span>
     </ng-template>
     <ng-template #center>
         <p-button id="title" icon="pi pi-folder-open" text severity="warn"
@@ -10,7 +10,9 @@
             variant="text" />
     </ng-template>
     <ng-template #end>
-        <p-button icon="pi pi-window-maximize" text severity="info" (onClick)="toggleFullScreen()" />
+        <p-button [icon]="isFullScreen() ? 'pi pi-window-minimize' : 'pi pi-window-maximize'" text severity="info"
+            (onClick)="toggleFullScreen()" />
         <p-button icon="pi pi-sign-out" text severity="danger" (onClick)="callLeaveSession($event)" />
+        <p-button icon="pi pi-ellipsis-v" text severity="contrast" (click)="callShowDrawer()" />
     </ng-template>
 </p-toolbar>

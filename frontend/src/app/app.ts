@@ -10,7 +10,7 @@ import { RouterOutlet } from '@angular/router';
 export class App {
   protected readonly title = signal('frontend');
 
-  //prueba de teclado en pantalla
+  // //prueba de teclado en pantalla
   // viewportHeight: number = window.innerHeight;
 
   // @HostListener('window:resize', ['$event'])

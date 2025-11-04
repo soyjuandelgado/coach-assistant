@@ -106,7 +106,6 @@ export class NewSessionDialog {
       },
       error: (err) => {
         this.showErrorDialog(err);
-        console.error('Error creating session:', err);
       },
     });
   }

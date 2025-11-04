@@ -29,7 +29,6 @@ export class SessionsService {
         this._loading.set(false);
       },
       error: (err) => {
-        console.log('Error getting sessions.', err);
         this._error.set(err.message);
         this._loading.set(false);
       },
@@ -52,7 +51,6 @@ export class SessionsService {
         this._loading.set(false);
       },
       error: (err) => {
-        console.log('Error getting session.', err);
         this._error.set(err.message);
         this._loading.set(false);
       },
@@ -76,7 +74,6 @@ export class SessionsService {
             this._loading.set(false);
           },
           error: (err) => {
-            console.error('Session creating error', err);
             this._error.set(err.message);
             this._loading.set(false);
           },
@@ -104,7 +101,6 @@ export class SessionsService {
             this._loading.set(false);
           },
           error: (err) => {
-            console.error('Session updating error', err);
             this._error.set(err.message);
             this._loading.set(false);
           },
@@ -135,7 +131,6 @@ export class SessionsService {
             this._loading.set(false);
           },
           error: (err) => {
-            console.error('Session deleting error', err);
             this._error.set(err.message);
             this._loading.set(false);
           },
@@ -158,7 +153,6 @@ export class SessionsService {
             this._loading.set(false);
           },
           error: (err) => {
-            console.error('Session removing error', err);
             this._error.set(err.message);
             this._loading.set(false);
           },
@@ -175,11 +169,9 @@ export class SessionsService {
       .pipe(
         tap({
           next: (response) => {
-            console.log(response);
             this._loading.set(false);
           },
           error: (err) => {
-            console.error('Session restoring error', err);
             this._error.set(err.message);
             this._loading.set(false);
           },

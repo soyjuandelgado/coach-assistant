@@ -36,6 +36,10 @@ export class CoacheesService {
     });
   }
 
+  getCoachees$(): Observable<ICoachee[]> {
+    return this.api.getCoachees$();
+  }
+
   getCoachee(coacheeId: string): void {
     this._loading.set(true);
     this._error.set(null);

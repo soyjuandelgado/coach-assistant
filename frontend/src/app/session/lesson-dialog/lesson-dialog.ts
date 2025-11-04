@@ -14,7 +14,7 @@ import { ImageModule } from 'primeng/image';
 export class LessonDialog {
   visible = input(false);
   visibleChange = output<boolean>();
-  imageSrc = input('');
+  imageSrc = input('no-image.jpg');
 
   // 2. Usamos computed() para derivar la ruta completa
   // Esta señal se actualizará automáticamente si imageSrc cambia.
