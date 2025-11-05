@@ -1,0 +1,48 @@
+<p-confirmdialog />
+<p-dialog header="Notas Previas" [visible]="visible()" closable="false" position="top" draggable="false"
+    contentStyleClass="w-[90vw]">
+    <div class="flex flex-col">
+        <div class="py-1 flex flex-col">
+            <span class="font-medium">Objetivo Proceso:</span>
+            <span>{{this.process() ? this.process()!.goal : "- No definido -"}}</span>
+        </div>
+        <div class="py-1 flex flex-col">
+            <span class="font-medium">Objetivo Anterior:</span>
+            <span>{{this.previousSession() ? this.previousSession()!.goal : "- No existe -"}}</span>
+        </div>
+        <div class="py-1 flex flex-col">
+            <span class="font-medium">Resumen Anterior:</span>
+            <p>
+                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aperiam optio est necessitatibus
+                perspiciatis ex quod odit rem qui incidunt, voluptas id fugiat corporis quo, sapiente, hic eos harum
+                illum voluptatibus!
+            </p>
+        </div>
+        <div class="py-1 flex flex-col">
+            <span class="font-medium">Planes de acción pendientes:</span>
+            <ul class="list-inside list-disc">
+                @for (task of previousSession()?.tasks; track task.id) {
+                <li>{{task.text}}</li>
+                }
+            </ul>
+        </div>
+        <div class="py-1 flex flex-col">
+            <span class="font-medium">Etiquetas:</span>
+            <ul class="list-inside list-disc">
+                <li>Ansioso, agotado, nervioso</li>
+                <li>Dinero, compromiso</li>
+            </ul>
+        </div>
+        <div class="py-1 flex flex-col">
+            <span class="font-medium">Ideas:</span>
+            <ul class="list-inside list-disc">
+                <li>Idea 1</li>
+                <li>Idea 2</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="flex justify-end gap-2">
+        <p-button label="Cerrar" (click)="close()" />
+    </div>
+</p-dialog>

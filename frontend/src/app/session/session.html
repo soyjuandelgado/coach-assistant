@@ -1,0 +1,105 @@
+<p-confirmdialog />
+<app-coachee-profile [coachee]="this.coachee()" [(visible)]="this.visibleProfile"></app-coachee-profile>
+<app-previous-info-dialog [process]="this.process()" [(visible)]="this.visibleNotes"></app-previous-info-dialog>
+<app-emotions-dialog [(visible)]="this.visibleEmotions" (emotionClicked)="addEmotion($event)"></app-emotions-dialog>
+<app-lesson-dialog [(visible)]="this.visibleLesson" [imageSrc]="this.lessonImage()"></app-lesson-dialog>
+<app-session-drawer [(visible)]="visible" [process]="this.process()" (leaveSession)="leaveSession($event)"
+    (showDialogEmotions)="showDialogEmotions()" (showDialogLesson)="showDialogLesson($event)"
+    (showProfile)="showProfile()"></app-session-drawer>
+<div class="w-full h-full flex flex-col gap-2 bg-primary-50">
+    <app-session-toolbar [process]="this.process()" [coachee]="this.coachee()" [session]="this.session()"
+        (leaveSession)="leaveSession($event)" (showDialogNotes)="showDialogNotes()"
+        (showDrawer)="showDrawer()"></app-session-toolbar>
+    <div class="w-full h-full grid grid-cols-1 lg:grid-cols-2 content-start grid-rows-[auto_auto_1fr_auto] gap-2 bg-primary-50">
+        <section class="w-full lg:col-start-2">
+            <p-popover #op>
+                <ng-template #content>
+                    <p>Para modificar el objetivo, seleccionar <b>Objetivo</b> en Introducir datos</p>
+                    <p-divider/>
+                    <h4 class="font-medium pb-1">Definición de Objetivo</h4>
+                    <ul class="list-inside list-disc">
+                        <li>M - Medible</li>
+                        <li>A - Alcanzable</li>
+                        <li>R - Realista</li>
+                        <li>T - Definido en el Tiempo</li>
+                        <li>E - Específico</li>
+                        <li>S - Satisfactorio</li>
+                    </ul>
+                </ng-template>
+            </p-popover>
+            <p-panel>
+                <ng-template #header>
+                    <span class="font-medium">Objetivo</span>
+                </ng-template>
+                <span>{{this.goal() ? this.goal() : '- No definido -'}}</span>
+                <ng-template #icons>
+                    <p-button icon="pi pi-info-circle" text severity="info" [size]="'small'"
+                        (click)="op.toggle($event)" />
+                </ng-template>
+            </p-panel>
+        </section>
+        <section class="w-full flex flex-col lg:col-start-1 lg:row-span-full lg:mb-auto min-h-0">
+            <p-popover #dp>
+                <ng-template #content>
+                    <p>Añadir notas seleccionando <b>Notas / IGROW</b> en Introducir datos</p>
+                    <p-divider/>
+                    <h4 class="font-medium pb-1">GROW</h4>
+                    <ul class="list-inside list-disc">
+                        <li>I - Issues (Vómito emocional)</li>
+                        <li>G - Goal (Objetivo)</li>
+                        <li>R - Reality (Realidad)</li>
+                        <li>O - Options (Opciones)</li>
+                        <li>W - Will (Próximos pasos)</li>
+                    </ul>
+                </ng-template>
+            </p-popover>
+            <p-panel class="flex flex-col h-full overflow-hidden">
+                <ng-template #header>
+                    <span class="font-medium">Desarrollo de la sesión</span>
+                </ng-template>
+                <ul class="max-h-130 lg:max-h-215 overflow-y-auto">
+                    @for (note of notes(); track $index) {
+                    <li>
+                        {{note}}
+                    </li>
+                    }
+                </ul>
+                <ng-template #icons>
+                    <p-button icon="pi pi-info-circle" text severity="info" [size]="'small'" (click)="dp.toggle($event)"/>
+                </ng-template>
+            </p-panel>
+        </section>
+        <section class="w-full mb-auto lg:col-start-2">
+            <p-popover #pp>
+                <ng-template #content>
+                    <p>Añadir notas seleccionando <b>PdA</b> en Introducir datos</p>
+                    <p-divider/>
+                    <h4 class="font-medium pb-1">Planes de acción</h4>
+                    <ul class="list-inside list-disc">
+                        <li>Descripción</li>
+                        <li>Fecha y hora de realización</li>
+                        <li>Nivel de compromiso</li>
+                    </ul>
+                </ng-template>
+            </p-popover>
+            <p-panel>
+                <ng-template #header>
+                    <span class="font-medium">Planes de Acción</span>
+                </ng-template>
+                <ul>
+                    @for (task of tasks(); track $index) {
+                    <li>
+                        {{task}}
+                    </li>
+                    }
+                </ul>
+                <ng-template #icons>
+                    <p-button icon="pi pi-info-circle" text severity="info" [size]="'small'" (click)="pp.toggle($event)"/>
+                </ng-template>
+            </p-panel>
+        </section>
+        <app-insert-data class="self-end lg:col-start-2" [is_grow]="this.session()?.is_grow ?? false" (newGoal)="setGoal($event)"
+            (newNote)="addNote($event)" (newTask)="addTask($event)">
+        </app-insert-data>
+    </div>
+</div>
